@@ -4,16 +4,30 @@ import React, { useState } from 'react';
 
 const ReplyMessageForm = ({ message, onClose }) => {
 	const [replyText, setReplyText] = useState('');
+	const [isSending, setIsSending] = useState(false);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(
-			`Replying to ${message.name} (${message.email}) with:`,
-			replyText
-		);
-		// In a real application, you would send this reply via an API
-		alert(`Reply sent to ${message.name}! (Simulated)`);
-		onClose();
+		setIsSending(true);
+		try {
+			const res = await fetch('/api/messages/reply', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					to: message.email,
+					subject: `Reply from Sharma Space`,
+					text: replyText,
+					originalMessage: message.message,
+				}),
+			});
+			if (!res.ok) throw new Error('Failed to send email');
+			alert('Reply sent to ' + message.name + ' via email!');
+			onClose();
+		} catch (err) {
+			alert('Failed to send reply: ' + err.message);
+		} finally {
+			setIsSending(false);
+		}
 	};
 
 	return (
@@ -60,6 +74,7 @@ const ReplyMessageForm = ({ message, onClose }) => {
 						className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C] h-32 resize-y'
 						placeholder='Type your reply here...'
 						required
+						disabled={isSending}
 					></textarea>
 				</div>
 
@@ -68,14 +83,16 @@ const ReplyMessageForm = ({ message, onClose }) => {
 						type='button'
 						onClick={onClose}
 						className='px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-200'
+						disabled={isSending}
 					>
 						Cancel
 					</button>
 					<button
 						type='submit'
-						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200'
+						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200 disabled:opacity-60'
+						disabled={isSending}
 					>
-						Send Reply
+						{isSending ? 'Sending...' : 'Send Reply'}
 					</button>
 				</div>
 			</form>

@@ -1,9 +1,9 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import BlogCard from '@/components/blog/BlogCard';
-import blogUnifiedData from '@/app/data/blog/blogUnifiedData';
 import BlogHero from '@/components/blog/BlogHero';
 import NewsletterSection from '@/components/blog/NewsletterSection';
+import { fetchBlogPosts } from '@/lib/utils';
 
 export const metadata = {
 	title: 'Interior Design Blog - Tips & Trends',
@@ -11,8 +11,9 @@ export const metadata = {
 		'Interior design blog with latest trends, tips, and insights from Bangalore experts. Home decor ideas, design guides, and industry updates.',
 };
 
-export default function Blog() {
-	const posts = blogUnifiedData.posts;
+export default async function Blog() {
+	const posts = await fetchBlogPosts();
+
 	return (
 		<div className='bg-gray-50'>
 			<Navigation />

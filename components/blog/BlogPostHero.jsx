@@ -1,6 +1,7 @@
 // components/blog/BlogPostHero.jsx
 import React from 'react';
 import Image from 'next/image';
+import { formatBlogDate } from '@/lib/utils';
 
 const BlogPostHero = ({ title, date, tag, mainImage }) => {
 	return (
@@ -12,7 +13,7 @@ const BlogPostHero = ({ title, date, tag, mainImage }) => {
 				<p className='text-gray-700 text-sm mb-2 font-medium'>
 					{' '}
 					{/* Adjusted text color and font-weight */}
-					{date} •{' '}
+					{formatBlogDate(date)} •{' '}
 					<span
 						className='inline-block px-2.5 py-0.5 text-xs font-semibold text-white rounded bg-red-600 uppercase tracking-wider'
 						// Simplified category tag styling to match the image consistently
@@ -32,8 +33,8 @@ const BlogPostHero = ({ title, date, tag, mainImage }) => {
 				{/* Image container matches wider layout if needed */}
 				<div className='relative w-full h-80 sm:h-96 md:h-[500px] rounded-xl overflow-hidden shadow-lg'>
 					<Image
-						src={mainImage}
-						alt={title}
+						src={mainImage?.url || mainImage}
+						alt={mainImage?.alt || title}
 						fill // Use fill to cover the sized parent div
 						className='object-cover' // Ensures image covers the area, cropping if necessary
 						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw' // Optimized for responsive image delivery

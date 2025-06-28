@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { formatBlogDate } from '@/lib/utils';
 
 const BlogCard = ({ post }) => {
 	const { slug, image, title, excerpt, tag, author, date } = post;
@@ -55,7 +56,9 @@ const BlogCard = ({ post }) => {
 								{author?.name || 'Author'}
 							</span>
 						</div>
-						<span className='text-sm text-gray-500 ml-4'>{date}</span>
+						<span className='text-sm text-gray-500 ml-4'>
+							{formatBlogDate(date)}
+						</span>
 					</div>
 				</div>
 			</div>

@@ -7,22 +7,21 @@ import {
 	Sofa,
 	Clipboard,
 } from 'lucide-react';
-import { services } from '@/app/data';
 
-const ServicesSection = () => {
+const ServicesSection = ({ services = [] }) => {
 	// Map service icons
 	const iconMap = {
-		'Home': Home,
-		'Briefcase': Briefcase,
-		'Utensils': Utensils,
-		'Ruler': Ruler,
-		'Sofa': Sofa,
-		'Clipboard': Clipboard,
-		'Building': Briefcase,
-		'Hotel': Utensils,
-		'LayoutGrid': Ruler,
-		'Hammer': Clipboard,
-		'Armchair': Sofa
+		Home: Home,
+		Briefcase: Briefcase,
+		Utensils: Utensils,
+		Ruler: Ruler,
+		Sofa: Sofa,
+		Clipboard: Clipboard,
+		Building: Briefcase,
+		Hotel: Utensils,
+		LayoutGrid: Ruler,
+		Hammer: Clipboard,
+		Armchair: Sofa,
 	};
 
 	return (

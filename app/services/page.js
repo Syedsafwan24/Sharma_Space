@@ -6,6 +6,7 @@ import AlternatingServices from '@/components/services/AlternatingServices';
 import DesignProcess from '@/components/services/DesignProcess';
 import HeroService from '@/components/services/HeroService';
 import ServicesSection from '@/components/services/ServicesSection';
+import { fetchServices } from '@/lib/utils';
 
 export const metadata = {
 	title:
@@ -36,7 +37,9 @@ export const metadata = {
 	},
 };
 
-export default function Services() {
+export default async function Services() {
+	const services = await fetchServices();
+
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'ProfessionalService',
@@ -58,8 +61,8 @@ export default function Services() {
 				type='application/ld+json'
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 			/>
-			<ServicesSection />
-			<AlternatingServices />
+			<ServicesSection services={services} />
+			<AlternatingServices services={services} />
 			<DesignProcess />
 			<Cta
 				title='Ready to Start Your Design Journey?'

@@ -4,7 +4,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import portfolioProjects from '@/app/data/portfolio/portfolioUnifiedData';
 
 /* -------------------------------------------------------------------------- */
 /*  Card components                                                           */
@@ -63,15 +62,11 @@ const ThumbCard = ({ project }) => (
 /*  Section                                                                   */
 /* -------------------------------------------------------------------------- */
 
-const PortfolioSection = () => {
+const PortfolioSection = ({ projects = [] }) => {
 	// Get featured projects or first 5 projects
-	const featuredProjects = portfolioProjects
-		.filter((p) => p.featured)
-		.slice(0, 5);
-	const projects =
-		featuredProjects.length >= 5
-			? featuredProjects
-			: portfolioProjects.slice(0, 5);
+	const featuredProjects = projects.filter((p) => p.featured).slice(0, 5);
+	const displayProjects =
+		featuredProjects.length >= 5 ? featuredProjects : projects.slice(0, 5);
 
 	return (
 		<section id='portfolio' className='py-24'>
@@ -89,14 +84,14 @@ const PortfolioSection = () => {
 
 				{/* Main (2-col) grid for first two projects */}
 				<div className='grid gap-8 lg:grid-cols-2 mb-10'>
-					{projects.slice(0, 2).map((project) => (
+					{displayProjects.slice(0, 2).map((project) => (
 						<HeroCard key={project.id} project={project} />
 					))}
 				</div>
 
 				{/* Thumbnails (3-col on lg) for the rest */}
 				<div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16'>
-					{projects.slice(2).map((project) => (
+					{displayProjects.slice(2).map((project) => (
 						<ThumbCard key={project.id} project={project} />
 					))}
 				</div>

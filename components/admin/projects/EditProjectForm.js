@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { PlusCircle, MinusCircle } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
 
 const ImageInput = ({
 	label,
@@ -48,12 +49,12 @@ const ImageInput = ({
 	);
 };
 
-const EditProjectForm = ({ project, onClose }) => {
+const EditProjectForm = ({ project, onClose, refetchProjects }) => {
 	const isEditMode = !!project;
 	const [formData, setFormData] = useState({
 		title: project?.title || '',
 		location: project?.location || '',
-		category: project?.category?.name || '',
+		category: project?.category || '',
 		description: project?.description || '',
 		shortDescription: project?.shortDescription || '',
 		client: project?.client || '',
@@ -65,6 +66,30 @@ const EditProjectForm = ({ project, onClose }) => {
 		galleryImages: project?.galleryImages || [''],
 		featured: project?.featured || false,
 		services: project?.services || [''],
+	});
+	const [error, setError] = useState(null);
+
+	const mutation = useMutation({
+		mutationFn: async (data) => {
+			const method = isEditMode ? 'PUT' : 'POST';
+			const res = await fetch('/api/projects', {
+				method,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data),
+			});
+			if (!res.ok) {
+				const err = await res.json();
+				throw new Error(err.error || 'Failed to save project');
+			}
+			return res.json();
+		},
+		onSuccess: () => {
+			if (refetchProjects) refetchProjects();
+			onClose();
+		},
+		onError: (err) => {
+			setError(err.message);
+		},
 	});
 
 	const handleChange = (e) => {
@@ -122,13 +147,10 @@ const EditProjectForm = ({ project, onClose }) => {
 			galleryImages: formData.galleryImages.filter((img) => img.trim() !== ''),
 			services: formData.services.filter((service) => service.trim() !== ''),
 		};
-
-		console.log(
-			isEditMode ? 'Form submitted for edit:' : 'Form submitted for add:',
-			cleanedData
-		);
-		// Here you would typically send data to your backend
-		onClose();
+		if (isEditMode && project?.id) {
+			cleanedData.id = project.id;
+		}
+		mutation.mutate(cleanedData);
 	};
 
 	return (
@@ -141,6 +163,11 @@ const EditProjectForm = ({ project, onClose }) => {
 					? 'Update the details for this portfolio project.'
 					: 'Fill in the details for the new portfolio project.'}
 			</p>
+
+			{error && <div className='text-red-600 mb-4'>{error}</div>}
+			{mutation.isLoading && (
+				<div className='text-gray-500 mb-4'>Saving...</div>
+			)}
 
 			<form onSubmit={handleSubmit}>
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>

@@ -1,14 +1,15 @@
 // components/services/AlternatingServices.jsx
 import Image from 'next/image';
-import { services } from '@/app/data';
 
-const AlternatingServices = () => {
+const AlternatingServices = ({ services = [] }) => {
 	// Get the first 3 services for the alternating layout
 	const alternatingServices = services.slice(0, 3).map((service, index) => ({
 		title: service.title,
 		description: [
 			service.description,
-			service.features ? service.features.slice(0, 2).join('. ') + '.' : 'We help establish your unique identity in the competitive market, creating environments that clients will remember and want to return to again and again.'
+			service.features
+				? service.features.slice(0, 2).join('. ') + '.'
+				: 'We help establish your unique identity in the competitive market, creating environments that clients will remember and want to return to again and again.',
 		],
 		image: service.image?.url || '/images/resident.jpg', // Fallback image
 		alt: `${service.title} interior design`,

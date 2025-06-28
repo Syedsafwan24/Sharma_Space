@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import Sidebar from '@/components/admin/Sidebar';
 import TopNavbar from '@/components/admin/TopNavbar';
 import ProjectHeader from '@/components/admin/projects/ProjectHeader';
@@ -11,7 +12,6 @@ import ProjectCard from '@/components/admin/projects/ProjectCard';
 import EditProjectModal from '@/components/admin/projects/EditProjectModal';
 import EditProjectForm from '@/components/admin/projects/EditProjectForm';
 import { PlusCircle } from 'lucide-react';
-import portfolioProjects from '@/app/data/portfolio/portfolioUnifiedData';
 
 export default function AdminProjectsPage() {
 	const { data: session, status } = useSession();
@@ -21,9 +21,24 @@ export default function AdminProjectsPage() {
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedProject, setSelectedProject] = useState(null);
 
-	const filteredProjects = portfolioProjects.filter((project) => {
+	// Fetch projects dynamically
+	const {
+		data: projects = [],
+		isLoading,
+		isError,
+		refetch,
+	} = useQuery({
+		queryKey: ['admin-projects'],
+		queryFn: async () => {
+			const res = await fetch('/api/projects');
+			if (!res.ok) throw new Error('Failed to fetch projects');
+			return res.json();
+		},
+	});
+
+	const filteredProjects = projects.filter((project) => {
 		const matchesFilter =
-			activeFilter === 'All' || project.category.name === activeFilter;
+			activeFilter === 'All' || project.category === activeFilter;
 		const matchesSearch =
 			project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			project.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -51,10 +66,18 @@ export default function AdminProjectsPage() {
 		}
 	}, [status, router]);
 
-	if (status === 'loading') {
+	if (status === 'loading' || isLoading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
 				Loading...
+			</div>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA] text-red-600'>
+				Failed to load projects.
 			</div>
 		);
 	}
@@ -75,9 +98,10 @@ export default function AdminProjectsPage() {
 					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
 						{filteredProjects.map((project, index) => (
 							<ProjectCard
-								key={index}
+								key={project.id || index}
 								project={project}
 								onEdit={handleEditProject}
+								refetchProjects={refetch}
 							/>
 						))}
 					</div>
@@ -98,9 +122,15 @@ export default function AdminProjectsPage() {
 					<EditProjectForm
 						project={selectedProject}
 						onClose={handleCloseEditModal}
+						refetchProjects={refetch}
 					/>
 				)}
-				{!selectedProject && <EditProjectForm onClose={handleCloseEditModal} />}
+				{!selectedProject && (
+					<EditProjectForm
+						onClose={handleCloseEditModal}
+						refetchProjects={refetch}
+					/>
+				)}
 			</EditProjectModal>
 		</div>
 	);

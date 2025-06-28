@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 const ProjectDetailsContent = ({ project }) => {
 	const [displayImage, setDisplayImage] = useState(
@@ -110,7 +111,9 @@ const ProjectDetailsContent = ({ project }) => {
 							<h3 className='text-sm font-semibold text-gray-900 mb-2'>
 								Client:
 							</h3>
-							<p className='text-gray-600'>{project.client}</p>
+							<p className='text-gray-600'>
+								{project.client || 'Not specified'}
+							</p>
 						</div>
 
 						<div>
@@ -124,14 +127,16 @@ const ProjectDetailsContent = ({ project }) => {
 							<h3 className='text-sm font-semibold text-gray-900 mb-2'>
 								Area:
 							</h3>
-							<p className='text-gray-600'>{project.area}</p>
+							<p className='text-gray-600'>{project.area || 'Not specified'}</p>
 						</div>
 
 						<div>
 							<h3 className='text-sm font-semibold text-gray-900 mb-2'>
 								Completed:
 							</h3>
-							<p className='text-gray-600'>{project.completedDate}</p>
+							<p className='text-gray-600'>
+								{formatDate(project.completedDate)}
+							</p>
 						</div>
 					</div>
 

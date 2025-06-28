@@ -2,19 +2,18 @@
 
 import React from 'react';
 import { Sofa, Building2, Hotel, ArrowRight } from 'lucide-react';
-import { services } from '@/app/data';
 
-const Services = () => {
+const Services = ({ services = [] }) => {
 	// Get the first 3 services for the homepage
 	const homeServices = services.slice(0, 3);
 
 	// Map service icons
 	const iconMap = {
-		'Home': Sofa,
-		'Building': Building2,
-		'Hotel': Hotel,
-		'Sofa': Sofa,
-		'Building2': Building2
+		Home: Sofa,
+		Building: Building2,
+		Hotel: Hotel,
+		Sofa: Sofa,
+		Building2: Building2,
 	};
 
 	return (
@@ -46,7 +45,9 @@ const Services = () => {
 								<h3 className='text-xl font-semibold text-gray-900 mb-3'>
 									{service.title}
 								</h3>
-								<p className='text-gray-600 mb-6'>{service.shortDescription || service.description}</p>
+								<p className='text-gray-600 mb-6'>
+									{service.shortDescription || service.description}
+								</p>
 								<button className='text-red-600 font-medium flex items-center gap-1 hover:text-red-700 transition-colors duration-300'>
 									Learn More <ArrowRight size={16} />
 								</button>

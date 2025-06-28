@@ -33,7 +33,7 @@ import messagesJson from './contact/messages.json';
 import companyStatsData from './company/stats.json';
 import partnerBrandsData from './company/brands.json';
 
-// Dynamic Stats
+// Dynamic Stats - Now async
 import { calculateDynamicStats, getStatsWithMetadata } from './dynamicStats';
 
 // Blog Exports
@@ -55,8 +55,6 @@ export const servicesMetadata = servicesData.metadata;
 
 // Testimonials Exports
 export { testimonials };
-export const testimonialsStats = testimonials.stats;
-export const testimonialsMetadata = testimonials.metadata;
 
 // Team Exports
 export const teamMembers = teamMembersData.members;
@@ -82,9 +80,48 @@ export const brandStats = partnerBrandsData.stats;
 export const brandBenefits = partnerBrandsData.benefits;
 export const brandsMetadata = partnerBrandsData.metadata;
 
-// Dynamic Stats Exports
-export const dynamicStats = calculateDynamicStats();
-export const statsWithMetadata = getStatsWithMetadata();
+// Dynamic Stats Exports - Now async functions
+export const getDynamicStats = calculateDynamicStats;
+export const getStatsWithMetadataAsync = getStatsWithMetadata;
+
+// For backward compatibility - returns default stats (will be updated when called)
+export const dynamicStats = [
+	{
+		title: 'Total Projects',
+		value: '0',
+		icon: 'Package',
+		color: '#4A90E2',
+		description: 'Completed interior design projects',
+	},
+	{
+		title: 'Services Offered',
+		value: '0',
+		icon: 'Settings',
+		color: '#50E3C2',
+		description: 'Professional design services',
+	},
+	{
+		title: 'Testimonials',
+		value: '0',
+		icon: 'MessageSquare',
+		color: '#B8E986',
+		description: 'Client testimonials and reviews',
+	},
+	{
+		title: 'New Inquiries',
+		value: '0',
+		icon: 'Mail',
+		color: '#F8E71C',
+		description: 'Recent contact inquiries',
+	},
+	{
+		title: 'Blog Posts',
+		value: '0',
+		icon: 'Edit',
+		color: '#7B61FF',
+		description: 'Published blog articles',
+	},
+];
 
 // SEO Helper Functions
 export const generateBlogPostSchema = (post) => {

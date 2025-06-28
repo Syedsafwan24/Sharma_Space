@@ -12,8 +12,25 @@ import Testimonials from '@/components/Testimonials';
 import WelcomeModal from '@/components/WelcomeModal';
 import { MessageCircle, Instagram, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
+import {
+	fetchServices,
+	fetchTestimonials,
+	fetchProjects,
+	fetchBlogPosts,
+	fetchCompanyStats,
+} from '@/lib/utils';
 
-export default function Home() {
+export default async function Home() {
+	// Fetch dynamic data
+	const [services, testimonials, projects, blogPosts, companyData] =
+		await Promise.all([
+			fetchServices(),
+			fetchTestimonials(),
+			fetchProjects(),
+			fetchBlogPosts(),
+			fetchCompanyStats(),
+		]);
+
 	return (
 		<div className='relative'>
 			{/* Navigation component */}
@@ -22,13 +39,16 @@ export default function Home() {
 			{/* Main content */}
 			<main>
 				<Hero />
-				<AboutSection />
-				<Services />
+				<AboutSection
+					companyStats={companyData.stats}
+					companyInfo={companyData.companyInfo}
+				/>
+				<Services services={services} />
 				<Process />
 				<PartnerBrands />
-				<DesignInsights />
-				<Portfolio />
-				<Testimonials />
+				<DesignInsights blogPosts={blogPosts} />
+				<Portfolio projects={projects} />
+				<Testimonials testimonials={testimonials} />
 				<Cta />
 			</main>
 

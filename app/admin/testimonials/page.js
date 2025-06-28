@@ -10,22 +10,46 @@ import TestimonialSearchFilter from '@/components/admin/testimonials/Testimonial
 import TestimonialCard from '@/components/admin/testimonials/TestimonialCard';
 import EditTestimonialModal from '@/components/admin/testimonials/EditTestimonialModal';
 import EditTestimonialForm from '@/components/admin/testimonials/EditTestimonialForm';
-import testimonials from '@/app/data/testimonials/testimonialsUnifiedData';
 import { PlusCircle } from 'lucide-react';
 
 export default function AdminTestimonials() {
 	const { data: session, status } = useSession();
 	const router = useRouter();
-	const [testimonialsList, setTestimonialsList] = useState(testimonials);
+	const [testimonialsList, setTestimonialsList] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedTestimonial, setSelectedTestimonial] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			router.push('/login');
+		}
+	}, [status, router]);
+
+	useEffect(() => {
+		const fetchTestimonials = async () => {
+			try {
+				const response = await fetch('/api/testimonials');
+				const data = await response.json();
+				setTestimonialsList(data);
+			} catch (error) {
+				console.error('Error fetching testimonials:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		if (status === 'authenticated') {
+			fetchTestimonials();
+		}
+	}, [status]);
 
 	const filteredTestimonials = testimonialsList.filter(
 		(testimonial) =>
-			testimonial.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			testimonial.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			testimonial.text.toLowerCase().includes(searchTerm.toLowerCase())
+			testimonial.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			testimonial.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			testimonial.text?.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
 	const handleEditTestimonial = (testimonial) => {
@@ -48,13 +72,7 @@ export default function AdminTestimonials() {
 		setTestimonialsList(testimonialsList.filter((t) => t.id !== id));
 	};
 
-	useEffect(() => {
-		if (status === 'unauthenticated') {
-			router.push('/login');
-		}
-	}, [status, router]);
-
-	if (status === 'loading') {
+	if (status === 'loading' || loading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
 				Loading...

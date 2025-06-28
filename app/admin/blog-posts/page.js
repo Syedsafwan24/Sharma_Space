@@ -11,7 +11,6 @@ import BlogCard from '@/components/admin/blog-posts/BlogCard';
 import EditBlogModal from '@/components/admin/blog-posts/EditBlogModal';
 import EditBlogForm from '@/components/admin/blog-posts/EditBlogForm';
 import { PlusCircle } from 'lucide-react';
-import blogUnifiedData from '@/app/data/blog/blogUnifiedData';
 
 export default function AdminBlogPostsPage() {
 	const { data: session, status } = useSession();
@@ -20,10 +19,46 @@ export default function AdminBlogPostsPage() {
 	const [activeFilter, setActiveFilter] = useState('all');
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedBlogPost, setSelectedBlogPost] = useState(null);
+	const [posts, setPosts] = useState([]);
+	const [loading, setLoading] = useState(true);
 
-	const posts = blogUnifiedData.posts;
-	const categories = blogUnifiedData.categories;
-	const authors = blogUnifiedData.authors;
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			router.push('/login');
+		}
+	}, [status, router]);
+
+	useEffect(() => {
+		const fetchBlogPosts = async () => {
+			try {
+				const response = await fetch('/api/blog-posts');
+				const data = await response.json();
+				setPosts(data);
+			} catch (error) {
+				console.error('Error fetching blog posts:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		if (status === 'authenticated') {
+			fetchBlogPosts();
+		}
+	}, [status]);
+
+	// Extract unique categories from posts
+	const categories = [...new Set(posts.map((post) => post.tag))].filter(
+		Boolean
+	);
+
+	// Mock authors data (you can create an authors API if needed)
+	const authors = [
+		{
+			id: 'sharma-space-team',
+			name: 'Sharma Space Team',
+			image: '/images/Desgin-Insights/10.webp',
+		},
+	];
 
 	const filteredBlogPosts = posts.filter((post) => {
 		const matchesSearch =
@@ -32,7 +67,7 @@ export default function AdminBlogPostsPage() {
 			post.metaDescription?.toLowerCase().includes(searchQuery.toLowerCase());
 		const matchesFilter =
 			activeFilter === 'all' ||
-			post.category.toLowerCase() === activeFilter.toLowerCase();
+			post.tag?.toLowerCase() === activeFilter.toLowerCase();
 		return matchesSearch && matchesFilter;
 	});
 
@@ -51,13 +86,7 @@ export default function AdminBlogPostsPage() {
 		setSelectedBlogPost(null);
 	};
 
-	useEffect(() => {
-		if (status === 'unauthenticated') {
-			router.push('/login');
-		}
-	}, [status, router]);
-
-	if (status === 'loading') {
+	if (status === 'loading' || loading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
 				Loading...

@@ -39,6 +39,7 @@ model BlogPost {
 
 model Project {
   id              String   @id @default(uuid())
+  slug            String   @unique
   title           String
   location        String
   category        String

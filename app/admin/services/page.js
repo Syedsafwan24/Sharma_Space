@@ -13,14 +13,38 @@ import EditServiceForm from '@/components/admin/services/EditServiceForm';
 import Link from 'next/link';
 import { PlusCircle } from 'lucide-react';
 
-import { services } from '@/app/data';
-
 export default function AdminServicesPage() {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [searchQuery, setSearchQuery] = useState('');
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedService, setSelectedService] = useState(null);
+	const [services, setServices] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			router.push('/login');
+		}
+	}, [status, router]);
+
+	useEffect(() => {
+		const fetchServices = async () => {
+			try {
+				const response = await fetch('/api/services');
+				const data = await response.json();
+				setServices(data);
+			} catch (error) {
+				console.error('Error fetching services:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		if (status === 'authenticated') {
+			fetchServices();
+		}
+	}, [status]);
 
 	const filteredServices = services.filter((service) => {
 		const matchesSearch =
@@ -44,13 +68,7 @@ export default function AdminServicesPage() {
 		setSelectedService(null);
 	};
 
-	useEffect(() => {
-		if (status === 'unauthenticated') {
-			router.push('/login');
-		}
-	}, [status, router]);
-
-	if (status === 'loading') {
+	if (status === 'loading' || loading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
 				Loading...

@@ -25,7 +25,7 @@ const ProjectDetailsHeader = ({ project }) => {
 				</h1>
 				<div className='flex items-center space-x-4'>
 					<span className='bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium'>
-						{project.category.name}
+						{project.category}
 					</span>
 					<span className='text-gray-600'>{project.location}</span>
 				</div>

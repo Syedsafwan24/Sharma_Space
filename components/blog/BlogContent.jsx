@@ -2,44 +2,69 @@
 import React from 'react';
 
 const BlogContent = ({ content }) => {
-	if (!content || content.length === 0) return null; // Don't render if no content
+	let parsedContent = content;
 
-	return (
-		// Outer container for width and horizontal padding
-		<div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
-			{/* Tailwind Typography plugin's prose classes for semantic styling */}
+	// Try to parse if it's a JSON array string
+	if (
+		typeof content === 'string' &&
+		content.trim().startsWith('[') &&
+		content.trim().endsWith(']')
+	) {
+		try {
+			parsedContent = JSON.parse(content);
+		} catch {
+			parsedContent = content;
+		}
+	}
+
+	if (!parsedContent) {
+		return (
 			<div className='prose prose-lg max-w-none text-gray-700'>
-				{content.map((block, index) => (
+				<p>No content available.</p>
+			</div>
+		);
+	}
+
+	if (Array.isArray(parsedContent)) {
+		return (
+			<div className='prose prose-lg max-w-none text-gray-700 [&_h2]:mt-12 [&_h2]:mb-6 [&_p]:mb-6'>
+				{parsedContent.map((block, index) => (
 					<React.Fragment key={index}>
-						{block.type === 'paragraph' && (
-							// Let prose-lg handle paragraph styling (font size, line height, margin)
-							<p>{block.text}</p>
-						)}
-						{block.type === 'heading' && (
-							// Custom heading styling, overriding prose's default h2 if needed
-							<h2 className='text-3xl font-bold text-gray-900 mt-10 mb-6'>
-								{block.text}
-							</h2>
-						)}
-						{/* Add more block types (e.g., 'image', 'list', 'blockquote') as needed here */}
-						{/* Example for an image block (assuming block.src and block.alt) */}
-						{/*
-            {block.type === 'image' && (
-              <figure className="my-8">
-                <Image
-                  src={block.src}
-                  alt={block.alt || 'Blog image'}
-                  width={block.width || 800} // Provide sensible defaults or get from content
-                  height={block.height || 500}
-                  className="rounded-lg object-cover w-full"
-                />
-                {block.caption && <figcaption className="text-center text-sm text-gray-500 mt-2">{block.caption}</figcaption>}
-              </figure>
-            )}
-            */}
+						{block.type === 'heading' && <h2>{block.text}</h2>}
+						{block.type === 'paragraph' && <p>{block.text}</p>}
+						{/* Add more block types as needed */}
 					</React.Fragment>
 				))}
 			</div>
+		);
+	}
+
+	// If content is a string
+	if (typeof parsedContent === 'string') {
+		// If it looks like HTML, render as HTML
+		if (
+			parsedContent.trim().startsWith('<') &&
+			parsedContent.trim().endsWith('>')
+		) {
+			return (
+				<div
+					className='prose prose-lg max-w-none text-gray-700 [&_h2]:mt-12 [&_h2]:mb-6 [&_p]:mb-6'
+					dangerouslySetInnerHTML={{ __html: parsedContent }}
+				/>
+			);
+		}
+		// Otherwise, render as plain text
+		return (
+			<div className='prose prose-lg max-w-none text-gray-700 [&_h2]:mt-12 [&_h2]:mb-6 [&_p]:mb-6'>
+				<p>{parsedContent}</p>
+			</div>
+		);
+	}
+
+	// Fallback
+	return (
+		<div className='prose prose-lg max-w-none text-gray-700'>
+			<p>Unsupported content format.</p>
 		</div>
 	);
 };

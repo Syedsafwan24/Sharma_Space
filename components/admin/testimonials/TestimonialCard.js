@@ -2,11 +2,15 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
+import * as LucideIcons from 'lucide-react'; // ✅ fallback test: import ALL
 
 const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
+	console.log('LucideIcons keys:', Object.keys(LucideIcons)); // ✅ check
+
+	const Star = LucideIcons.Star; // ✅ safe fallback
+
 	return (
-		<div className='bg-white rounded-lg shadow p-6 flex flex-col'>
+		<div className='bg-white rounded-lg shadow p-6 flex flex-col mt-auto'>
 			<div className='flex items-center mb-4'>
 				{testimonial.image && (
 					<Image

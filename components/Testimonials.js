@@ -6,8 +6,6 @@ import 'keen-slider/keen-slider.min.css';
 import Image from 'next/image';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ReactStars from 'react-stars';
-import { testimonials } from '@/app/data';
 
 const TestimonialCard = ({ testimonial }) => {
 	const [expanded, setExpanded] = useState(false);
@@ -61,21 +59,20 @@ const TestimonialCard = ({ testimonial }) => {
 						</div>
 						<div className='text-sm text-gray-500'>{testimonial.location}</div>
 					</div>
-					<ReactStars
-						count={5}
-						size={20}
-						color1={'#e5e7eb'}
-						color2={'#fbbf24'}
-						edit={false}
-						value={testimonial.rating || 5}
-					/>
+					<div className='flex items-center'>
+						{[...Array(5)].map((_, i) => (
+							<span key={i} className='text-yellow-400 text-lg'>
+								★
+							</span>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-const Testimonials = () => {
+const Testimonials = ({ testimonials = [] }) => {
 	const isCarousel = testimonials.length > 3;
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
@@ -144,7 +141,10 @@ const Testimonials = () => {
 					<div className='relative'>
 						<div ref={sliderRef} className='keen-slider py-4'>
 							{testimonials.map((testimonial, index) => (
-								<div key={testimonial.id} className='keen-slider__slide h-auto px-2'>
+								<div
+									key={testimonial.id}
+									className='keen-slider__slide h-auto px-2'
+								>
 									<TestimonialCard testimonial={testimonial} />
 								</div>
 							))}

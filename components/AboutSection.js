@@ -1,9 +1,8 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { companyStats, companyInfo } from '@/app/data';
 
-const AboutSection = () => {
+const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 	const sectionRef = useRef(null);
 	const statsRef = useRef(null);
 	const imageRef = useRef(null);
@@ -37,24 +36,30 @@ const AboutSection = () => {
 		return () => observer.disconnect();
 	}, []);
 
-	// Get stats from centralized data
+	// Get stats from props or use defaults
 	const statsData = [
 		{
-			stat: companyStats.find(s => s.id === 'projects-completed')?.displayValue || '150+',
-			label: 'Projects Completed'
+			stat:
+				companyStats?.find((s) => s.id === 'projects-completed')
+					?.displayValue || '150+',
+			label: 'Projects Completed',
 		},
 		{
-			stat: companyStats.find(s => s.id === 'years-experience')?.displayValue || '10+',
-			label: 'Years Experience'
+			stat:
+				companyStats?.find((s) => s.id === 'years-experience')?.displayValue ||
+				'10+',
+			label: 'Years Experience',
 		},
 		{
-			stat: companyStats.find(s => s.id === 'happy-clients')?.displayValue || '500+',
-			label: 'Happy Clients'
+			stat:
+				companyStats?.find((s) => s.id === 'happy-clients')?.displayValue ||
+				'500+',
+			label: 'Happy Clients',
 		},
 		{
 			stat: companyInfo?.founded || '2013',
-			label: 'Year Established'
-		}
+			label: 'Year Established',
+		},
 	];
 
 	return (
@@ -68,16 +73,16 @@ const AboutSection = () => {
 						{/* Left Content */}
 						<div ref={sectionRef} className='space-y-6 md:space-y-8'>
 							<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 tracking-tight'>
-								About Sharma Space
+								About {companyInfo?.name || 'Sharma Space'}
 							</h1>
 							<div className='space-y-4 md:space-y-6'>
 								<p className='text-base md:text-lg leading-relaxed text-gray-600'>
-									{companyInfo?.mission || 'At Sharma Space, we believe in creating interiors that are not just beautiful but also functional. With over 10 years of experience, we\'ve transformed 150+ spaces into dream homes and offices.'}
+									{companyInfo?.mission ||
+										"At Sharma Space, we believe in creating interiors that are not just beautiful but also functional. With over 10 years of experience, we've transformed 150+ spaces into dream homes and offices."}
 								</p>
 								<p className='text-base md:text-lg leading-relaxed text-gray-600'>
-									Our design philosophy centers around understanding your unique
-									needs and preferences, then translating them into spaces that
-									reflect your personality while enhancing your everyday life.
+									{companyInfo?.description ||
+										'Our design philosophy centers around understanding your unique needs and preferences, then translating them into spaces that reflect your personality while enhancing your everyday life.'}
 								</p>
 							</div>
 

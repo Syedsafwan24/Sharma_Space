@@ -8,16 +8,40 @@ import TopNavbar from '@/components/admin/TopNavbar';
 import MessageHeader from '@/components/admin/messages/MessageHeader';
 import MessageSearchFilter from '@/components/admin/messages/MessageSearchFilter';
 import MessageCard from '@/components/admin/messages/MessageCard';
-import { contactMessages } from '@/app/data';
 import ReplyMessageModal from '@/components/admin/messages/ReplyMessageModal';
 import ReplyMessageForm from '@/components/admin/messages/ReplyMessageForm';
 
 export default function AdminMessages() {
 	const { data: session, status } = useSession();
 	const router = useRouter();
-	const [messages, setMessages] = useState(contactMessages);
+	const [messages, setMessages] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filter, setFilter] = useState('All'); // 'All', 'Unread', 'Read'
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			router.push('/login');
+		}
+	}, [status, router]);
+
+	useEffect(() => {
+		const fetchMessages = async () => {
+			try {
+				const response = await fetch('/api/messages');
+				const data = await response.json();
+				setMessages(data);
+			} catch (error) {
+				console.error('Error fetching messages:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		if (status === 'authenticated') {
+			fetchMessages();
+		}
+	}, [status]);
 
 	const filteredMessages = messages.filter((message) => {
 		const matchesSearch =
@@ -54,13 +78,7 @@ export default function AdminMessages() {
 		setMessageToReply(null);
 	};
 
-	useEffect(() => {
-		if (status === 'unauthenticated') {
-			router.push('/login');
-		}
-	}, [status, router]);
-
-	if (status === 'loading') {
+	if (status === 'loading' || loading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
 				Loading...

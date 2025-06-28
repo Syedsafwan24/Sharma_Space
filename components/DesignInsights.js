@@ -1,9 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { blogPosts } from '@/app/data';
 
-const DesignInsights = () => {
+const DesignInsights = ({ blogPosts = [] }) => {
 	// Get the first 3 blog posts for the insights section
 	const articles = blogPosts.slice(0, 3).map((post) => ({
 		tag: post.category || post.tag,

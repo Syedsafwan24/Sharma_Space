@@ -1,4 +1,3 @@
-import blogUnifiedData from '@/app/data/blog/blogUnifiedData';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import BlogPostHero from '@/components/blog/BlogPostHero';
@@ -7,18 +6,31 @@ import BlogContent from '@/components/blog/BlogContent';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedTags from '@/components/blog/RelatedTags';
 import RelatedArticlesSection from '@/components/blog/RelatedArticlesSection';
+import { fetchBlogPosts, fetchBlogPost } from '@/lib/utils';
 // import NewsletterSection from '@/components/blog/NewsletterSection';
 
 export async function generateStaticParams() {
-	return blogUnifiedData.posts.map((post) => ({ slug: post.slug }));
+	const posts = await fetchBlogPosts();
+	return posts.map((post) => ({ slug: post.slug }));
 }
 
-export default function BlogPostPage({ params }) {
+export default async function BlogPostPage({ params }) {
 	const { slug } = params;
-	const post = blogUnifiedData.posts.find((post) => post.slug === slug);
+	const post = await fetchBlogPost(slug);
 
 	if (!post) {
-		return <div>Post not found</div>;
+		return (
+			<div className='min-h-screen flex items-center justify-center'>
+				<div className='text-center'>
+					<h1 className='text-2xl font-bold text-gray-800'>
+						Blog Post Not Found
+					</h1>
+					<p className='mt-4 text-gray-600'>
+						The blog post you're looking for doesn't exist.
+					</p>
+				</div>
+			</div>
+		);
 	}
 
 	return (

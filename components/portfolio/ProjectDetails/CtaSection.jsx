@@ -2,14 +2,17 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import portfolioProjects from '@/app/data/portfolio/portfolioUnifiedData';
 
-const CtaSection = ({ currentProjectSlug, currentProjectCategory }) => {
+const CtaSection = ({
+	currentProjectSlug,
+	currentProjectCategory,
+	allProjects = [],
+}) => {
 	// Filter for similar projects based on category, excluding the current project
-	const similarProjects = portfolioProjects
+	const similarProjects = allProjects
 		.filter(
 			(project) =>
-				project.category.name === currentProjectCategory &&
+				project.category === currentProjectCategory &&
 				project.slug !== currentProjectSlug
 		)
 		.slice(0, 2); // Limit to 2 similar projects as per design
@@ -30,7 +33,7 @@ const CtaSection = ({ currentProjectSlug, currentProjectCategory }) => {
 						>
 							<div className='relative aspect-[4/3] rounded-lg overflow-hidden mb-4'>
 								<Image
-									src={project.image?.url || project.image}
+									src={project.image}
 									alt={project.title}
 									fill
 									className='object-cover transition-transform duration-300 group-hover:scale-105'
@@ -40,7 +43,7 @@ const CtaSection = ({ currentProjectSlug, currentProjectCategory }) => {
 									<h3 className='text-xl font-bold mb-1'>{project.title}</h3>
 									<div className='flex items-center space-x-4 text-sm'>
 										<span className='bg-red-600 px-2 py-1 rounded text-xs'>
-											{project.category.name}
+											{project.category}
 										</span>
 										<span>{project.location}</span>
 									</div>
