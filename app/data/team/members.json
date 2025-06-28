@@ -1,0 +1,227 @@
+{
+  "members": [
+    {
+      "id": "akash-sharma",
+      "name": "Akash Sharma",
+      "slug": "akash-sharma",
+      "title": "Founder & Principal Designer",
+      "designation": "Principal Designer",
+      "experience": "15+ years",
+      "location": "Bangalore, India",
+      "bio": "With over 15 years of experience, Akash leads our team with his innovative vision and passion for transformative design. He founded Sharma Space with the mission to create spaces that truly reflect the personality and lifestyle of each client.",
+      "longBio": "Akash Sharma is the visionary founder of Sharma Space, bringing over 15 years of expertise in interior design to every project. His journey began with a passion for creating spaces that tell stories and enhance lives. Under his leadership, Sharma Space has completed over 150 projects across India, earning recognition for innovative design solutions and client satisfaction. Akash specializes in residential design, sustainable practices, and space optimization for urban living.",
+      "image": {
+        "url": "/images/team/akash-sharma.jpg",
+        "alt": "Akash Sharma founder principal designer Sharma Space Bangalore",
+        "width": 400,
+        "height": 400
+      },
+      "education": [
+        "Bachelor of Architecture - RV College of Architecture, Bangalore",
+        "Master of Interior Design - CEPT University, Ahmedabad"
+      ],
+      "certifications": [
+        "Certified Interior Designer (CID)",
+        "LEED Green Associate",
+        "Vastu Consultant Certification"
+      ],
+      "specializations": [
+        "Residential Interior Design",
+        "Sustainable Design Solutions",
+        "Space Planning & Optimization",
+        "Project Management",
+        "Client Consultation"
+      ],
+      "achievements": [
+        "Founded Sharma Space in 2013",
+        "150+ successful projects completed",
+        "Featured in Architectural Digest India",
+        "Winner - Best Residential Design 2023",
+        "Speaker at Bangalore Design Summit 2024"
+      ],
+      "projectsCompleted": 75,
+      "clientSatisfaction": 98,
+      "social": {
+        "linkedin": "https://linkedin.com/in/akash-sharma-interior",
+        "instagram": "https://instagram.com/akash.designs",
+        "email": "akash@sharmaspace.in",
+        "phone": "+91 98765 43210"
+      },
+      "languages": ["English", "Hindi", "Kannada"],
+      "hobbies": ["Photography", "Travel", "Art Collection"],
+      "featured": true,
+      "active": true,
+      "joinDate": "2013-01-01",
+      "seo": {
+        "focusKeyword": "interior designer bangalore akash sharma",
+        "schema": {
+          "@type": "Person",
+          "name": "Akash Sharma",
+          "jobTitle": "Founder & Principal Designer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Sharma Space"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bangalore",
+            "addressCountry": "India"
+          },
+          "alumniOf": "RV College of Architecture"
+        }
+      }
+    },
+    {
+      "id": "priya-malhotra",
+      "name": "Priya Malhotra",
+      "slug": "priya-malhotra",
+      "title": "Senior Interior Designer",
+      "designation": "Senior Designer",
+      "experience": "8+ years",
+      "location": "Bangalore, India",
+      "bio": "Priya specializes in residential design with an eye for detail and a talent for creating harmonious living spaces. Her expertise in color psychology and space planning makes her invaluable to our residential projects.",
+      "longBio": "Priya Malhotra brings 8 years of dedicated experience in residential interior design to Sharma Space. Her keen eye for detail and deep understanding of color psychology enables her to create spaces that are not only beautiful but also emotionally resonant. Priya has successfully completed over 40 residential projects, ranging from compact apartments to luxury villas, always focusing on creating harmonious environments that reflect her clients' personalities.",
+      "image": {
+        "url": "/images/team/priya-malhotra.jpg",
+        "alt": "Priya Malhotra senior interior designer Sharma Space Bangalore",
+        "width": 400,
+        "height": 400
+      },
+      "education": [
+        "Bachelor of Interior Design - JJ School of Art, Mumbai",
+        "Diploma in Color Psychology - National Institute of Design"
+      ],
+      "certifications": [
+        "Certified Residential Designer",
+        "Color Psychology Specialist",
+        "Sustainable Design Practitioner"
+      ],
+      "specializations": [
+        "Residential Interior Design",
+        "Color Psychology",
+        "Space Planning",
+        "Furniture Selection",
+        "Lighting Design"
+      ],
+      "achievements": [
+        "40+ residential projects completed",
+        "Featured in Better Homes & Gardens India",
+        "Best Color Scheme Award 2022",
+        "Client satisfaction rating of 96%"
+      ],
+      "projectsCompleted": 42,
+      "clientSatisfaction": 96,
+      "social": {
+        "linkedin": "https://linkedin.com/in/priya-malhotra-interior",
+        "instagram": "https://instagram.com/priya.interiors",
+        "email": "priya@sharmaspace.in"
+      },
+      "languages": ["English", "Hindi", "Marathi"],
+      "hobbies": ["Painting", "Yoga", "Interior Styling"],
+      "featured": true,
+      "active": true,
+      "joinDate": "2018-03-15",
+      "seo": {
+        "focusKeyword": "residential interior designer bangalore priya malhotra",
+        "schema": {
+          "@type": "Person",
+          "name": "Priya Malhotra",
+          "jobTitle": "Senior Interior Designer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Sharma Space"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bangalore",
+            "addressCountry": "India"
+          }
+        }
+      }
+    },
+    {
+      "id": "vikram-mehta",
+      "name": "Vikram Mehta",
+      "slug": "vikram-mehta",
+      "title": "Commercial Design Specialist",
+      "designation": "Commercial Designer",
+      "experience": "10+ years",
+      "location": "Bangalore, India",
+      "bio": "Vikram brings his expertise in commercial and hospitality design, creating functional and impressive spaces for businesses. His understanding of brand integration and workspace psychology sets him apart.",
+      "longBio": "Vikram Mehta is our lead commercial design specialist with over 10 years of experience in creating impactful business environments. His expertise spans office design, retail spaces, restaurants, and hospitality venues. Vikram's unique approach combines functionality with brand storytelling, ensuring that every commercial space not only serves its purpose but also communicates the client's brand values effectively.",
+      "image": {
+        "url": "/images/team/vikram-mehta.jpg",
+        "alt": "Vikram Mehta commercial design specialist Sharma Space Bangalore",
+        "width": 400,
+        "height": 400
+      },
+      "education": [
+        "Bachelor of Architecture - SPA Delhi",
+        "Master of Commercial Design - CEPT University"
+      ],
+      "certifications": [
+        "Certified Commercial Designer",
+        "Workplace Strategy Specialist",
+        "LEED AP Interior Design + Construction"
+      ],
+      "specializations": [
+        "Commercial Interior Design",
+        "Office Space Planning",
+        "Retail Design",
+        "Hospitality Design",
+        "Brand Integration"
+      ],
+      "achievements": [
+        "35+ commercial projects completed",
+        "Featured in Commercial Design India",
+        "Best Office Design Award 2023",
+        "Expertise in Fortune 500 company projects"
+      ],
+      "projectsCompleted": 38,
+      "clientSatisfaction": 94,
+      "social": {
+        "linkedin": "https://linkedin.com/in/vikram-mehta-commercial",
+        "instagram": "https://instagram.com/vikram.commercial",
+        "email": "vikram@sharmaspace.in"
+      },
+      "languages": ["English", "Hindi", "Punjabi"],
+      "hobbies": ["Architecture Photography", "Business Strategy", "Traveling"],
+      "featured": true,
+      "active": true,
+      "joinDate": "2019-06-01",
+      "seo": {
+        "focusKeyword": "commercial interior designer bangalore vikram mehta",
+        "schema": {
+          "@type": "Person",
+          "name": "Vikram Mehta",
+          "jobTitle": "Commercial Design Specialist",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Sharma Space"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bangalore",
+            "addressCountry": "India"
+          }
+        }
+      }
+    }
+  ],
+  "stats": {
+    "totalMembers": 3,
+    "averageExperience": 11,
+    "totalProjectsCompleted": 155,
+    "averageClientSatisfaction": 96,
+    "certifications": 12,
+    "awards": 8
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-05-15T10:00:00Z",
+    "totalMembers": 3,
+    "description": "Team members of Sharma Space interior design company",
+    "seoCompliance": "E-E-A-T compliant team profiles with credentials and expertise",
+    "location": "Bangalore, India"
+  }
+}

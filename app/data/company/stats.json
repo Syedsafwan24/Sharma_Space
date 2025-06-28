@@ -1,0 +1,145 @@
+{
+  "stats": [
+    {
+      "id": "projects-completed",
+      "title": "Projects Completed",
+      "value": 150,
+      "displayValue": "150+",
+      "icon": "Package",
+      "color": "#E63946",
+      "description": "Successfully completed interior design projects across India",
+      "category": "achievements",
+      "trend": "+15% this year",
+      "details": {
+        "residential": 95,
+        "commercial": 35,
+        "hospitality": 20
+      },
+      "milestones": [
+        { "year": 2013, "count": 5 },
+        { "year": 2018, "count": 50 },
+        { "year": 2021, "count": 100 },
+        { "year": 2024, "count": 150 }
+      ]
+    },
+    {
+      "id": "years-experience",
+      "title": "Years of Experience",
+      "value": 10,
+      "displayValue": "10+",
+      "icon": "Calendar",
+      "color": "#E63946",
+      "description": "Years of expertise in interior design and space planning",
+      "category": "experience",
+      "trend": "Since 2013",
+      "details": {
+        "founded": "2013",
+        "teamExperience": "Combined 35+ years",
+        "industryRecognition": "Multiple awards"
+      }
+    },
+    {
+      "id": "happy-clients",
+      "title": "Happy Clients",
+      "value": 500,
+      "displayValue": "500+",
+      "icon": "Users",
+      "color": "#E63946",
+      "description": "Satisfied clients across residential and commercial projects",
+      "category": "satisfaction",
+      "trend": "98% satisfaction rate",
+      "details": {
+        "repeatClients": 45,
+        "referrals": 65,
+        "testimonials": 150,
+        "averageRating": 4.9
+      }
+    },
+    {
+      "id": "cities-served",
+      "title": "Cities Served",
+      "value": 15,
+      "displayValue": "15+",
+      "icon": "MapPin",
+      "color": "#E63946",
+      "description": "Cities across India where we've completed projects",
+      "category": "reach",
+      "trend": "Expanding to new markets",
+      "details": {
+        "primaryCities": ["Bangalore", "Mumbai", "Delhi", "Chennai", "Hyderabad"],
+        "secondaryCities": ["Pune", "Kolkata", "Ahmedabad", "Kochi", "Goa"],
+        "upcomingCities": ["Jaipur", "Lucknow", "Indore", "Bhopal", "Chandigarh"]
+      }
+    },
+    {
+      "id": "team-members",
+      "title": "Team Members",
+      "value": 12,
+      "displayValue": "12+",
+      "icon": "Users",
+      "color": "#E63946",
+      "description": "Skilled professionals including designers, architects, and project managers",
+      "category": "team",
+      "trend": "Growing team",
+      "details": {
+        "designers": 6,
+        "architects": 3,
+        "projectManagers": 2,
+        "supportStaff": 1
+      }
+    },
+    {
+      "id": "awards-won",
+      "title": "Awards Won",
+      "value": 8,
+      "displayValue": "8+",
+      "icon": "Award",
+      "color": "#E63946",
+      "description": "Industry recognition and design awards",
+      "category": "recognition",
+      "trend": "Latest: Best Residential Design 2024",
+      "details": {
+        "designAwards": 5,
+        "clientSatisfactionAwards": 2,
+        "sustainabilityAwards": 1
+      }
+    }
+  ],
+  "companyInfo": {
+    "founded": "2013",
+    "headquarters": "Bangalore, India",
+    "founder": "Akash Sharma",
+    "mission": "To create functional, beautiful spaces that enhance the lives of our clients",
+    "vision": "To be India's most trusted interior design company",
+    "values": ["Quality", "Innovation", "Sustainability", "Client Satisfaction"],
+    "certifications": ["ISO 9001:2015", "Green Building Certification", "LEED Accredited"],
+    "memberships": ["Indian Institute of Interior Designers", "Bangalore Chamber of Commerce"]
+  },
+  "achievements": [
+    {
+      "year": 2024,
+      "title": "Best Residential Design Award",
+      "organization": "Bangalore Design Awards",
+      "project": "Luxury Villa in Whitefield"
+    },
+    {
+      "year": 2023,
+      "title": "Sustainable Design Excellence",
+      "organization": "Green Building Council",
+      "project": "Eco-friendly Office Complex"
+    },
+    {
+      "year": 2022,
+      "title": "Client Choice Award",
+      "organization": "Interior Design India",
+      "project": "Modern Apartment Series"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-05-15T10:00:00Z",
+    "description": "Company statistics and achievements for Sharma Space",
+    "seoCompliance": "Trust signals and credibility indicators",
+    "location": "Bangalore, India"
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "partnerBrands": [
+    {
+      "id": "asian-paints",
+      "name": "ASIAN PAINTS",
+      "slug": "asian-paints",
+      "category": "Paints & Finishes",
+      "logo": {
+        "url": "/images/brands/asian-paints-logo.png",
+        "alt": "Asian Paints logo partner brand Sharma Space",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Leading paint and coating company providing premium finishes for our projects",
+      "website": "https://www.asianpaints.com",
+      "partnership": {
+        "since": "2015",
+        "type": "Preferred Partner",
+        "benefits": ["Exclusive color consultations", "Premium product access", "Technical support"]
+      },
+      "products": ["Interior Paints", "Exterior Paints", "Texture Finishes", "Wood Finishes"],
+      "featured": true,
+      "active": true
+    },
+    {
+      "id": "hafele",
+      "name": "HÄFELE",
+      "slug": "hafele",
+      "category": "Hardware & Fittings",
+      "logo": {
+        "url": "/images/brands/hafele-logo.png",
+        "alt": "Häfele logo partner brand Sharma Space hardware",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Premium furniture hardware and architectural solutions for modern interiors",
+      "website": "https://www.hafele.com/in",
+      "partnership": {
+        "since": "2016",
+        "type": "Authorized Partner",
+        "benefits": ["Technical training", "Product demonstrations", "Design support"]
+      },
+      "products": ["Cabinet Hardware", "Sliding Systems", "Lighting Solutions", "Security Systems"],
+      "featured": true,
+      "active": true
+    },
+    {
+      "id": "jaquar",
+      "name": "JAQUAR",
+      "slug": "jaquar",
+      "category": "Sanitaryware & Faucets",
+      "logo": {
+        "url": "/images/brands/jaquar-logo.png",
+        "alt": "Jaquar logo partner brand Sharma Space bathroom fittings",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Luxury bathroom fittings and sanitaryware for premium projects",
+      "website": "https://www.jaquar.com",
+      "partnership": {
+        "since": "2017",
+        "type": "Premium Partner",
+        "benefits": ["Exclusive designs", "Custom solutions", "Installation support"]
+      },
+      "products": ["Faucets", "Sanitaryware", "Shower Systems", "Bathroom Accessories"],
+      "featured": true,
+      "active": true
+    },
+    {
+      "id": "godrej",
+      "name": "GODREJ",
+      "slug": "godrej",
+      "category": "Furniture & Storage",
+      "logo": {
+        "url": "/images/brands/godrej-logo.png",
+        "alt": "Godrej logo partner brand Sharma Space furniture",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Trusted furniture and storage solutions for residential and commercial spaces",
+      "website": "https://www.godrej.com",
+      "partnership": {
+        "since": "2014",
+        "type": "Preferred Supplier",
+        "benefits": ["Bulk pricing", "Custom manufacturing", "Quick delivery"]
+      },
+      "products": ["Office Furniture", "Home Furniture", "Storage Solutions", "Modular Systems"],
+      "featured": true,
+      "active": true
+    },
+    {
+      "id": "saint-gobain",
+      "name": "SAINT-GOBAIN",
+      "slug": "saint-gobain",
+      "category": "Glass & Building Materials",
+      "logo": {
+        "url": "/images/brands/saint-gobain-logo.png",
+        "alt": "Saint-Gobain logo partner brand Sharma Space glass solutions",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Innovative glass and building material solutions for modern architecture",
+      "website": "https://www.saint-gobain.co.in",
+      "partnership": {
+        "since": "2018",
+        "type": "Technology Partner",
+        "benefits": ["Latest innovations", "Technical expertise", "Sustainable solutions"]
+      },
+      "products": ["Architectural Glass", "Insulation Materials", "Gypsum Solutions", "Ceramic Tiles"],
+      "featured": true,
+      "active": true
+    },
+    {
+      "id": "kohler",
+      "name": "KOHLER",
+      "slug": "kohler",
+      "category": "Luxury Bath & Kitchen",
+      "logo": {
+        "url": "/images/brands/kohler-logo.png",
+        "alt": "Kohler logo partner brand Sharma Space luxury bathroom kitchen",
+        "width": 200,
+        "height": 80
+      },
+      "description": "Premium kitchen and bathroom fixtures for luxury residential projects",
+      "website": "https://www.kohler.co.in",
+      "partnership": {
+        "since": "2019",
+        "type": "Luxury Partner",
+        "benefits": ["Exclusive collections", "Design consultations", "Premium support"]
+      },
+      "products": ["Kitchen Sinks", "Bathroom Fixtures", "Smart Toilets", "Designer Faucets"],
+      "featured": true,
+      "active": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "paints-finishes",
+      "name": "Paints & Finishes",
+      "description": "Premium paint brands and finishing solutions",
+      "brandCount": 1
+    },
+    {
+      "id": "hardware-fittings",
+      "name": "Hardware & Fittings",
+      "description": "Quality hardware and furniture fittings",
+      "brandCount": 1
+    },
+    {
+      "id": "sanitaryware",
+      "name": "Sanitaryware & Faucets",
+      "description": "Bathroom fixtures and sanitaryware solutions",
+      "brandCount": 2
+    },
+    {
+      "id": "furniture-storage",
+      "name": "Furniture & Storage",
+      "description": "Furniture and storage solution providers",
+      "brandCount": 1
+    },
+    {
+      "id": "building-materials",
+      "name": "Building Materials",
+      "description": "Glass, tiles, and construction materials",
+      "brandCount": 1
+    }
+  ],
+  "stats": {
+    "totalBrands": 6,
+    "activeBrands": 6,
+    "featuredBrands": 6,
+    "categories": 5,
+    "averagePartnership": "6 years",
+    "premiumPartners": 3
+  },
+  "benefits": {
+    "clients": [
+      "Access to premium brand products",
+      "Exclusive designs and collections",
+      "Warranty and after-sales support",
+      "Competitive pricing through partnerships",
+      "Latest product innovations"
+    ],
+    "company": [
+      "Technical training and support",
+      "Marketing collaboration",
+      "Product demonstrations",
+      "Bulk purchase benefits",
+      "Priority customer service"
+    ]
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-05-15T10:00:00Z",
+    "totalBrands": 6,
+    "description": "Partner brands and suppliers for Sharma Space interior design projects",
+    "seoCompliance": "Brand partnerships for credibility and quality assurance",
+    "location": "India"
+  }
+}

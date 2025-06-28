@@ -1,0 +1,66 @@
+{
+	"messages": [
+		{
+			"id": 1,
+			"name": "Aditya Sharma",
+			"email": "aditya.sharma@example.com",
+			"phone": "+91 9876543210",
+			"message": "We're looking to renovate our living room and kitchen space. Would love to schedule a consultation to discuss our options. Available on weekends.",
+			"date": "2025-05-08T11:25:00Z",
+			"dateFormatted": "May 8, 2025, 11:25 AM",
+			"read": false
+		},
+		{
+			"id": 2,
+			"name": "Priya Mehta",
+			"email": "priya.mehta@example.com",
+			"phone": "+91 8765432109",
+			"message": "I'm interested in your commercial design services for my new office space in Bandra. Please share some examples of your previous work in this area.",
+			"date": "2025-05-08T11:25:00Z",
+			"dateFormatted": "May 8, 2025, 11:25 AM",
+			"read": false
+		},
+		{
+			"id": 3,
+			"name": "Rajesh Kumar",
+			"email": "rajesh.kumar@example.com",
+			"phone": "+91 7654321098",
+			"message": "We recently purchased a 3BHK apartment in South Mumbai and are looking for interior design services. Our budget is around 20 lakhs. Can you help?",
+			"date": "2025-05-08T11:25:00Z",
+			"dateFormatted": "May 8, 2025, 11:25 AM",
+			"read": true
+		},
+		{
+			"id": 4,
+			"name": "Sneha Reddy",
+			"email": "sneha.reddy@example.com",
+			"phone": "+91 9988776655",
+			"message": "Could you provide a quote for a complete home interior design package? We are moving into a new villa next month.",
+			"date": "2025-05-07T14:00:00Z",
+			"dateFormatted": "May 7, 2025, 02:00 PM",
+			"read": false
+		},
+		{
+			"id": 5,
+			"name": "Arjun Singh",
+			"email": "arjun.singh@example.com",
+			"phone": "+91 9000112233",
+			"message": "I need assistance with furniture selection and space optimization for my small studio apartment. Do you offer consultations for small projects?",
+			"date": "2025-05-06T10:00:00Z",
+			"dateFormatted": "May 6, 2025, 10:00 AM",
+			"read": true
+		}
+	],
+	"stats": {
+		"totalMessages": 5,
+		"unreadMessages": 3,
+		"readMessages": 2
+	},
+	"metadata": {
+		"version": "1.0.0",
+		"lastUpdated": "2025-05-08T11:25:00Z",
+		"totalMessages": 5,
+		"description": "Contact form submissions for Sharma Space",
+		"fields": ["name", "email", "phone", "message"]
+	}
+}

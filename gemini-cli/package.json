@@ -1,0 +1,23 @@
+{
+	"name": "gemini-cli-tool",
+	"version": "1.0.0",
+	"description": "A CLI tool for interacting with Google Gemini AI",
+	"main": "index.js",
+	"bin": {
+		"gemini": "./index.js"
+	},
+	"scripts": {
+		"start": "node index.js"
+	},
+	"keywords": [
+		"gemini",
+		"ai",
+		"cli",
+		"google"
+	],
+	"author": "Sharma Space",
+	"license": "MIT",
+	"dependencies": {
+		"@google/generative-ai": "^0.24.1"
+	}
+}
