@@ -1,0 +1,11 @@
+1. there is two message data files one is recent messages and another one is messages tab in the admin dashboard 
+-> we have to use recent messages from messageData instead of creating another file for recent messages
+
+
+2. Compare 2 files @C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\blogPosts.js and the files in the folder @C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\blog make it one file merged of these 2 such that both the admin dashboard and user view components should use one datafile but the content which is now rendering should not be changed either styling 
+
+3. Compare these 2 files for projects or portfolio section @C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\projects.json and C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\portfolio make it one file merged of these 2 such that both the admin dashboard and user view components should use one datafile but the content which is now rendering should not be changed either styling 
+
+4. Compare these 2 files for testimonials section 
+@C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\testimonials and 
+@C:\Users\Syeds\Downloads\SharmaSpace - Copy\app\data\testimonialsData.js make it one file merged of these 2 such that both the admin dashboard and user view components should use one datafile but the content which is now rendering should not be changed either styling 
