@@ -86,6 +86,19 @@ export default function AdminBlogPostsPage() {
 		setSelectedBlogPost(null);
 	};
 
+	const refetchBlogPosts = async () => {
+		setLoading(true);
+		try {
+			const response = await fetch('/api/blog-posts');
+			const data = await response.json();
+			setPosts(data);
+		} catch (error) {
+			console.error('Error fetching blog posts:', error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	if (status === 'loading' || loading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-[#F8F9FA]'>
@@ -116,6 +129,7 @@ export default function AdminBlogPostsPage() {
 								key={post.slug}
 								post={post}
 								onEdit={handleEditBlogPost}
+								onDelete={refetchBlogPosts}
 								authors={authors}
 							/>
 						))}
@@ -137,12 +151,14 @@ export default function AdminBlogPostsPage() {
 						onClose={handleCloseEditModal}
 						categories={categories}
 						authors={authors}
+						refetchBlogPosts={refetchBlogPosts}
 					/>
 				) : (
 					<EditBlogForm
 						onClose={handleCloseEditModal}
 						categories={categories}
 						authors={authors}
+						refetchBlogPosts={refetchBlogPosts}
 					/>
 				)}
 			</EditBlogModal>

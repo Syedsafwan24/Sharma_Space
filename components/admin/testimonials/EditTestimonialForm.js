@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-const EditTestimonialForm = ({ testimonial, onClose }) => {
+const EditTestimonialForm = ({ testimonial, onClose, refetchTestimonials }) => {
 	const isEditMode = !!testimonial;
 	const [formData, setFormData] = useState({
 		fullName: testimonial?.fullName || testimonial?.name || '',
@@ -12,19 +12,37 @@ const EditTestimonialForm = ({ testimonial, onClose }) => {
 		image: testimonial?.image?.url || testimonial?.image || '',
 		text: testimonial?.text || '',
 	});
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(
-			isEditMode ? 'Form submitted for edit:' : 'Form submitted for add:',
-			formData
-		);
-		onClose();
+		setLoading(true);
+		try {
+			const method = isEditMode ? 'PUT' : 'POST';
+			const url = '/api/testimonials';
+			const body = isEditMode ? { ...formData, id: testimonial.id } : formData;
+			const res = await fetch(url, {
+				method,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+			});
+			if (!res.ok) {
+				const error = await res.json();
+				alert('Error: ' + (error.error || 'Failed to save testimonial'));
+				return;
+			}
+			if (refetchTestimonials) refetchTestimonials();
+			onClose();
+		} catch (err) {
+			alert('Error: ' + err.message);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -140,8 +158,15 @@ const EditTestimonialForm = ({ testimonial, onClose }) => {
 					<button
 						type='submit'
 						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200'
+						disabled={loading}
 					>
-						{isEditMode ? 'Save Testimonial' : 'Add Testimonial'}
+						{loading
+							? isEditMode
+								? 'Saving...'
+								: 'Adding...'
+							: isEditMode
+							? 'Save Testimonial'
+							: 'Add Testimonial'}
 					</button>
 				</div>
 			</form>

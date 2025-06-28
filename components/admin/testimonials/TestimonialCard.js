@@ -9,6 +9,26 @@ const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
 
 	const Star = LucideIcons.Star; // ✅ safe fallback
 
+	const handleDelete = async () => {
+		if (!window.confirm('Are you sure you want to delete this testimonial?'))
+			return;
+		try {
+			const res = await fetch('/api/testimonials', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ id: testimonial.id }),
+			});
+			if (!res.ok) {
+				const error = await res.json();
+				alert('Error: ' + (error.error || 'Failed to delete testimonial'));
+				return;
+			}
+			if (onDelete) onDelete();
+		} catch (err) {
+			alert('Error: ' + err.message);
+		}
+	};
+
 	return (
 		<div className='bg-white rounded-lg shadow p-6 flex flex-col mt-auto'>
 			<div className='flex items-center mb-4'>
@@ -51,7 +71,7 @@ const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
 					Edit
 				</button>
 				<button
-					onClick={() => onDelete(testimonial.id)}
+					onClick={handleDelete}
 					className='px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-200'
 				>
 					Delete

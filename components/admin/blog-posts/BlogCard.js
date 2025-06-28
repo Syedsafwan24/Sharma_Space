@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { User } from 'lucide-react';
+import { formatBlogDate } from '@/lib/utils';
 
-const BlogCard = ({ post, onEdit, authors }) => {
+const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 	// Support both string and object for author
 	let authorName = '';
 	let authorImage = '';
@@ -13,6 +14,26 @@ const BlogCard = ({ post, onEdit, authors }) => {
 		authorName = post.author;
 		authorImage = post.authorImage || '';
 	}
+
+	const handleDelete = async () => {
+		if (!window.confirm('Are you sure you want to delete this blog post?'))
+			return;
+		try {
+			const res = await fetch('/api/blog-posts', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ id: post.id }),
+			});
+			if (!res.ok) {
+				const error = await res.json();
+				alert('Error: ' + (error.error || 'Failed to delete blog post'));
+				return;
+			}
+			if (onDelete) onDelete();
+		} catch (err) {
+			alert('Error: ' + err.message);
+		}
+	};
 
 	return (
 		<div className='bg-white rounded-lg shadow-md overflow-hidden'>
@@ -26,7 +47,7 @@ const BlogCard = ({ post, onEdit, authors }) => {
 			</div>
 			<div className='p-6'>
 				<p className='text-sm text-gray-500 mb-2'>
-					{post.date} • {post.category || post.tag}
+					{formatBlogDate(post.date)} • {post.category || post.tag}
 				</p>
 				<h3 className='text-xl font-semibold text-gray-900 mb-3 hover:text-primary-600 transition duration-300'>
 					{post.title}
@@ -56,7 +77,10 @@ const BlogCard = ({ post, onEdit, authors }) => {
 						>
 							Edit
 						</button>
-						<button className='text-gray-500 hover:text-[#1C1C1C] font-medium text-sm'>
+						<button
+							className='text-gray-500 hover:text-[#1C1C1C] font-medium text-sm'
+							onClick={handleDelete}
+						>
 							Delete
 						</button>
 					</div>

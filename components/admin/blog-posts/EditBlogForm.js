@@ -49,7 +49,7 @@ const ImageInput = ({
 	);
 };
 
-const EditBlogForm = ({ blogPost, onClose }) => {
+const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 	const isEditMode = !!blogPost;
 	const [formData, setFormData] = useState({
 		title: blogPost?.title || '',
@@ -62,41 +62,59 @@ const EditBlogForm = ({ blogPost, onClose }) => {
 		authorImage: blogPost?.author?.image || '',
 		content: blogPost?.content || '',
 	});
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		// Generate slug from title
 		const slug = formData.title
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/(^-|-$)+/g, '');
-		// Build author object
-		const author = {
-			name: formData.authorName,
-			image: formData.authorImage,
-		};
-		// Prepare blog post data for saving
+		// Format date as ISO string
+		const dateISO = new Date(formData.date).toISOString();
+		// Prepare blog post data for saving (flat, matches Prisma model)
 		const cleanedData = {
 			slug,
 			title: formData.title,
-			date: formData.date,
+			date: dateISO,
 			tag: formData.tag,
 			image: formData.image,
 			mainImage: formData.mainImage,
 			excerpt: formData.excerpt,
-			author,
+			authorName: formData.authorName,
+			authorImage: formData.authorImage,
 			content: formData.content,
 		};
-		console.log(
-			isEditMode ? 'Form submitted for edit:' : 'Form submitted for add:',
-			cleanedData
-		);
-		onClose();
+		try {
+			const method = isEditMode ? 'PUT' : 'POST';
+			const url = '/api/blog-posts';
+			const body = isEditMode
+				? { ...cleanedData, id: blogPost.id }
+				: cleanedData;
+			const res = await fetch(url, {
+				method,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+			});
+			if (!res.ok) {
+				const error = await res.json();
+				alert('Error: ' + (error.error || 'Failed to save blog post'));
+				return;
+			}
+			if (refetchBlogPosts) refetchBlogPosts();
+			onClose();
+		} catch (err) {
+			alert('Error: ' + err.message);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -299,8 +317,15 @@ const EditBlogForm = ({ blogPost, onClose }) => {
 					<button
 						type='submit'
 						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200'
+						disabled={loading}
 					>
-						{isEditMode ? 'Save Blog Post' : 'Add Blog Post'}
+						{loading
+							? isEditMode
+								? 'Saving...'
+								: 'Adding...'
+							: isEditMode
+							? 'Save Blog Post'
+							: 'Add Blog Post'}
 					</button>
 				</div>
 			</form>

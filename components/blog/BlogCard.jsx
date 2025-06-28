@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { formatBlogDate } from '@/lib/utils';
+import Image from 'next/image';
 
 const BlogCard = ({ post }) => {
 	const { slug, image, title, excerpt, tag, author, date } = post;
@@ -10,9 +11,11 @@ const BlogCard = ({ post }) => {
 			<div className='bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden h-full flex flex-col group cursor-pointer hover:-translate-y-1'>
 				{/* Image Container with Category Badge */}
 				<div className='relative w-full h-48 sm:h-56 md:h-64 overflow-hidden'>
-					<img
-						src={image}
-						alt={title}
+					<Image
+						src={image?.url || image}
+						alt={image?.alt || title}
+						width={image?.width || 400}
+						height={image?.height || 300}
 						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
 					/>
 

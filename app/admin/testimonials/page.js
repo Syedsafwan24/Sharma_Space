@@ -67,9 +67,17 @@ export default function AdminTestimonials() {
 		setSelectedTestimonial(null);
 	};
 
-	const handleDelete = (id) => {
-		console.log('Delete testimonial with ID:', id);
-		setTestimonialsList(testimonialsList.filter((t) => t.id !== id));
+	const refetchTestimonials = async () => {
+		setLoading(true);
+		try {
+			const response = await fetch('/api/testimonials');
+			const data = await response.json();
+			setTestimonialsList(data);
+		} catch (error) {
+			console.error('Error fetching testimonials:', error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	if (status === 'loading' || loading) {
@@ -97,7 +105,7 @@ export default function AdminTestimonials() {
 								key={testimonial.id}
 								testimonial={testimonial}
 								onEdit={handleEditTestimonial}
-								onDelete={handleDelete}
+								onDelete={refetchTestimonials}
 							/>
 						))}
 					</div>
@@ -119,9 +127,13 @@ export default function AdminTestimonials() {
 					<EditTestimonialForm
 						testimonial={selectedTestimonial}
 						onClose={handleCloseEditModal}
+						refetchTestimonials={refetchTestimonials}
 					/>
 				) : (
-					<EditTestimonialForm onClose={handleCloseEditModal} />
+					<EditTestimonialForm
+						onClose={handleCloseEditModal}
+						refetchTestimonials={refetchTestimonials}
+					/>
 				)}
 			</EditTestimonialModal>
 		</div>

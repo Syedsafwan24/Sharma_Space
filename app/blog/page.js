@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import BlogCard from '@/components/blog/BlogCard';

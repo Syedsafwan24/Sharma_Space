@@ -53,6 +53,19 @@ export default function AdminServicesPage() {
 		return matchesSearch;
 	});
 
+	const refetchServices = async () => {
+		setLoading(true);
+		try {
+			const response = await fetch('/api/services');
+			const data = await response.json();
+			setServices(data);
+		} catch (error) {
+			console.error('Error fetching services:', error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const handleEditService = (service) => {
 		setSelectedService(service);
 		setIsEditModalOpen(true);
@@ -93,6 +106,7 @@ export default function AdminServicesPage() {
 								key={service.id}
 								service={service}
 								onEdit={handleEditService}
+								onDelete={refetchServices}
 							/>
 						))}
 					</div>
@@ -111,9 +125,13 @@ export default function AdminServicesPage() {
 					<EditServiceForm
 						service={selectedService}
 						onClose={handleCloseEditModal}
+						refetchServices={refetchServices}
 					/>
 				) : (
-					<EditServiceForm onClose={handleCloseEditModal} />
+					<EditServiceForm
+						onClose={handleCloseEditModal}
+						refetchServices={refetchServices}
+					/>
 				)}
 			</EditServiceModal>
 		</div>

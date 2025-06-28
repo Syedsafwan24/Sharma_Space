@@ -26,3 +26,40 @@ export async function POST(req) {
 		});
 	}
 }
+
+export async function PUT(req) {
+	try {
+		const data = await req.json();
+		if (!data.id) {
+			return new Response(JSON.stringify({ error: 'Service id required' }), {
+				status: 400,
+			});
+		}
+		const service = await prisma.service.update({
+			where: { id: data.id },
+			data,
+		});
+		return new Response(JSON.stringify(service), { status: 200 });
+	} catch (error) {
+		return new Response(JSON.stringify({ error: error.message }), {
+			status: 400,
+		});
+	}
+}
+
+export async function DELETE(req) {
+	try {
+		const data = await req.json();
+		if (!data.id) {
+			return new Response(JSON.stringify({ error: 'Service id required' }), {
+				status: 400,
+			});
+		}
+		await prisma.service.delete({ where: { id: data.id } });
+		return new Response(JSON.stringify({ success: true }), { status: 200 });
+	} catch (error) {
+		return new Response(JSON.stringify({ error: error.message }), {
+			status: 400,
+		});
+	}
+}

@@ -1,41 +1,7 @@
 const blogUnifiedData = {
 	posts: [
-		{
-			id: '5-trends-modern-interior-design-2024',
-			slug: '5-trends-modern-interior-design-2024',
-			title: '5 Trends in Modern Interior Design for 2024',
-			metaTitle: '5 Modern Interior Design Trends 2024 | Bangalore Experts',
-			metaDescription:
-				"Discover 2024's top interior design trends from Bangalore's leading designers. Sustainable materials, smart homes & more. Free consultation available.",
-			date: '2024-05-15',
-			publishedAt: '2024-05-15T10:00:00Z',
-			lastModified: '2024-05-15T10:00:00Z',
-			category: 'TRENDS',
-			tags: [
-				'interior design trends',
-				'bangalore interior design',
-				'modern homes',
-				'sustainable design',
-			],
-			featured: true,
-			image: {
-				url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-				alt: 'Modern interior design trends 2024 Bangalore living room with sustainable materials',
-				width: 1200,
-				height: 800,
-			},
-			mainImage: {
-				url: '/images/blog-hero-1.jpg',
-				alt: 'Modern interior design showcase Bangalore 2024 trends',
-				width: 1600,
-				height: 900,
-			},
-			authorId: 'nisha-sharma',
-			excerpt:
-				"Discover the latest trends shaping modern interior spaces, from sustainable materials to multi-functional furniture that's transforming Bangalore homes.",
-			readTime: 5,
-			wordCount: 1200,
-			content: [
+		// Only real database posts will be shown - dummy data removed
+	],
 				{
 					type: 'paragraph',
 					text: "Interior design is constantly evolving, influenced by cultural shifts, technological advancements, and changing lifestyles. In Bangalore's dynamic urban landscape, understanding these trends helps us create spaces that feel current yet timeless.",
