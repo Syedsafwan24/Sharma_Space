@@ -1,6 +1,6 @@
 # Sharma Space - Next.js Interior Design Website
 
-A modern, responsive interior design website built with Next.js 14, TypeScript, and Tailwind CSS, now featuring user authentication and a protected admin dashboard.
+A modern, responsive interior design website built with Next.js 14, TypeScript, and Tailwind CSS, now featuring user authentication, a protected admin dashboard, and a fully dynamic PostgreSQL database seeded with real project data.
 
 ## Features
 
@@ -13,24 +13,27 @@ A modern, responsive interior design website built with Next.js 14, TypeScript, 
 - **Performance Optimized** with lazy loading and code splitting
 - **User Authentication** using NextAuth.js
 - **Protected Admin Dashboard** for authorized users
+- **PostgreSQL + Prisma** with custom client output and full data seeding
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL (local or remote)
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd sharma-space-nextjs
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -39,32 +42,89 @@ yarn install
 
 ### Database Setup (PostgreSQL & Prisma)
 
-This project uses PostgreSQL as its database and Prisma as the ORM.
+This project uses PostgreSQL as its database and Prisma as the ORM, with the Prisma client generated to a custom output directory (`lib/generated/prisma`).
 
-1.  **Ensure PostgreSQL is running:** If you're using a local PostgreSQL instance, make sure it's active. For Ubuntu, you can start it with:
-    ```bash
-    sudo pg_ctlcluster 16 main start
-    ```
+#### 1. **Ensure PostgreSQL is running:**
 
-2.  **Create Database and User:** If you haven't already, create a database and a user for your application. For example:
-    ```sql
-    -- Connect to your PostgreSQL server (e.g., psql -U postgres)
-    CREATE USER sharmaspaceadmin WITH PASSWORD 'Admin@123';
-    CREATE DATABASE sharma_space OWNER sharmaspaceadmin;
-    GRANT ALL PRIVILEGES ON DATABASE sharma_space TO sharmaspaceadmin;
-    ```
+If you're using a local PostgreSQL instance, make sure it's active. For Ubuntu:
 
-3.  **Configure Environment Variables:** Create a `.env.local` file in the root of your project (if it doesn't exist) and add your database connection string and NextAuth.js secrets. Replace `YOUR_SECRET_KEY` with a strong, randomly generated string (e.g., using `openssl rand -base64 32`).
-    ```env
-    DATABASE_URL="postgresql://sharmaspaceadmin:Admin@123@localhost:5432/sharma_space"
-    NEXTAUTH_SECRET=YOUR_SECRET_KEY
-    NEXTAUTH_URL=http://localhost:3000
-    ```
+```bash
+sudo pg_ctlcluster 16 main start
+```
 
-4.  **Initialize Prisma:** Run the following command to generate the Prisma client and synchronize your database schema with your Prisma schema. This will create tables based on your `prisma/schema.prisma` file.
-    ```bash
-    npx dotenv -e .env.local -- npx prisma db push
-    ```
+For Windows, use pgAdmin or the PostgreSQL service manager.
+
+#### 2. **Create Database and User:**
+
+If you haven't already, create a database and a user for your application. For example:
+
+```sql
+-- Connect to your PostgreSQL server (e.g., psql -U postgres)
+CREATE USER sharmaspaceadmin WITH PASSWORD 'Admin@123';
+CREATE DATABASE sharma_space OWNER sharmaspaceadmin;
+GRANT ALL PRIVILEGES ON DATABASE sharma_space TO sharmaspaceadmin;
+```
+
+#### 3. **Configure Environment Variables:**
+
+Create a `.env.local` file in the root of your project (if it doesn't exist) and add your database connection string and NextAuth.js secrets. Replace `YOUR_SECRET_KEY` with a strong, randomly generated string (e.g., using `openssl rand -base64 32`).
+
+```env
+DATABASE_URL="postgresql://sharmaspaceadmin:Admin@123@localhost:5432/sharma_space"
+NEXTAUTH_SECRET=YOUR_SECRET_KEY
+NEXTAUTH_URL=http://localhost:3000
+```
+
+#### 4. **Prisma Migration & Client Generation:**
+
+- **Initial migration:**
+
+  ```bash
+  npx prisma migrate dev --name init
+  ```
+
+  This will create the tables in your database and generate the Prisma client in `lib/generated/prisma`.
+
+- **If you ever see errors like `@prisma/client did not initialize yet...`:**
+  1. Delete the following folders manually:
+     - `node_modules/.prisma` (inside your project root)
+     - `lib/generated/prisma` (inside your project root)
+  2. Reinstall dependencies and regenerate the client:
+     ```bash
+     npm install
+     npx prisma generate
+     ```
+
+#### 5. **Seeding the Database with Dummy Data**
+
+- The project includes a comprehensive seed script at `prisma/seed.js` that will populate your database with all the dummy data from `/app/data` (projects, blog posts, services, testimonials, messages).
+- The script is written in ESM (JavaScript modules) and imports the Prisma client from the custom output directory.
+
+**How to run the seed script:**
+
+```bash
+node prisma/seed.js
+```
+
+- You should see output like:
+  ```
+  Seeding started...
+  Projects: 4
+  BlogPosts: 2
+  Services: 6
+  Testimonials: 3
+  Seeding complete!
+  ```
+- If you see errors about the Prisma client, follow the troubleshooting steps above.
+
+#### 6. **How to Update the Seed Script**
+
+- If you add new models to your Prisma schema or new data files to `/app/data`, update `prisma/seed.js` to import and insert the new data.
+- Always regenerate the Prisma client after changing the schema:
+  ```bash
+  npx prisma generate
+  ```
+- Then update and run the seed script again.
 
 ### Running the Development Server
 
@@ -74,7 +134,7 @@ npx dotenv -e .env.local -- next dev
 npx dotenv -e .env.local -- next dev -p 4000 -H 0.0.0.0
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) (or your specified port) in your browser.
+Open [http://localhost:3000](http://localhost:3000) (or your specified port) in your browser.
 
 ## Project Structure
 
@@ -104,7 +164,7 @@ npx dotenv -e .env.local -- next dev -p 4000 -H 0.0.0.0
 │   ├── providers/       # Context providers
 │   └── AuthSessionProvider.js # NextAuth.js Session Provider
 ├── hooks/               # Custom React hooks
-├── lib/                 # Utility functions
+├── lib/                 # Utility functions and generated Prisma client
 └── public/             # Static assets
 ```
 
@@ -112,31 +172,35 @@ npx dotenv -e .env.local -- next dev -p 4000 -H 0.0.0.0
 
 This project implements a robust authentication system using NextAuth.js and Prisma.
 
--   **Registration:** New users can create an account via the `/register` page. Passwords are securely hashed using `bcryptjs` before being stored in the database.
--   **Login:** Users can log in via the `/login` page using their registered email and password.
--   **Protected Dashboard:** The `/admin/dashboard` route is protected, requiring users to be authenticated to access it. Unauthenticated users will be redirected to the login page.
--   **Logout:** A logout button is available (e.g., in the navigation bar) to sign out of the application.
+- **Registration:** New users can create an account via the `/register` page. Passwords are securely hashed using `bcryptjs` before being stored in the database.
+- **Login:** Users can log in via the `/login` page using their registered email and password.
+- **Protected Dashboard:** The `/admin/dashboard` route is protected, requiring users to be authenticated to access it. Unauthenticated users will be redirected to the login page.
+- **Logout:** A logout button is available (e.g., in the navigation bar) to sign out of the application.
 
 ## Key Features
 
 ### SEO Optimization
+
 - Proper meta tags for each page
 - Structured data (JSON-LD) for local business
 - Open Graph and Twitter Card support
 - Optimized for search engines
 
 ### Performance
+
 - Next.js Image optimization
 - Lazy loading for images and components
 - Code splitting and tree shaking
 - Optimized bundle size
 
 ### Responsive Design
+
 - Mobile-first approach
 - Tailwind CSS responsive utilities
 - Optimized for all screen sizes
 
 ### Accessibility
+
 - Semantic HTML structure
 - Proper ARIA labels
 - Keyboard navigation support
@@ -153,11 +217,13 @@ This project implements a robust authentication system using NextAuth.js and Pri
 ### Other Platforms
 
 Build the project:
+
 ```bash
 npm run build
 ```
 
 Start the production server:
+
 ```bash
 npm start
 ```
