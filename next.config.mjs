@@ -32,6 +32,28 @@ const nextConfig = {
 		minimumCacheTTL: 60,
 	},
 	transpilePackages: ['lucide-react'],
+
+	async headers() {
+		return [
+			{
+				source: '/(.*)',
+				headers: [
+					{
+						key: 'Content-Security-Policy',
+						value:
+							"default-src 'self'; img-src * data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none';",
+					},
+					{ key: 'X-Frame-Options', value: 'DENY' },
+					{ key: 'Referrer-Policy', value: 'strict-origin' },
+					{ key: 'X-Content-Type-Options', value: 'nosniff' },
+					{
+						key: 'Strict-Transport-Security',
+						value: 'max-age=63072000; includeSubDomains; preload',
+					},
+				],
+			},
+		];
+	},
 };
 
 export default nextConfig;

@@ -1,5 +1,6 @@
 // components/blog/BlogContent.jsx
 import React from 'react';
+import DOMPurify from 'isomorphic-dompurify';
 
 const BlogContent = ({ content }) => {
 	// Debug log to check the type and value
@@ -22,6 +23,8 @@ const BlogContent = ({ content }) => {
 
 	// If content is an array, join it into a string
 	let html = Array.isArray(content) ? content.join('') : content;
+	// Sanitize the HTML to prevent XSS
+	html = DOMPurify.sanitize(html);
 
 	return (
 		<div className='prose prose-lg max-w-none text-gray-700'>

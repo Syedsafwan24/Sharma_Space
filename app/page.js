@@ -88,3 +88,64 @@ export default async function Home() {
 		</div>
 	);
 }
+
+export const metadata = {
+	title:
+		'Sharma Space | Interior Designers in Bangalore - Residential & Commercial',
+	description:
+		'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts. Book a free consultation today!',
+	openGraph: {
+		title: 'Sharma Space | Interior Designers in Bangalore',
+		description:
+			'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts.',
+		images: [
+			{
+				url: '/public/images/AboutSection.webp',
+				width: 1200,
+				height: 630,
+				alt: 'Sharma Space team at work in Bangalore interior design project',
+			},
+		],
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'Sharma Space | Interior Designers in Bangalore',
+		description:
+			'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts.',
+		image: '/public/images/AboutSection.webp',
+	},
+	alternates: {
+		canonical: '/',
+	},
+	other: {
+		'application/ld+json': JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Organization',
+			name: 'Sharma Space',
+			url: 'https://sharmaspace.in/',
+			logo: '/public/images/icon/SharmaSpace-Logo.webp',
+			contactPoint: [
+				{
+					'@type': 'ContactPoint',
+					telephone: '+91 886 757 4542',
+					contactType: 'customer service',
+					areaServed: 'IN',
+					availableLanguage: ['English', 'Hindi'],
+				},
+			],
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: 'HSR Layout, Mangammana Palya',
+				addressLocality: 'Bangalore',
+				addressRegion: 'KA',
+				postalCode: '560068',
+				addressCountry: 'IN',
+			},
+			sameAs: [
+				'https://instagram.com/sharmaspace',
+				'https://facebook.com/sharmaspace',
+				'https://youtube.com/@sharmaspace',
+			],
+		}),
+	},
+};

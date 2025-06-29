@@ -1,64 +1,73 @@
 // app/portfolio/page.jsx
-'use client';
+import PortfolioClient from './PortfolioClient';
 
-import { useState, useEffect } from 'react';
-import Footer from '@/components/Footer';
-import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
-import PortfolioFilter from '@/components/portfolio/PortfolioFilter';
-import PortfolioGrid from '../../components/portfolio/PortfolioGrid';
-import Cta from '@/components/Cta';
+// Server Component that exports metadata
+export const metadata = {
+	title: 'Portfolio - Sharma Space | Interior Design Bangalore',
+	description:
+		"Explore Sharma Space's portfolio of interior design projects in Bangalore. See our work in residential, commercial, and modular spaces. 150+ projects delivered.",
+	icons: {
+		icon: [
+			{ url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+			{ url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+		],
+		shortcut: '/favicon.ico',
+		apple: '/apple-touch-icon.png',
+		other: [
+			{
+				rel: 'icon',
+				url: '/favicon-16x16.png',
+				sizes: '16x16',
+				type: 'image/png',
+			},
+			{
+				rel: 'icon', 
+				url: '/favicon-32x32.png',
+				sizes: '32x32',
+				type: 'image/png',
+			},
+		],
+	},
+	openGraph: {
+		title: 'Portfolio - Sharma Space | Interior Design Bangalore',
+		description:
+			"Explore Sharma Space's portfolio of interior design projects in Bangalore. See our work in residential, commercial, and modular spaces. 150+ projects delivered.",
+		images: [
+			{
+				url: '/public/images/portfolio/portfolio-hero.jpg',
+				width: 1200,
+				height: 630,
+				alt: 'Sharma Space interior design portfolio in Bangalore',
+			},
+		],
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'Portfolio - Sharma Space | Interior Design Bangalore',
+		description:
+			"Explore Sharma Space's portfolio of interior design projects in Bangalore. See our work in residential, commercial, and modular spaces. 150+ projects delivered.",
+		image: '/public/images/portfolio/portfolio-hero.jpg',
+	},
+	alternates: {
+		canonical: '/portfolio',
+	},
+	other: {
+		'application/ld+json': JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'CollectionPage',
+			name: 'Sharma Space Portfolio',
+			description:
+				"Explore Sharma Space's portfolio of interior design projects in Bangalore. See our work in residential, commercial, and modular spaces. 150+ projects delivered.",
+			url: 'https://sharmaspace.in/portfolio',
+			publisher: {
+				'@type': 'Organization',
+				name: 'Sharma Space',
+			},
+		}),
+	},
+};
 
-// Remove the metadata export from here since we can't use it with 'use client'
-// We'll handle metadata differently (see solutions below)
-
+// Server Component that renders the Client Component
 export default function PortfolioPage() {
-	const [activeFilter, setActiveFilter] = useState('all');
-
-	// Use ISR: revalidate every 60 seconds for fresh but not continuous data
-	const [projects, setProjects] = useState([]);
-
-	// Fetch projects on component mount
-	useEffect(() => {
-		const fetchProjects = async () => {
-			try {
-				const res = await fetch(
-					`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/projects`,
-					{ next: { revalidate: 60 } }
-				);
-				const projectsData = await res.json();
-				setProjects(projectsData);
-			} catch (error) {
-				console.error('Error fetching projects:', error);
-			}
-		};
-
-		fetchProjects();
-	}, []);
-
-	return (
-		<div className='min-h-screen flex flex-col'>
-			<main className='flex-grow'>
-				<HeroPortfolio />
-
-				<div className='container mx-auto px-4 py-12'>
-					<PortfolioFilter
-						activeFilter={activeFilter}
-						setActiveFilter={setActiveFilter}
-					/>
-
-					<PortfolioGrid projects={projects} activeFilter={activeFilter} />
-				</div>
-			</main>
-			<Cta
-				title="Let's Work Together"
-				description='have a project in mind? Our team of expert designers is ready to bring your vision to life.'
-				buttonText='Start a Project'
-				backgroundColor='bg-gray-100'
-				textColor='text-gray-700'
-				buttonBgColor='bg-[#E63946]'
-				buttonTextColor='text-white'
-			/>
-			<Footer />
-		</div>
-	);
+	return <PortfolioClient />;
 }

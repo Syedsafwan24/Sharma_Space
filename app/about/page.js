@@ -9,6 +9,28 @@ export const metadata = {
 	title: 'About Us - Interior Designers in Bangalore',
 	description:
 		"Learn about Sharma Space's 10+ years of interior design expertise in Bangalore. 150+ projects completed, 500+ happy clients across residential and commercial spaces.",
+	other: {
+		'application/ld+json': JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Organization',
+			name: 'Sharma Space',
+			url: 'https://sharmaspace.in/about',
+			logo: '/public/images/icon/SharmaSpace-Logo.webp',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: 'HSR Layout, Mangammana Palya',
+				addressLocality: 'Bangalore',
+				addressRegion: 'KA',
+				postalCode: '560068',
+				addressCountry: 'IN',
+			},
+			sameAs: [
+				'https://instagram.com/sharmaspace',
+				'https://facebook.com/sharmaspace',
+				'https://youtube.com/@sharmaspace',
+			],
+		}),
+	},
 };
 
 export default function About() {

@@ -13,6 +13,37 @@ import { fetchBlogPosts, fetchBlogPost } from '@/lib/utils';
 // 	return posts.map((post) => ({ slug: post.slug }));
 // }
 
+export async function generateMetadata({ params }) {
+	const post = await fetchBlogPost(params.slug);
+	if (!post) return { title: 'Not Found' };
+	return {
+		title: post.title,
+		description: post.excerpt || post.description || '',
+		openGraph: {
+			title: post.title,
+			description: post.excerpt || post.description || '',
+			images: post.mainImage ? [{ url: post.mainImage }] : [],
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: post.title,
+			description: post.excerpt || post.description || '',
+			image: post.mainImage,
+		},
+		other: {
+			'application/ld+json': JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'Article',
+				headline: post.title,
+				author: { '@type': 'Person', name: post.author?.name || '' },
+				datePublished: post.date,
+				image: post.mainImage,
+				publisher: { '@type': 'Organization', name: 'Sharma Space' },
+			}),
+		},
+	};
+}
+
 export default async function BlogPostPage({ params }) {
 	const { slug } = params;
 	const post = await fetchBlogPost(slug);

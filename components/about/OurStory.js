@@ -8,7 +8,7 @@ const OurStory = () => {
 			{/* Background Image with darker overlay */}
 			<div className='absolute inset-0'>
 				<Image
-					src='/images/AboutPage/our-story.jpg'
+					src='/images/port.jpg'
 					alt='Our Expertise in Interior Design Background'
 					fill
 					priority
