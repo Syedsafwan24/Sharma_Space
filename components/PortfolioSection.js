@@ -1,8 +1,7 @@
 // app/components/PortfolioSection.jsx
 'use client';
 
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import { getOptimizedImageProps } from '@/lib/imageUtils';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,12 +12,13 @@ import React from 'react';
 const HeroCard = ({ project }) => (
 	<article className='relative group h-[400px] rounded-2xl overflow-hidden shadow-lg'>
 		{/* Image */}
-		<OptimizedImage
+		<Image
 			src={project.image.url || project.image}
 			alt={`${project.title} interior design`}
 			fill
 			className='object-cover transition duration-300 group-hover:scale-105'
-			{...getOptimizedImageProps('portfolioCard', { priority: true })}
+			sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
+			priority
 		/>
 
 		{/* Gradient overlay */}
@@ -44,12 +44,12 @@ const HeroCard = ({ project }) => (
 
 const ThumbCard = ({ project }) => (
 	<article className='relative group h-48 rounded-xl overflow-hidden'>
-		<OptimizedImage
+		<Image
 			src={project.image.url || project.image}
 			alt={project.title}
 			fill
 			className='object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-75'
-			{...getOptimizedImageProps('portfolioCard')}
+			sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
 		/>
 
 		<h4 className='absolute bottom-3 left-4 z-10 text-white text-base font-medium drop-shadow-sm'>

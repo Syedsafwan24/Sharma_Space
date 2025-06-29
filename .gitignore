@@ -51,3 +51,6 @@ playwright-report/
 *.bak
 
 /lib/generated/prisma
+
+# Uploaded files
+

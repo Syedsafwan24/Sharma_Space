@@ -3,8 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import { getOptimizedImageProps } from '@/lib/imageUtils';
+import Image from 'next/image';
 
 const Footer = () => {
 	const quickLinks = [
@@ -62,13 +61,12 @@ const Footer = () => {
 								className='flex items-center gap-2 mb-4 transition-transform duration-300 hover:scale-105'
 							>
 								<div className='w-10 h-10 bg-red-600 rounded-md flex items-center justify-center p-1'>
-									<OptimizedImage
+									<Image
 										src='/images/icon/SharmaSpace-Logo.png'
 										alt='SharmaSpace Logo'
 										width={40}
 										height={40}
 										className='w-full h-full object-contain'
-										{...getOptimizedImageProps('logo')}
 									/>
 								</div>
 								<span className='text-2xl font-bold text-white'>

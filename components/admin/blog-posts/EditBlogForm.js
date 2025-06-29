@@ -1,53 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { PlusCircle, MinusCircle, X } from 'lucide-react';
 import { Editor } from '@tinymce/tinymce-react';
-
-const ImageInput = ({
-	label,
-	imageUrl,
-	onImageUrlChange,
-	onRemove,
-	showRemove = false,
-}) => {
-	return (
-		<div className='flex items-end gap-2 mb-4'>
-			<div className='flex-1'>
-				<label className='block text-[#1C1C1C] text-xs font-semibold mb-2'>
-					{label}
-				</label>
-				<input
-					type='text'
-					value={imageUrl}
-					onChange={(e) => onImageUrlChange(e.target.value)}
-					className='w-full px-3 py-2 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C] bg-white text-sm'
-					placeholder='Enter image URL'
-				/>
-			</div>
-			{imageUrl && (
-				<div className='w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border border-[#EDEDED]'>
-					<Image
-						src={imageUrl}
-						alt='Preview'
-						width={64}
-						height={64}
-						className='object-cover w-full h-full'
-					/>
-				</div>
-			)}
-			{showRemove && (
-				<button
-					onClick={onRemove}
-					className='p-2 text-gray-400 hover:text-[#E63946] transition-colors duration-200'
-				>
-					<MinusCircle size={18} />
-				</button>
-			)}
-		</div>
-	);
-};
+import ImageUpload from '@/components/admin/ImageUpload';
+import { fetchWithCacheBust } from '@/lib/utils';
 
 const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 	const isEditMode = !!blogPost;
@@ -72,13 +28,16 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
+
 		// Generate slug from title
 		const slug = formData.title
 			.toLowerCase()
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/(^-|-$)+/g, '');
+
 		// Format date as ISO string
 		const dateISO = new Date(formData.date).toISOString();
+
 		// Prepare blog post data for saving (flat, matches Prisma model)
 		const cleanedData = {
 			slug,
@@ -92,24 +51,37 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 			authorImage: formData.authorImage,
 			content: formData.content,
 		};
+
 		try {
 			const method = isEditMode ? 'PUT' : 'POST';
 			const url = '/api/blog-posts';
 			const body = isEditMode
 				? { ...cleanedData, id: blogPost.id }
 				: cleanedData;
-			const res = await fetch(url, {
+
+			const res = await fetchWithCacheBust(url, {
 				method,
-				headers: { 'Content-Type': 'application/json' },
+				headers: {
+					'Content-Type': 'application/json',
+				},
 				body: JSON.stringify(body),
 			});
+
 			if (!res.ok) {
 				const error = await res.json();
 				alert('Error: ' + (error.error || 'Failed to save blog post'));
 				return;
 			}
-			if (refetchBlogPosts) refetchBlogPosts();
+
+			// Optimistic update - close modal immediately
 			onClose();
+
+			// Refetch data in background with a small delay to ensure database consistency
+			if (refetchBlogPosts) {
+				setTimeout(() => {
+					refetchBlogPosts();
+				}, 200);
+			}
 		} catch (err) {
 			alert('Error: ' + err.message);
 		} finally {
@@ -187,42 +159,25 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 						</select>
 					</div>
 				</div>
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-4'>
-					<div>
-						<label
-							htmlFor='image'
-							className='block text-[#1C1C1C] text-xs font-semibold mb-2'
-						>
-							Card Image URL
-						</label>
-						<input
-							type='text'
-							id='image'
-							name='image'
-							value={formData.image}
-							onChange={handleChange}
-							className='w-full px-3 py-2 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C] bg-white text-sm'
-							required
-						/>
-					</div>
-					<div>
-						<label
-							htmlFor='mainImage'
-							className='block text-[#1C1C1C] text-xs font-semibold mb-2'
-						>
-							Hero Image URL
-						</label>
-						<input
-							type='text'
-							id='mainImage'
-							name='mainImage'
-							value={formData.mainImage}
-							onChange={handleChange}
-							className='w-full px-3 py-2 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C] bg-white text-sm'
-							required
-						/>
-					</div>
-				</div>
+
+				<ImageUpload
+					label='Card Image'
+					currentImage={formData.image}
+					onImageChange={(url) =>
+						setFormData((prev) => ({ ...prev, image: url }))
+					}
+					required
+				/>
+
+				<ImageUpload
+					label='Hero Image'
+					currentImage={formData.mainImage}
+					onImageChange={(url) =>
+						setFormData((prev) => ({ ...prev, mainImage: url }))
+					}
+					required
+				/>
+
 				<div className='mb-4'>
 					<label
 						htmlFor='excerpt'
@@ -240,6 +195,7 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 						required
 					></textarea>
 				</div>
+
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-4'>
 					<div>
 						<label
@@ -259,19 +215,12 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 						/>
 					</div>
 					<div>
-						<label
-							htmlFor='authorImage'
-							className='block text-[#1C1C1C] text-xs font-semibold mb-2'
-						>
-							Author Image URL
-						</label>
-						<input
-							type='text'
-							id='authorImage'
-							name='authorImage'
-							value={formData.authorImage}
-							onChange={handleChange}
-							className='w-full px-3 py-2 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C] bg-white text-sm'
+						<ImageUpload
+							label='Author Image'
+							currentImage={formData.authorImage}
+							onImageChange={(url) =>
+								setFormData((prev) => ({ ...prev, authorImage: url }))
+							}
 						/>
 					</div>
 				</div>
@@ -306,7 +255,7 @@ const EditBlogForm = ({ blogPost, onClose, refetchBlogPosts }) => {
 						/>
 					</div>
 				</div>
-				<div className='flex justify-end gap-4 mt-8'>
+				<div className='flex justify-end gap-4'>
 					<button
 						type='button'
 						onClick={onClose}

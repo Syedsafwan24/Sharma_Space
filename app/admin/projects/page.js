@@ -36,7 +36,8 @@ export default function AdminProjectsPage() {
 		},
 	});
 
-	const filteredProjects = projects.filter((project) => {
+	const safeProjects = Array.isArray(projects) ? projects : [];
+	const filteredProjects = safeProjects.filter((project) => {
 		const matchesFilter =
 			activeFilter === 'All' || project.category === activeFilter;
 		const matchesSearch =
@@ -96,14 +97,20 @@ export default function AdminProjectsPage() {
 						setSearchQuery={setSearchQuery}
 					/>
 					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{filteredProjects.map((project, index) => (
-							<ProjectCard
-								key={project.id || index}
-								project={project}
-								onEdit={handleEditProject}
-								refetchProjects={refetch}
-							/>
-						))}
+						{filteredProjects.length === 0 ? (
+							<div className='col-span-full text-center text-gray-400'>
+								No data available.
+							</div>
+						) : (
+							filteredProjects.map((project, index) => (
+								<ProjectCard
+									key={project.id || index}
+									project={project}
+									onEdit={handleEditProject}
+									refetchProjects={refetch}
+								/>
+							))
+						)}
 					</div>
 				</div>
 			</div>

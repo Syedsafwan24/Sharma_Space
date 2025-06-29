@@ -1,6 +1,4 @@
-import { PrismaClient } from '../../../lib/generated/prisma/index.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
 	try {
@@ -18,6 +16,30 @@ export async function GET(req) {
 export async function POST(req) {
 	try {
 		const data = await req.json();
+
+		// Generate slug from title if not provided
+		if (!data.slug && data.title) {
+			data.slug = data.title
+				.toLowerCase()
+				.replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+				.replace(/\s+/g, '-') // Replace spaces with hyphens
+				.replace(/-+/g, '-') // Replace multiple hyphens with single
+				.trim('-'); // Remove leading/trailing hyphens
+		}
+
+		// Convert completedDate to ISO-8601 DateTime if provided
+		if (data.completedDate && typeof data.completedDate === 'string') {
+			// If it's just a date string (YYYY-MM-DD), convert to DateTime
+			if (data.completedDate.match(/^\d{4}-\d{2}-\d{2}$/)) {
+				data.completedDate = new Date(
+					data.completedDate + 'T00:00:00.000Z'
+				).toISOString();
+			} else {
+				// Try to parse as Date and convert to ISO string
+				data.completedDate = new Date(data.completedDate).toISOString();
+			}
+		}
+
 		const project = await prisma.project.create({ data });
 		return new Response(JSON.stringify(project), { status: 201 });
 	} catch (error) {

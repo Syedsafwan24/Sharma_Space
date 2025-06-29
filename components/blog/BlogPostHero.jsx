@@ -3,7 +3,14 @@ import React from 'react';
 import Image from 'next/image';
 import { formatBlogDate } from '@/lib/utils';
 
-const BlogPostHero = ({ title, date, tag, mainImage }) => {
+const BlogPostHero = ({ title, date, tag, mainImage, image }) => {
+	// Determine the correct image source
+	let imageSrc = '/images/placeholder.svg';
+	if (mainImage && mainImage !== '') {
+		imageSrc = mainImage.url || mainImage;
+	} else if (image && image !== '') {
+		imageSrc = image.url || image;
+	}
 	return (
 		<div className='relative mb-10'>
 			{' '}
@@ -33,14 +40,12 @@ const BlogPostHero = ({ title, date, tag, mainImage }) => {
 				{/* Image container matches wider layout if needed */}
 				<div className='relative w-full h-80 sm:h-96 md:h-[500px] rounded-xl overflow-hidden shadow-lg'>
 					<Image
-						src={mainImage?.url || mainImage}
-						alt={mainImage?.alt || title}
-						fill // Use fill to cover the sized parent div
-						className='object-cover' // Ensures image covers the area, cropping if necessary
-						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw' // Optimized for responsive image delivery
-						quality={85} // Slightly higher quality for hero image
-						// REMOVE unoptimized={true} if you've configured remotePatterns in next.config.js
-						// unoptimized={true} // Keep this ONLY if you cannot configure remotePatterns
+						src={imageSrc}
+						alt={title}
+						fill
+						className='object-cover'
+						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw'
+						quality={85}
 					/>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 const EditTestimonialForm = ({ testimonial, onClose, refetchTestimonials }) => {
 	const isEditMode = !!testimonial;
@@ -112,24 +112,16 @@ const EditTestimonialForm = ({ testimonial, onClose, refetchTestimonials }) => {
 						required
 					/>
 				</div>
-				<div className='mb-4'>
-					<label
-						htmlFor='image'
-						className='block text-gray-700 text-sm font-bold mb-2'
-					>
-						Client Image URL
-					</label>
-					<input
-						type='text'
-						id='image'
-						name='image'
-						value={formData.image}
-						onChange={handleChange}
-						className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C]'
-						placeholder='e.g., /images/testimonials/priya.jpg'
-						required
-					/>
-				</div>
+
+				<ImageUpload
+					label='Client Image'
+					currentImage={formData.image}
+					onImageChange={(url) =>
+						setFormData((prev) => ({ ...prev, image: url }))
+					}
+					required
+				/>
+
 				<div className='mb-6'>
 					<label
 						htmlFor='text'

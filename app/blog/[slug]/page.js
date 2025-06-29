@@ -1,4 +1,3 @@
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import BlogPostHero from '@/components/blog/BlogPostHero';
 import AuthorBio from '@/components/blog/AuthorBio';
@@ -9,10 +8,10 @@ import RelatedArticlesSection from '@/components/blog/RelatedArticlesSection';
 import { fetchBlogPosts, fetchBlogPost } from '@/lib/utils';
 // import NewsletterSection from '@/components/blog/NewsletterSection';
 
-export async function generateStaticParams() {
-	const posts = await fetchBlogPosts();
-	return posts.map((post) => ({ slug: post.slug }));
-}
+// export async function generateStaticParams() {
+// 	const posts = await fetchBlogPosts();
+// 	return posts.map((post) => ({ slug: post.slug }));
+// }
 
 export default async function BlogPostPage({ params }) {
 	const { slug } = params;
@@ -35,13 +34,12 @@ export default async function BlogPostPage({ params }) {
 
 	return (
 		<div className='bg-gray-50'>
-			<Navigation />
-
 			<BlogPostHero
 				title={post.title}
 				date={post.date}
 				tag={post.tag}
 				mainImage={post.mainImage}
+				image={post.image}
 			/>
 
 			<main className='py-12 md:py-20'>

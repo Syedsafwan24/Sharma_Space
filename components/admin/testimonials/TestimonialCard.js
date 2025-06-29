@@ -5,8 +5,6 @@ import Image from 'next/image';
 import * as LucideIcons from 'lucide-react'; // ✅ fallback test: import ALL
 
 const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
-	console.log('LucideIcons keys:', Object.keys(LucideIcons)); // ✅ check
-
 	const Star = LucideIcons.Star; // ✅ safe fallback
 
 	const handleDelete = async () => {

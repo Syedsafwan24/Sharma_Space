@@ -46,7 +46,8 @@ export default function AdminServicesPage() {
 		}
 	}, [status]);
 
-	const filteredServices = services.filter((service) => {
+	const safeServices = Array.isArray(services) ? services : [];
+	const filteredServices = safeServices.filter((service) => {
 		const matchesSearch =
 			service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			service.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -101,14 +102,20 @@ export default function AdminServicesPage() {
 						setSearchQuery={setSearchQuery}
 					/>
 					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{filteredServices.map((service) => (
-							<ServiceCard
-								key={service.id}
-								service={service}
-								onEdit={handleEditService}
-								onDelete={refetchServices}
-							/>
-						))}
+						{filteredServices.length === 0 ? (
+							<div className='col-span-full text-center text-gray-400'>
+								No data available.
+							</div>
+						) : (
+							filteredServices.map((service) => (
+								<ServiceCard
+									key={service.id}
+									service={service}
+									onEdit={handleEditService}
+									onDelete={refetchServices}
+								/>
+							))
+						)}
 					</div>
 				</div>
 			</div>

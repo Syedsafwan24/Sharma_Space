@@ -43,7 +43,8 @@ export default function AdminMessages() {
 		}
 	}, [status]);
 
-	const filteredMessages = messages.filter((message) => {
+	const safeMessages = Array.isArray(messages) ? messages : [];
+	const filteredMessages = safeMessages.filter((message) => {
 		const matchesSearch =
 			message.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
 			message.email.toLowerCase().includes(searchTerm.toLowerCase()) ||

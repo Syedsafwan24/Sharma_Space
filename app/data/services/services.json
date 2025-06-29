@@ -1,3 +1,40 @@
 {
-	"services": []
+  "services": [
+    {
+      "id": 1,
+      "title": "Residential Design",
+      "description": "Tailored interiors for homes that reflect your personality and enhance your daily living experience.",
+      "icon": "Sofa"
+    },
+    {
+      "id": 2,
+      "title": "Commercial Design",
+      "description": "Functional and inspiring workspaces for businesses that boost productivity and reflect your brand identity.",
+      "icon": "Building"
+    },
+    {
+      "id": 3,
+      "title": "Hospitality Design",
+      "description": "Creating memorable experiences for hotels and restaurants that leave lasting impressions on guests.",
+      "icon": "Hotel"
+    },
+    {
+      "id": 4,
+      "title": "Space Planning",
+      "description": "Optimize your layout for maximum functionality and flow, making the most of every square foot.",
+      "icon": "LayoutGrid"
+    },
+    {
+      "id": 5,
+      "title": "Furniture Selection",
+      "description": "Curated furniture choices that blend aesthetics and comfort for a cohesive interior design.",
+      "icon": "Chair"
+    },
+    {
+      "id": 6,
+      "title": "Renovation Consultation",
+      "description": "Expert guidance for your renovation projects, ensuring a smooth process and stunning results.",
+      "icon": "Hammer"
+    }
+  ]
 }

@@ -54,22 +54,26 @@ function RecentMessages() {
 				Latest inquiries from your clients
 			</p>
 			<div className='space-y-6'>
-				{messages.map((message, index) => (
-					<div
-						key={message.id || index}
-						className='border-b border-gray-200 pb-4 last:border-b-0 last:pb-0'
-					>
-						<div className='flex justify-between items-center mb-1'>
-							<p className='font-semibold text-gray-800'>{message.name}</p>
-							<p className='text-xs text-gray-500'>
-								{new Date(message.date).toLocaleDateString()}
+				{messages.length === 0 ? (
+					<div className='text-center text-gray-400'>No data available.</div>
+				) : (
+					messages.map((message, index) => (
+						<div
+							key={message.id || index}
+							className='border-b border-gray-200 pb-4 last:border-b-0 last:pb-0'
+						>
+							<div className='flex justify-between items-center mb-1'>
+								<p className='font-semibold text-gray-800'>{message.name}</p>
+								<p className='text-xs text-gray-500'>
+									{new Date(message.date).toLocaleDateString()}
+								</p>
+							</div>
+							<p className='text-sm text-gray-700 leading-relaxed'>
+								{message.message}
 							</p>
 						</div>
-						<p className='text-sm text-gray-700 leading-relaxed'>
-							{message.message}
-						</p>
-					</div>
-				))}
+					))
+				)}
 			</div>
 		</div>
 	);

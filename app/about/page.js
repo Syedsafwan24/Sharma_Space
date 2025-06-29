@@ -1,4 +1,3 @@
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import OurJourney from '@/components/about/OurJourney';
 import OurStory from '@/components/about/OurStory';
@@ -15,7 +14,6 @@ export const metadata = {
 export default function About() {
 	return (
 		<div className='bg-gray-50'>
-			<Navigation />
 			<main>
 				<OurStory />
 				<OurJourney />

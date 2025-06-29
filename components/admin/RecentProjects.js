@@ -52,23 +52,27 @@ function RecentProjects() {
 				Latest projects added to your portfolio
 			</p>
 			<div className='space-y-4'>
-				{projects.map((project, index) => (
-					<div key={project.id || index} className='flex items-center gap-4'>
-						<div className='w-16 h-16 flex-shrink-0 rounded-md overflow-hidden shadow-sm'>
-							<Image
-								src={project.image}
-								alt={project.title}
-								width={64}
-								height={64}
-								className='object-cover w-full h-full'
-							/>
+				{projects.length === 0 ? (
+					<div className='text-center text-gray-400'>No data available.</div>
+				) : (
+					projects.map((project, index) => (
+						<div key={project.id || index} className='flex items-center gap-4'>
+							<div className='w-16 h-16 flex-shrink-0 rounded-md overflow-hidden shadow-sm'>
+								<Image
+									src={project.image}
+									alt={project.title}
+									width={64}
+									height={64}
+									className='object-cover w-full h-full'
+								/>
+							</div>
+							<div>
+								<p className='font-semibold text-gray-800'>{project.title}</p>
+								<p className='text-sm text-gray-500'>{project.category}</p>
+							</div>
 						</div>
-						<div>
-							<p className='font-semibold text-gray-800'>{project.title}</p>
-							<p className='text-sm text-gray-500'>{project.category}</p>
-						</div>
-					</div>
-				))}
+					))
+				)}
 			</div>
 		</div>
 	);

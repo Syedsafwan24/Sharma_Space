@@ -1,16 +1,22 @@
-import { PrismaClient } from '../../../lib/generated/prisma/index.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
 	try {
 		const services = await prisma.service.findMany({
 			orderBy: { title: 'asc' },
 		});
-		return new Response(JSON.stringify(services), { status: 200 });
+		return new Response(JSON.stringify(services), {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: error.message }), {
 			status: 500,
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		});
 	}
 }

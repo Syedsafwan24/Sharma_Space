@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Sidebar from '@/components/admin/Sidebar';
 import TopNavbar from '@/components/admin/TopNavbar';
 import BlogHeader from '@/components/admin/blog-posts/BlogHeader';
@@ -11,6 +11,7 @@ import BlogCard from '@/components/admin/blog-posts/BlogCard';
 import EditBlogModal from '@/components/admin/blog-posts/EditBlogModal';
 import EditBlogForm from '@/components/admin/blog-posts/EditBlogForm';
 import { PlusCircle } from 'lucide-react';
+import { fetchWithCacheBust } from '@/lib/utils';
 
 export default function AdminBlogPostsPage() {
 	const { data: session, status } = useSession();
@@ -28,26 +29,27 @@ export default function AdminBlogPostsPage() {
 		}
 	}, [status, router]);
 
-	useEffect(() => {
-		const fetchBlogPosts = async () => {
-			try {
-				const response = await fetch('/api/blog-posts');
-				const data = await response.json();
-				setPosts(data);
-			} catch (error) {
-				console.error('Error fetching blog posts:', error);
-			} finally {
-				setLoading(false);
-			}
-		};
+	const fetchBlogPosts = useCallback(async () => {
+		try {
+			const response = await fetchWithCacheBust('/api/blog-posts');
+			const data = await response.json();
+			setPosts(data);
+		} catch (error) {
+			console.error('Error fetching blog posts:', error);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
+	useEffect(() => {
 		if (status === 'authenticated') {
 			fetchBlogPosts();
 		}
-	}, [status]);
+	}, [status, fetchBlogPosts]);
 
 	// Extract unique categories from posts
-	const categories = [...new Set(posts.map((post) => post.tag))].filter(
+	const safePosts = Array.isArray(posts) ? posts : [];
+	const categories = [...new Set(safePosts.map((post) => post.tag))].filter(
 		Boolean
 	);
 
@@ -60,7 +62,7 @@ export default function AdminBlogPostsPage() {
 		},
 	];
 
-	const filteredBlogPosts = posts.filter((post) => {
+	const filteredBlogPosts = safePosts.filter((post) => {
 		const matchesSearch =
 			post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -86,10 +88,10 @@ export default function AdminBlogPostsPage() {
 		setSelectedBlogPost(null);
 	};
 
-	const refetchBlogPosts = async () => {
+	const refetchBlogPosts = useCallback(async () => {
 		setLoading(true);
 		try {
-			const response = await fetch('/api/blog-posts');
+			const response = await fetchWithCacheBust('/api/blog-posts');
 			const data = await response.json();
 			setPosts(data);
 		} catch (error) {
@@ -97,7 +99,7 @@ export default function AdminBlogPostsPage() {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, []);
 
 	if (status === 'loading' || loading) {
 		return (
@@ -114,7 +116,7 @@ export default function AdminBlogPostsPage() {
 				<div className='hidden lg:block fixed top-0 left-0 h-full w-64 z-20 bg-white border-r'>
 					<Sidebar />
 				</div>
-				<div className='flex-1 p-4 lg:p-8 pt-20 lg:pt-8 pb-20 lg:pb-8 lg:ml-64'>
+				<div className='flex-1 p-4 lg:p-8 pt-20 lg:pt-8 pb-20 lg:pb-8'>
 					<BlogHeader onAddBlogPostClick={handleAddBlogPost} />
 					<BlogSearchFilter
 						searchQuery={searchQuery}
@@ -124,15 +126,21 @@ export default function AdminBlogPostsPage() {
 						categories={categories}
 					/>
 					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{filteredBlogPosts.map((post) => (
-							<BlogCard
-								key={post.slug}
-								post={post}
-								onEdit={handleEditBlogPost}
-								onDelete={refetchBlogPosts}
-								authors={authors}
-							/>
-						))}
+						{filteredBlogPosts.length === 0 ? (
+							<div className='col-span-full text-center text-gray-400'>
+								No data available.
+							</div>
+						) : (
+							filteredBlogPosts.map((post) => (
+								<BlogCard
+									key={post.slug}
+									post={post}
+									onEdit={handleEditBlogPost}
+									onDelete={refetchBlogPosts}
+									authors={authors}
+								/>
+							))
+						)}
 					</div>
 				</div>
 			</div>

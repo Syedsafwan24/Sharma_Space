@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { User } from 'lucide-react';
-import { formatBlogDate } from '@/lib/utils';
+import { formatBlogDate, fetchWithCacheBust } from '@/lib/utils';
 
 const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 	// Support both string and object for author
@@ -19,9 +19,11 @@ const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 		if (!window.confirm('Are you sure you want to delete this blog post?'))
 			return;
 		try {
-			const res = await fetch('/api/blog-posts', {
+			const res = await fetchWithCacheBust('/api/blog-posts', {
 				method: 'DELETE',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {
+					'Content-Type': 'application/json',
+				},
 				body: JSON.stringify({ id: post.id }),
 			});
 			if (!res.ok) {

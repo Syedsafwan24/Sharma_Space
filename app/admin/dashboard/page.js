@@ -53,9 +53,6 @@ export default function AdminDashboardPage() {
 		);
 	}
 
-	// Debug log
-	console.log('DASHBOARD dynamicStats:', dynamicStats);
-
 	return (
 		<div className='flex flex-col min-h-screen bg-[#F8F9FA]'>
 			<TopNavbar /> {/* Visible on small screens */}
@@ -82,6 +79,19 @@ export default function AdminDashboardPage() {
 									value={stat.value}
 									icon={stat.icon}
 									color={stat.color}
+									href={
+										stat.title === 'Total Projects'
+											? '/admin/projects'
+											: stat.title === 'Services Offered'
+											? '/admin/services'
+											: stat.title === 'Testimonials'
+											? '/admin/testimonials'
+											: stat.title === 'New Inquiries'
+											? '/admin/messages'
+											: stat.title === 'Blog Posts'
+											? '/admin/blog-posts'
+											: '#'
+									}
 								/>
 							))
 						)}

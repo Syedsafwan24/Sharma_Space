@@ -100,14 +100,20 @@ export default function AdminTestimonials() {
 						setSearchTerm={setSearchTerm}
 					/>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
-						{filteredTestimonials.map((testimonial) => (
-							<TestimonialCard
-								key={testimonial.id}
-								testimonial={testimonial}
-								onEdit={handleEditTestimonial}
-								onDelete={refetchTestimonials}
-							/>
-						))}
+						{filteredTestimonials.length === 0 ? (
+							<div className='col-span-full text-center text-gray-400'>
+								No data available.
+							</div>
+						) : (
+							filteredTestimonials.map((testimonial) => (
+								<TestimonialCard
+									key={testimonial.id}
+									testimonial={testimonial}
+									onEdit={handleEditTestimonial}
+									onDelete={refetchTestimonials}
+								/>
+							))
+						)}
 					</div>
 				</div>
 			</div>

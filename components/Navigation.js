@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Instagram, Facebook, Youtube, Twitter, Menu, X } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import { getOptimizedImageProps } from '@/lib/imageUtils';
+import Image from 'next/image';
 
 const Navigation = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -61,9 +60,6 @@ const Navigation = () => {
 		setIsMobileMenuOpen(!isMobileMenuOpen);
 	};
 
-	// Debug (remove after testing)
-	console.log('Debug:', { pathname, isLightPage, useDarkTheme, isScrolled });
-
 	return (
 		<>
 			<nav
@@ -80,13 +76,13 @@ const Navigation = () => {
 						href='/'
 						className='flex items-center gap-2 transition-transform duration-300 hover:scale-105 cursor-pointer'
 					>
-						<OptimizedImage
+						<Image
 							src='/images/icon/SharmaSpace-Logo.png'
 							alt='SharmaSpace Logo'
 							width={40}
 							height={40}
 							className='w-8 h-8 sm:w-10 sm:h-10 rounded'
-							{...getOptimizedImageProps('logo')}
+							priority
 						/>
 						<span
 							className='text-lg sm:text-xl font-bold'
@@ -101,13 +97,17 @@ const Navigation = () => {
 						{navItems.map((item) => (
 							<li key={item.name}>
 								<Link href={item.path}>
-									{/* Adjusted styles for hover effect */}
+									{/* Simple active state with only red text */}
 									<span
 										className={`no-underline font-medium transition-all duration-300 text-base relative hover:-translate-y-0.5 cursor-pointer
 											${pathname === item.path ? 'text-red-600' : ''}
 											${
 												useDarkTheme
-													? 'text-gray-700 hover:text-red-600'
+													? pathname === item.path
+														? 'text-red-600'
+														: 'text-gray-700 hover:text-red-600'
+													: pathname === item.path
+													? 'text-red-600'
 													: 'text-white hover:text-red-600'
 											}
 										`}
@@ -174,13 +174,13 @@ const Navigation = () => {
 				{/* Mobile Menu Header */}
 				<div className='flex justify-between items-center p-6 border-b border-gray-200'>
 					<div className='flex items-center gap-2'>
-						<OptimizedImage
+						<Image
 							src='/images/icon/SharmaSpace-Logo.png'
 							alt='SharmaSpace Logo'
 							width={32}
 							height={32}
 							className='w-8 h-8 rounded'
-							{...getOptimizedImageProps('logo')}
+							priority
 						/>
 						<span className='text-lg font-bold text-gray-900'>
 							Sharma Space
@@ -204,7 +204,7 @@ const Navigation = () => {
 									<span
 										className={`block px-6 py-3 text-base font-medium transition-colors duration-200 ${
 											pathname === item.path
-												? 'text-red-600 bg-red-50 border-r-4 border-red-600'
+												? 'text-red-600'
 												: 'text-gray-900 hover:text-red-600 hover:bg-gray-50'
 										}`}
 									>

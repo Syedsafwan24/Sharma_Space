@@ -27,8 +27,6 @@ const componentsToScan = [
 
 // Report on current Image usage
 function analyzeImageUsage() {
-	console.log('🔍 Analyzing Image Usage Across Components\n');
-
 	componentsToScan.forEach((componentPath) => {
 		const fullPath = path.join(process.cwd(), componentPath);
 
@@ -43,26 +41,13 @@ function analyzeImageUsage() {
 			// Check for Image component usage
 			const imageMatches = content.match(/<Image\s/g);
 			const imgMatches = content.match(/<img\s/g);
-
-			console.log(`📄 ${componentPath}`);
-			console.log(
-				`   Next.js Image import: ${hasNextImageImport ? '✅' : '❌'}`
-			);
-			console.log(
-				`   <Image> components: ${imageMatches ? imageMatches.length : 0}`
-			);
-			console.log(`   <img> tags: ${imgMatches ? imgMatches.length : 0}`);
-			console.log('');
 		} else {
-			console.log(`⚠️  ${componentPath} - File not found`);
 		}
 	});
 }
 
 // Generate migration checklist
 function generateMigrationChecklist() {
-	console.log('\n📋 Image Optimization Migration Checklist\n');
-
 	const checklist = [
 		'✅ Updated next.config.mjs with WebP and AVIF support',
 		'✅ Created OptimizedImage component with loading states',
@@ -90,8 +75,6 @@ function generateMigrationChecklist() {
 
 // Generate performance testing guide
 function generatePerformanceTestingGuide() {
-	console.log('\n🚀 Performance Testing Guide\n');
-
 	console.log('1. **Verify WebP Format Delivery:**');
 	console.log('   - Open browser dev tools');
 	console.log('   - Check Network tab while loading pages');
@@ -126,16 +109,6 @@ function generatePerformanceTestingGuide() {
 }
 
 // Run analysis
-console.log('🎨 Sharma Space Image Optimization Analysis\n');
-console.log('==========================================\n');
-
 analyzeImageUsage();
 generateMigrationChecklist();
 generatePerformanceTestingGuide();
-
-console.log('\n✨ Analysis Complete!\n');
-console.log('Next steps:');
-console.log('1. Update remaining components listed above');
-console.log('2. Run development server and test image loading');
-console.log('3. Perform Lighthouse audit');
-console.log('4. Update todo.md with completion status');

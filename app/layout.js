@@ -3,6 +3,7 @@ import { QueryProvider } from '@/components/providers/query-provider';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import ConditionalNavigation from '@/components/ConditionalNavigation';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 
@@ -139,7 +140,8 @@ export default function RootLayout({ children }) {
 				<AuthSessionProvider>
 					<QueryProvider>
 						<TooltipProvider>
-							{/* Navigation component, rendered once for the entire site */}
+							{/* Navigation component, rendered conditionally based on route */}
+							<ConditionalNavigation />
 
 							{/* This is where your page content will be rendered */}
 							{children}

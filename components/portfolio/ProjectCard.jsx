@@ -1,8 +1,7 @@
 // app/components/portfolio/ProjectCard.jsx
 'use client';
 
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import { getOptimizedImageProps } from '@/lib/imageUtils';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const ProjectCard = ({ project }) => {
@@ -10,16 +9,26 @@ const ProjectCard = ({ project }) => {
 	const projectSlug =
 		project.slug || project.title.toLowerCase().replace(/\s+/g, '-');
 
+	const imageSrc =
+		project.coverImage?.url ||
+		project.coverImage ||
+		project.image?.url ||
+		project.image ||
+		'/images/placeholder.svg';
+
 	return (
 		<div className='group relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300'>
-			{/* Image with hover effect - unchanged */}
+			{/* Image with hover effect - optimized */}
 			<div className='absolute inset-0 h-full w-full overflow-hidden'>
-				<OptimizedImage
-					src={project.image?.url || project.image}
+				<Image
+					src={imageSrc}
 					alt={project.title}
 					fill
 					className='object-cover transition-all duration-500 group-hover:scale-105'
-					{...getOptimizedImageProps('portfolioCard')}
+					sizes='(max-width: 1024px) 100vw, 33vw'
+					placeholder='blur'
+					blurDataURL='/images/placeholder.svg'
+					priority={false}
 				/>
 			</div>
 

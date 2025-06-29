@@ -3,7 +3,6 @@ import Cta from '@/components/Cta';
 import DesignInsights from '@/components/DesignInsights';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import Navigation from '@/components/Navigation';
 import PartnerBrands from '@/components/PartnerBrands';
 import Portfolio from '@/components/PortfolioSection';
 import Process from '@/components/Process';
@@ -33,9 +32,6 @@ export default async function Home() {
 
 	return (
 		<div className='relative'>
-			{/* Navigation component */}
-			<Navigation />
-
 			{/* Main content */}
 			<main>
 				<Hero />

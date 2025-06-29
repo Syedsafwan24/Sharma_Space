@@ -1,6 +1,4 @@
-import { PrismaClient } from '../../../lib/generated/prisma/index.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
 	try {
@@ -11,13 +9,27 @@ export async function GET(req) {
 			const post = await prisma.blogPost.findUnique({
 				where: { slug },
 			});
-			return new Response(JSON.stringify(post), { status: 200 });
+			return new Response(JSON.stringify(post), {
+				status: 200,
+				headers: {
+					'Cache-Control': 'no-cache, no-store, must-revalidate',
+					Pragma: 'no-cache',
+					Expires: '0',
+				},
+			});
 		}
 
 		const posts = await prisma.blogPost.findMany({
 			orderBy: { date: 'desc' },
 		});
-		return new Response(JSON.stringify(posts), { status: 200 });
+		return new Response(JSON.stringify(posts), {
+			status: 200,
+			headers: {
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0',
+			},
+		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: error.message }), {
 			status: 500,
@@ -29,7 +41,14 @@ export async function POST(req) {
 	try {
 		const data = await req.json();
 		const post = await prisma.blogPost.create({ data });
-		return new Response(JSON.stringify(post), { status: 201 });
+		return new Response(JSON.stringify(post), {
+			status: 201,
+			headers: {
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0',
+			},
+		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: error.message }), {
 			status: 400,
@@ -49,7 +68,14 @@ export async function PUT(req) {
 			where: { id: data.id },
 			data,
 		});
-		return new Response(JSON.stringify(post), { status: 200 });
+		return new Response(JSON.stringify(post), {
+			status: 200,
+			headers: {
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0',
+			},
+		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: error.message }), {
 			status: 400,
@@ -66,7 +92,14 @@ export async function DELETE(req) {
 			});
 		}
 		await prisma.blogPost.delete({ where: { id: data.id } });
-		return new Response(JSON.stringify({ success: true }), { status: 200 });
+		return new Response(JSON.stringify({ success: true }), {
+			status: 200,
+			headers: {
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0',
+			},
+		});
 	} catch (error) {
 		return new Response(JSON.stringify({ error: error.message }), {
 			status: 400,

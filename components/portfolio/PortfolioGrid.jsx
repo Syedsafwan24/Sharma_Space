@@ -4,8 +4,8 @@
 import ProjectCard from './ProjectCard';
 
 const PortfolioGrid = ({ projects = [], activeFilter = 'all' }) => {
-	// Filter projects (case-insensitive)
-	const filteredProjects = projects.filter(
+	const safeProjects = Array.isArray(projects) ? projects : [];
+	const filteredProjects = safeProjects.filter(
 		(project) =>
 			activeFilter === 'all' ||
 			project.category?.toLowerCase() === activeFilter.toLowerCase()

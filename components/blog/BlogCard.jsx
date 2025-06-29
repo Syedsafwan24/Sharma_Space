@@ -1,12 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import { getOptimizedImageProps } from '@/lib/imageUtils';
-import { formatBlogDate } from '@/lib/utils';
 import Image from 'next/image';
+import { formatBlogDate } from '@/lib/utils';
 
 const BlogCard = ({ post }) => {
-	const { slug, image, title, excerpt, tag, author, date } = post;
+	const { slug, image, title, excerpt, tag, authorName, authorImage, date } =
+		post;
+
+	// Use the same logic as the detail page for image selection
+	let imageSrc = '/images/placeholder.svg';
+	if (image && image !== '') {
+		imageSrc = image.url || image;
+	}
 
 	return (
 		<Link href={`/blog/${slug}`} className='block h-full'>
@@ -14,14 +19,13 @@ const BlogCard = ({ post }) => {
 				{/* Image Container with Category Badge */}
 				<div className='relative w-full h-48 sm:h-56 md:h-64 overflow-hidden'>
 					<Image
-						src={image?.url || image}
-						alt={image?.alt || title}
-						width={image?.width || 400}
-						height={image?.height || 300}
+						src={imageSrc}
+						alt={title}
+						fill
 						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
 					/>
 
-					{/* Category Badge - positioned exactly like in your image */}
+					{/* Category Badge */}
 					<div className='absolute top-4 left-4'>
 						<span className='bg-red-600 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider'>
 							{tag}
@@ -45,23 +49,22 @@ const BlogCard = ({ post }) => {
 					<div className='flex items-center mt-auto pt-4 border-t border-gray-100'>
 						<div className='flex items-center flex-grow'>
 							<div className='w-8 h-8 rounded-full overflow-hidden mr-3 flex-shrink-0 bg-gray-200 flex items-center justify-center'>
-								{author?.image ? (
-									<OptimizedImage
-										src={author.image}
-										alt={author?.name || 'Author'}
+								{authorImage ? (
+									<Image
+										src={authorImage}
+										alt={authorName || 'Author'}
 										width={32}
 										height={32}
 										className='w-full h-full object-cover'
-										{...getOptimizedImageProps('avatar')}
 									/>
 								) : (
 									<div className='w-full h-full bg-red-600 flex items-center justify-center text-white text-xs font-bold'>
-										{author?.name?.charAt(0) || 'A'}
+										{authorName?.charAt(0) || 'A'}
 									</div>
 								)}
 							</div>
 							<span className='text-sm text-gray-700 font-medium'>
-								{author?.name || 'Author'}
+								{authorName || 'Author'}
 							</span>
 						</div>
 						<span className='text-sm text-gray-500 ml-4'>

@@ -2,7 +2,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
 import PortfolioFilter from '@/components/portfolio/PortfolioFilter';
@@ -38,8 +37,6 @@ export default function PortfolioPage() {
 
 	return (
 		<div className='min-h-screen flex flex-col'>
-			<Navigation />
-
 			<main className='flex-grow'>
 				<HeroPortfolio />
 

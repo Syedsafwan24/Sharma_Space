@@ -1,13 +1,9 @@
-import NextAuthPackage from 'next-auth';
-import CredentialsProviderPackage from 'next-auth/providers/credentials';
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaClient } from '@/lib/generated/prisma';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
-
-// ✅ Unwrap default exports to handle CommonJS + ESM mix
-const NextAuth = NextAuthPackage.default;
-const CredentialsProvider = CredentialsProviderPackage.default;
 
 const handler = NextAuth({
 	providers: [

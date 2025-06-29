@@ -1,53 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { PlusCircle, MinusCircle } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
-
-const ImageInput = ({
-	label,
-	imageUrl,
-	onImageUrlChange,
-	onRemove,
-	showRemove = false,
-}) => {
-	return (
-		<div className='flex items-end gap-2 mb-4'>
-			<div className='flex-1'>
-				<label className='block text-gray-700 text-sm font-bold mb-2'>
-					{label}
-				</label>
-				<input
-					type='text'
-					value={imageUrl}
-					onChange={(e) => onImageUrlChange(e.target.value)}
-					className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E63946] text-[#1C1C1C]'
-					placeholder='Enter image URL'
-				/>
-			</div>
-			{imageUrl && (
-				<div className='w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border border-gray-200'>
-					<Image
-						src={imageUrl}
-						alt='Preview'
-						width={80}
-						height={80}
-						className='object-cover w-full h-full'
-					/>
-				</div>
-			)}
-			{showRemove && (
-				<button
-					onClick={onRemove}
-					className='p-2 text-gray-500 hover:text-[#E63946] transition-colors duration-200'
-				>
-					<MinusCircle size={20} />
-				</button>
-			)}
-		</div>
-	);
-};
+import ImageUpload from '@/components/admin/ImageUpload';
 
 const EditProjectForm = ({ project, onClose, refetchProjects }) => {
 	const isEditMode = !!project;
@@ -350,18 +306,19 @@ const EditProjectForm = ({ project, onClose, refetchProjects }) => {
 					</label>
 				</div>
 
-				<ImageInput
-					label='Main Image URL *'
-					imageUrl={formData.image}
-					onImageUrlChange={(url) =>
+				<ImageUpload
+					label='Main Image'
+					currentImage={formData.image}
+					onImageChange={(url) =>
 						setFormData((prev) => ({ ...prev, image: url }))
 					}
+					required
 				/>
 
-				<ImageInput
-					label='Cover Image URL (Optional)'
-					imageUrl={formData.coverImage}
-					onImageUrlChange={(url) =>
+				<ImageUpload
+					label='Cover Image (Optional)'
+					currentImage={formData.coverImage}
+					onImageChange={(url) =>
 						setFormData((prev) => ({ ...prev, coverImage: url }))
 					}
 				/>
@@ -371,10 +328,11 @@ const EditProjectForm = ({ project, onClose, refetchProjects }) => {
 						Gallery Images (Optional)
 					</label>
 					{formData.galleryImages.map((url, index) => (
-						<ImageInput
+						<ImageUpload
 							key={index}
-							imageUrl={url}
-							onImageUrlChange={(value) =>
+							label={`Gallery Image ${index + 1}`}
+							currentImage={url}
+							onImageChange={(value) =>
 								handleImageChange('galleryImages', index, value)
 							}
 							onRemove={() => handleRemoveImage('galleryImages', index)}
@@ -440,9 +398,38 @@ const EditProjectForm = ({ project, onClose, refetchProjects }) => {
 					</button>
 					<button
 						type='submit'
-						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200'
+						className='px-6 py-2 bg-[#E63946] hover:bg-[#D62828] text-white rounded-md transition-colors duration-200 flex items-center justify-center min-w-[120px]'
+						disabled={mutation.isLoading}
 					>
-						{isEditMode ? 'Save Project' : 'Add Project'}
+						{mutation.isLoading ? (
+							<>
+								<svg
+									className='animate-spin h-5 w-5 mr-2 text-white'
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+								>
+									<circle
+										className='opacity-25'
+										cx='12'
+										cy='12'
+										r='10'
+										stroke='currentColor'
+										strokeWidth='4'
+									></circle>
+									<path
+										className='opacity-75'
+										fill='currentColor'
+										d='M4 12a8 8 0 018-8v8z'
+									></path>
+								</svg>
+								Uploading...
+							</>
+						) : isEditMode ? (
+							'Save Project'
+						) : (
+							'Add Project'
+						)}
 					</button>
 				</div>
 			</form>

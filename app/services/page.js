@@ -1,7 +1,6 @@
 // app/services/page.js
 import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
-import Navigation from '@/components/Navigation';
 import AlternatingServices from '@/components/services/AlternatingServices';
 import DesignProcess from '@/components/services/DesignProcess';
 import HeroService from '@/components/services/HeroService';
@@ -54,7 +53,6 @@ export default async function Services() {
 
 	return (
 		<>
-			<Navigation />
 			<HeroService />
 			{/* Structured data for services */}
 			<script
