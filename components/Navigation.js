@@ -127,7 +127,12 @@ const Navigation = () => {
 							{ Icon: Youtube, href: 'https://youtube.com/@sharmaspace' },
 							{ Icon: Twitter, href: 'https://twitter.com/sharmaspace' },
 						].map(({ Icon, href }, index) => (
-							<a key={index} href={href} target="_blank" rel="noopener noreferrer">
+							<a
+								key={index}
+								href={href}
+								target='_blank'
+								rel='noopener noreferrer'
+							>
 								<Icon
 									size={20}
 									className='transition-all duration-300 p-1 hover:scale-110 cursor-pointer'
@@ -220,7 +225,12 @@ const Navigation = () => {
 							{ Icon: Youtube, href: 'https://youtube.com/@sharmaspace' },
 							{ Icon: Twitter, href: 'https://twitter.com/sharmaspace' },
 						].map(({ Icon, href }, index) => (
-							<a key={index} href={href} target="_blank" rel="noopener noreferrer">
+							<a
+								key={index}
+								href={href}
+								target='_blank'
+								rel='noopener noreferrer'
+							>
 								<Icon
 									size={24}
 									className='text-gray-600 hover:text-red-600 transition-colors duration-300 p-1 hover:scale-110'

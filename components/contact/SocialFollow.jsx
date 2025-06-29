@@ -17,8 +17,8 @@ const SocialFollow = () => {
 					<a
 						key={i}
 						href={href}
-						target="_blank"
-						rel="noopener noreferrer"
+						target='_blank'
+						rel='noopener noreferrer'
 						className='bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition'
 					>
 						<Icon size={16} />

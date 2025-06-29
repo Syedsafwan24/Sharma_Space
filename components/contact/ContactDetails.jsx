@@ -20,7 +20,7 @@ const ContactDetails = () => (
 		</h1>
 
 		<Item icon={FaMapMarkerAlt} title='Our Office'>
-			<a 
+			<a
 				href='https://www.google.com/maps/search/?api=1&query=123+Design+Avenue,+Mumbai,+Maharashtra,+India+400001'
 				target='_blank'
 				rel='noopener noreferrer'
@@ -30,12 +30,18 @@ const ContactDetails = () => (
 			</a>
 		</Item>
 		<Item icon={FaPhone} title='Phone'>
-			<a href="tel:+919876543210" className="text-red-600 hover:text-red-700 transition-colors duration-200">
+			<a
+				href='tel:+919876543210'
+				className='text-red-600 hover:text-red-700 transition-colors duration-200'
+			>
 				+91 98765 43210
 			</a>
 		</Item>
 		<Item icon={FaEnvelope} title='Email'>
-			<a href="mailto:info@sharmaspace.in" className="text-red-600 hover:text-red-700 transition-colors duration-200">
+			<a
+				href='mailto:info@sharmaspace.in'
+				className='text-red-600 hover:text-red-700 transition-colors duration-200'
+			>
 				info@sharmaspace.in
 			</a>
 		</Item>

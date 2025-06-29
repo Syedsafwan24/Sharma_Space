@@ -120,8 +120,11 @@ const Footer = () => {
 							<h4 className='text-xl font-semibold mb-5'>Contact Us</h4>
 							<ul className='list-none p-0 m-0 space-y-3'>
 								<li className='flex items-start gap-4'>
-									<MapPin size={18} className='text-red-600 flex-shrink-0 mt-1' />
-									<a 
+									<MapPin
+										size={18}
+										className='text-red-600 flex-shrink-0 mt-1'
+									/>
+									<a
 										href='https://www.google.com/maps/search/?api=1&query=123+Design+Avenue,+Mumbai,+Maharashtra,+India+400001'
 										target='_blank'
 										rel='noopener noreferrer'
@@ -131,8 +134,11 @@ const Footer = () => {
 									</a>
 								</li>
 								<li className='flex items-start gap-4'>
-									<Phone size={18} className='text-red-600 flex-shrink-0 mt-1' />
-									<a 
+									<Phone
+										size={18}
+										className='text-red-600 flex-shrink-0 mt-1'
+									/>
+									<a
 										href='tel:+919876543210'
 										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
 									>
@@ -141,7 +147,7 @@ const Footer = () => {
 								</li>
 								<li className='flex items-start gap-4'>
 									<Mail size={18} className='text-red-600 flex-shrink-0 mt-1' />
-									<a 
+									<a
 										href='mailto:info@sharmaspace.in'
 										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
 									>
@@ -149,7 +155,10 @@ const Footer = () => {
 									</a>
 								</li>
 								<li className='flex items-start gap-4'>
-									<Clock size={18} className='text-red-600 flex-shrink-0 mt-1' />
+									<Clock
+										size={18}
+										className='text-red-600 flex-shrink-0 mt-1'
+									/>
 									<span className='text-gray-300 text-base leading-relaxed'>
 										Mon-Sat: 10 AM - 7 PM
 									</span>
@@ -167,7 +176,13 @@ const Footer = () => {
 							{legalLinks.map((link, index) => (
 								<Link
 									key={index}
-									href={link === 'Privacy Policy' ? '/privacy-policy' : link === 'Terms of Service' ? '/terms-of-service' : '/sitemap'}
+									href={
+										link === 'Privacy Policy'
+											? '/privacy-policy'
+											: link === 'Terms of Service'
+											? '/terms-of-service'
+											: '/sitemap'
+									}
 									className='text-gray-300 no-underline text-sm hover:text-white transition-colors duration-300'
 								>
 									{link}
