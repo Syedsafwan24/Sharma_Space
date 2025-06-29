@@ -1,7 +1,8 @@
 // app/components/portfolio/ProjectCard.jsx
 'use client';
 
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 import Link from 'next/link';
 
 const ProjectCard = ({ project }) => {
@@ -13,13 +14,12 @@ const ProjectCard = ({ project }) => {
 		<div className='group relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300'>
 			{/* Image with hover effect - unchanged */}
 			<div className='absolute inset-0 h-full w-full overflow-hidden'>
-				<Image
+				<OptimizedImage
 					src={project.image?.url || project.image}
 					alt={project.title}
 					fill
 					className='object-cover transition-all duration-500 group-hover:scale-105'
-					quality={90}
-					priority={project.featured} // Optional: prioritize featured images
+					{...getOptimizedImageProps('portfolioCard')}
 				/>
 			</div>
 

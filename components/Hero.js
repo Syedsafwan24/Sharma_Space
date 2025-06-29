@@ -1,7 +1,10 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
+// import OptimizedImage from '@/components/ui/OptimizedImage';
+// import { getOptimizedImageProps } from '@/lib/imageUtils';
 
 const Hero = () => {
 	const scrollToNext = () => {
@@ -20,13 +23,12 @@ const Hero = () => {
 					alt='Modern interior design showcase'
 					fill
 					className='object-cover object-center'
-					priority
-					quality={90}
+					priority={true}
 				/>
 			</div>
 
-			{/* Dark Overlay */}
-			<div className='absolute inset-0 bg-gray-900/60 z-10' />
+			{/* Dark Overlay - Made darker for better text visibility */}
+			<div className='absolute inset-0 bg-black/50 z-10' />
 
 			{/* Main Content */}
 			<div className='relative z-20 max-w-6xl mx-auto px-6 w-full'>
@@ -51,9 +53,12 @@ const Hero = () => {
 					</p>
 
 					{/* CTA Button */}
-					<button className='bg-red-700 text-gray-50 px-8 sm:px-9 py-3.5 sm:py-4 rounded border-none text-base font-semibold cursor-pointer transition-all duration-300 transform shadow-lg shadow-red-700/30 hover:bg-red-800 hover:-translate-y-1 hover:shadow-xl hover:shadow-red-700/40 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50'>
+					<Link
+						href='/contact'
+						className='inline-block bg-red-700 text-gray-50 px-8 sm:px-9 py-3.5 sm:py-4 rounded border-none text-base font-semibold cursor-pointer transition-all duration-300 transform shadow-lg shadow-red-700/30 hover:bg-red-800 hover:-translate-y-1 hover:shadow-xl hover:shadow-red-700/40 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 text-center'
+					>
 						Book a Free Consultation
-					</button>
+					</Link>
 				</div>
 			</div>
 

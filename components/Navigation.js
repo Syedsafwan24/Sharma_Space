@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Instagram, Facebook, Youtube, Twitter, Menu, X } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 
 const Navigation = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -78,10 +80,13 @@ const Navigation = () => {
 						href='/'
 						className='flex items-center gap-2 transition-transform duration-300 hover:scale-105 cursor-pointer'
 					>
-						<img
+						<OptimizedImage
 							src='/images/icon/SharmaSpace-Logo.png'
 							alt='SharmaSpace Logo'
+							width={40}
+							height={40}
 							className='w-8 h-8 sm:w-10 sm:h-10 rounded'
+							{...getOptimizedImageProps('logo')}
 						/>
 						<span
 							className='text-lg sm:text-xl font-bold'
@@ -117,18 +122,18 @@ const Navigation = () => {
 					{/* Desktop Social Icons */}
 					<div className='hidden md:flex gap-3 lg:gap-4'>
 						{[
-							{ Icon: Instagram, href: '#' },
-							{ Icon: Facebook, href: '#' },
-							{ Icon: Youtube, href: '#' },
-							{ Icon: Twitter, href: '#' },
+							{ Icon: Instagram, href: 'https://instagram.com/sharmaspace' },
+							{ Icon: Facebook, href: 'https://facebook.com/sharmaspace' },
+							{ Icon: Youtube, href: 'https://youtube.com/@sharmaspace' },
+							{ Icon: Twitter, href: 'https://twitter.com/sharmaspace' },
 						].map(({ Icon, href }, index) => (
-							<Link key={index} href={href}>
+							<a key={index} href={href} target="_blank" rel="noopener noreferrer">
 								<Icon
 									size={20}
 									className='transition-all duration-300 p-1 hover:scale-110 cursor-pointer'
 									style={{ color: useDarkTheme ? '#1f2937' : '#ffffff' }}
 								/>
-							</Link>
+							</a>
 						))}
 					</div>
 
@@ -164,10 +169,13 @@ const Navigation = () => {
 				{/* Mobile Menu Header */}
 				<div className='flex justify-between items-center p-6 border-b border-gray-200'>
 					<div className='flex items-center gap-2'>
-						<img
+						<OptimizedImage
 							src='/images/icon/SharmaSpace-Logo.png'
 							alt='SharmaSpace Logo'
+							width={32}
+							height={32}
 							className='w-8 h-8 rounded'
+							{...getOptimizedImageProps('logo')}
 						/>
 						<span className='text-lg font-bold text-gray-900'>
 							Sharma Space
@@ -207,17 +215,17 @@ const Navigation = () => {
 				<div className='absolute bottom-6 left-6 right-6'>
 					<div className='flex justify-center gap-6 pt-6 border-t border-gray-200'>
 						{[
-							{ Icon: Instagram, href: '#' },
-							{ Icon: Facebook, href: '#' },
-							{ Icon: Youtube, href: '#' },
-							{ Icon: Twitter, href: '#' },
+							{ Icon: Instagram, href: 'https://instagram.com/sharmaspace' },
+							{ Icon: Facebook, href: 'https://facebook.com/sharmaspace' },
+							{ Icon: Youtube, href: 'https://youtube.com/@sharmaspace' },
+							{ Icon: Twitter, href: 'https://twitter.com/sharmaspace' },
 						].map(({ Icon, href }, index) => (
-							<Link key={index} href={href}>
+							<a key={index} href={href} target="_blank" rel="noopener noreferrer">
 								<Icon
 									size={24}
 									className='text-gray-600 hover:text-red-600 transition-colors duration-300 p-1 hover:scale-110'
 								/>
-							</Link>
+							</a>
 						))}
 					</div>
 				</div>

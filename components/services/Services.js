@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Sofa, Building2, Hotel, ArrowRight } from 'lucide-react';
 
 const Services = ({ services = [] }) => {
@@ -48,9 +49,12 @@ const Services = ({ services = [] }) => {
 								<p className='text-gray-600 mb-6'>
 									{service.shortDescription || service.description}
 								</p>
-								<button className='text-red-600 font-medium flex items-center gap-1 hover:text-red-700 transition-colors duration-300'>
+								<Link
+									href='/services'
+									className='text-red-600 font-medium flex items-center gap-1 hover:text-red-700 transition-colors duration-300'
+								>
 									Learn More <ArrowRight size={16} />
-								</button>
+								</Link>
 							</div>
 						);
 					})}
@@ -58,9 +62,12 @@ const Services = ({ services = [] }) => {
 
 				{/* CTA Button - Centered */}
 				<div className='text-center mt-12'>
-					<button className='bg-red-700 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-800 transition-all duration-300 hover:-translate-y-1'>
+					<Link
+						href='/services'
+						className='inline-block bg-red-700 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-800 transition-all duration-300 hover:-translate-y-1'
+					>
 						Explore All Services
-					</button>
+					</Link>
 				</div>
 			</div>
 		</section>

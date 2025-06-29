@@ -3,6 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 
 const Footer = () => {
 	const quickLinks = [
@@ -60,10 +62,13 @@ const Footer = () => {
 								className='flex items-center gap-2 mb-4 transition-transform duration-300 hover:scale-105'
 							>
 								<div className='w-10 h-10 bg-red-600 rounded-md flex items-center justify-center p-1'>
-									<img
+									<OptimizedImage
 										src='/images/icon/SharmaSpace-Logo.png'
 										alt='SharmaSpace Logo'
+										width={40}
+										height={40}
 										className='w-full h-full object-contain'
+										{...getOptimizedImageProps('logo')}
 									/>
 								</div>
 								<span className='text-2xl font-bold text-white'>
@@ -114,17 +119,41 @@ const Footer = () => {
 						<div>
 							<h4 className='text-xl font-semibold mb-5'>Contact Us</h4>
 							<ul className='list-none p-0 m-0 space-y-3'>
-								{contactInfo.map((item, index) => (
-									<li key={index} className='flex items-start gap-4'>
-										<item.icon
-											size={18}
-											className='text-red-600 flex-shrink-0 mt-1'
-										/>
-										<span className='text-gray-300 text-base leading-relaxed'>
-											{item.text}
-										</span>
-									</li>
-								))}
+								<li className='flex items-start gap-4'>
+									<MapPin size={18} className='text-red-600 flex-shrink-0 mt-1' />
+									<a 
+										href='https://www.google.com/maps/search/?api=1&query=123+Design+Avenue,+Mumbai,+Maharashtra,+India+400001'
+										target='_blank'
+										rel='noopener noreferrer'
+										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+									>
+										123 Design Avenue, Mumbai, Maharashtra, India 400001
+									</a>
+								</li>
+								<li className='flex items-start gap-4'>
+									<Phone size={18} className='text-red-600 flex-shrink-0 mt-1' />
+									<a 
+										href='tel:+919876543210'
+										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+									>
+										+91 98765 43210
+									</a>
+								</li>
+								<li className='flex items-start gap-4'>
+									<Mail size={18} className='text-red-600 flex-shrink-0 mt-1' />
+									<a 
+										href='mailto:info@sharmaspace.in'
+										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+									>
+										info@sharmaspace.in
+									</a>
+								</li>
+								<li className='flex items-start gap-4'>
+									<Clock size={18} className='text-red-600 flex-shrink-0 mt-1' />
+									<span className='text-gray-300 text-base leading-relaxed'>
+										Mon-Sat: 10 AM - 7 PM
+									</span>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -136,13 +165,13 @@ const Footer = () => {
 						</p>
 						<div className='flex flex-wrap justify-center md:justify-start gap-4'>
 							{legalLinks.map((link, index) => (
-								<a
+								<Link
 									key={index}
-									href='#'
+									href={link === 'Privacy Policy' ? '/privacy-policy' : link === 'Terms of Service' ? '/terms-of-service' : '/sitemap'}
 									className='text-gray-300 no-underline text-sm hover:text-white transition-colors duration-300'
 								>
 									{link}
-								</a>
+								</Link>
 							))}
 						</div>
 					</div>

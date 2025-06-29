@@ -1,5 +1,7 @@
 import React from 'react';
 import { companyStats, companyInfo } from '@/app/data';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 
 const OurJourney = () => {
 	// Get stats from centralized data
@@ -76,10 +78,12 @@ const OurJourney = () => {
 				<div className='flex-1 max-w-full md:max-w-[600px] mt-10 md:mt-0 order-1 md:order-2'>
 					{/* Added responsive height classes here */}
 					<div className='w-full h-64 sm:h-72 md:h-full rounded-lg overflow-hidden shadow-lg'>
-						<img
+						<OptimizedImage
 							src='/images/AboutPage/our-journey.jpg'
 							alt='Two professionals in business attire having a friendly conversation in a modern office setting'
-							className='w-full h-full object-cover'
+							fill
+							className='object-cover'
+							{...getOptimizedImageProps('twoColumn')}
 						/>
 					</div>
 				</div>

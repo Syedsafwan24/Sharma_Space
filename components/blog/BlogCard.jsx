@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 import { formatBlogDate } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -44,10 +46,13 @@ const BlogCard = ({ post }) => {
 						<div className='flex items-center flex-grow'>
 							<div className='w-8 h-8 rounded-full overflow-hidden mr-3 flex-shrink-0 bg-gray-200 flex items-center justify-center'>
 								{author?.image ? (
-									<img
+									<OptimizedImage
 										src={author.image}
 										alt={author?.name || 'Author'}
+										width={32}
+										height={32}
 										className='w-full h-full object-cover'
+										{...getOptimizedImageProps('avatar')}
 									/>
 								) : (
 									<div className='w-full h-full bg-red-600 flex items-center justify-center text-white text-xs font-bold'>

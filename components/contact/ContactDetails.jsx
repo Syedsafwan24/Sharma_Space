@@ -20,13 +20,24 @@ const ContactDetails = () => (
 		</h1>
 
 		<Item icon={FaMapMarkerAlt} title='Our Office'>
-			123 Design Avenue, Mumbai, Maharashtra, India 400001
+			<a 
+				href='https://www.google.com/maps/search/?api=1&query=123+Design+Avenue,+Mumbai,+Maharashtra,+India+400001'
+				target='_blank'
+				rel='noopener noreferrer'
+				className='text-red-600 hover:text-red-700 transition-colors duration-200'
+			>
+				123 Design Avenue, Mumbai, Maharashtra, India 400001
+			</a>
 		</Item>
 		<Item icon={FaPhone} title='Phone'>
-			+91 98765 43210
+			<a href="tel:+919876543210" className="text-red-600 hover:text-red-700 transition-colors duration-200">
+				+91 98765 43210
+			</a>
 		</Item>
 		<Item icon={FaEnvelope} title='Email'>
-			info@sharmaspace.com
+			<a href="mailto:info@sharmaspace.in" className="text-red-600 hover:text-red-700 transition-colors duration-200">
+				info@sharmaspace.in
+			</a>
 		</Item>
 		<Item icon={FaClock} title='Working Hours'>
 			Mon-Sat: 10 AM - 7 PM

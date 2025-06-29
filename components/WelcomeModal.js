@@ -101,7 +101,7 @@ const WelcomeModal = () => {
 
 					{/* CTA Button */}
 					<Link
-						href='#'
+						href='/contact'
 						onClick={handleClose}
 						className='inline-flex items-center justify-center w-full bg-red-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-700 transition-colors duration-300 text-sm shadow-md mb-4'
 					>

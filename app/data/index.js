@@ -11,23 +11,23 @@
  * @compliance SEO 2024 Standards, E-E-A-T Guidelines
  */
 
-// Blog Data
-import blogUnifiedData from './blog/blogUnifiedData';
+// Blog Data - Empty since data is in database
+// import blogUnifiedData from './blog/blogUnifiedData';
 
-// Portfolio Data
-import portfolioProjects from './portfolio/portfolioUnifiedData';
+// Portfolio Data - Empty since data is in database
+// import portfolioProjects from './portfolio/portfolioUnifiedData';
 
-// Services Data
-import servicesData from './services/services.json';
+// Services Data - Empty since data is in database
+// import servicesData from './services/services.json';
 
-// Testimonials Data
-import testimonials from './testimonials/testimonialsUnifiedData';
+// Testimonials Data - Empty since data is in database
+// import testimonials from './testimonials/testimonialsUnifiedData';
 
-// Team Data
+// Team Data - Keep for static team info
 import teamMembersData from './team/members.json';
 
-// Contact Data
-import messagesJson from './contact/messages.json';
+// Contact Data - Empty since data is in database
+// import messagesJson from './contact/messages.json';
 
 // Company Data
 import companyStatsData from './company/stats.json';
@@ -36,36 +36,37 @@ import partnerBrandsData from './company/brands.json';
 // Dynamic Stats - Now async
 import { calculateDynamicStats, getStatsWithMetadata } from './dynamicStats';
 
-// Blog Exports
-export const blogPosts = blogUnifiedData.posts;
-export const blogCategories = blogUnifiedData.categories;
-export const blogAuthors = blogUnifiedData.authors;
-export const blogMetadata = {
-	posts: blogUnifiedData.metadata,
-	categories: blogUnifiedData.metadata,
-	authors: blogUnifiedData.metadata,
-};
+// Blog Exports - Data is now in database
+// export const blogPosts = blogUnifiedData.posts;
+// export const blogCategories = blogUnifiedData.categories;
+// export const blogAuthors = blogUnifiedData.authors;
+// export const blogMetadata = {
+//	posts: blogUnifiedData.metadata,
+//	categories: blogUnifiedData.metadata,
+//	authors: blogUnifiedData.metadata,
+// };
 
 // Portfolio Exports
-export { portfolioProjects };
+// Data is now in database - use API endpoints instead
+// export { portfolioProjects };
 
-// Services Exports
-export const services = servicesData.services;
-export const servicesMetadata = servicesData.metadata;
+// Services Exports - Data is now in database
+// export const services = servicesData.services;
+// export const servicesMetadata = servicesData.metadata;
 
-// Testimonials Exports
-export { testimonials };
+// Testimonials Exports - Data is now in database
+// export { testimonials };
 
-// Team Exports
+// Team Exports - Keep for static team info
 export const teamMembers = teamMembersData.members;
 export const teamStats = teamMembersData.stats;
 export const teamMetadata = teamMembersData.metadata;
 
-// Contact Exports
-export const contactMessages = messagesJson.messages;
-export const contactStats = messagesJson.stats;
-export const contactFilters = messagesJson.filters;
-export const contactMetadata = messagesJson.metadata;
+// Contact Exports - Data is now in database
+// export const contactMessages = messagesJson.messages;
+// export const contactStats = messagesJson.stats;
+// export const contactFilters = messagesJson.filters;
+// export const contactMetadata = messagesJson.metadata;
 
 // Company Exports
 export const companyStats = companyStatsData.stats;
@@ -174,13 +175,13 @@ export const generateProjectSchema = (project) => {
 	};
 };
 
-// Data Validation
+// Data Validation - Only for static data (database data checked via APIs)
 export const validateDataIntegrity = () => {
 	const checks = {
-		blogPosts: blogPosts.length > 0,
-		portfolioProjects: portfolioProjects.length > 0,
-		services: services.length > 0,
-		testimonials: testimonials.length > 0,
+		// blogPosts: blogPosts.length > 0, // In database
+		// portfolioProjects: portfolioProjects.length > 0, // In database
+		// services: services.length > 0, // In database
+		// testimonials: testimonials.length > 0, // In database
 		teamMembers: teamMembers.length > 0,
 		partnerBrands: partnerBrands.length > 0,
 	};
@@ -190,19 +191,19 @@ export const validateDataIntegrity = () => {
 		.map(([key]) => key);
 
 	if (failedChecks.length > 0) {
-		console.warn('Data integrity check failed for:', failedChecks);
+		console.warn('Static data integrity check failed for:', failedChecks);
 	}
 
 	return failedChecks.length === 0;
 };
 
-// Export all data for debugging/development
+// Export available static data only (database data accessed via APIs)
 export const allData = {
-	blog: { posts: blogPosts, categories: blogCategories, authors: blogAuthors },
-	services,
-	testimonials,
+	// blog: { posts: blogPosts, categories: blogCategories, authors: blogAuthors }, // In database
+	// services, // In database
+	// testimonials, // In database
 	team: teamMembers,
-	contact: contactMessages,
+	// contact: contactMessages, // In database
 	company: {
 		stats: companyStats,
 		info: companyInfo,
@@ -215,17 +216,16 @@ export const allData = {
 export const dataSystemMetadata = {
 	version: '1.0.0',
 	lastUpdated: '2024-05-15T10:00:00Z',
-	totalEntities: {
-		blogPosts: blogPosts.length,
-		portfolioProjects: portfolioProjects.length,
-		services: services.length,
-		testimonials: testimonials.length,
+	note: 'Database entities accessed via API endpoints, not static data',
+	staticEntities: {
 		teamMembers: teamMembers.length,
-		contactMessages: contactMessages.length,
 		partnerBrands: partnerBrands.length,
+	},
+	databaseEntities: {
+		note: 'Use API endpoints: /api/blog-posts, /api/projects, /api/services, /api/testimonials, /api/messages',
 	},
 	seoCompliance: '2024 Google E-E-A-T Standards',
 	location: 'Bangalore, India',
 	description:
-		'Centralized mock data system for Sharma Space interior design website',
+		'Centralized data system for Sharma Space - database content via APIs, static content here',
 };

@@ -1,5 +1,6 @@
 import React from 'react';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { getOptimizedImageProps } from '@/lib/imageUtils';
 import Link from 'next/link';
 
 const DesignInsights = ({ blogPosts = [] }) => {
@@ -36,12 +37,13 @@ const DesignInsights = ({ blogPosts = [] }) => {
 							{/* Added h-full to the card div to make it stretch */}
 							<div className='bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full'>
 								<div className='relative'>
-									<Image
+									<OptimizedImage
 										src={article.image}
 										alt={article.title}
 										width={500}
-										height={320} // Ensure optimal aspect ratio for image
+										height={320}
 										className='w-full h-56 object-cover'
+										{...getOptimizedImageProps('blogThumbnail')}
 									/>
 									<span className='absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded'>
 										{article.tag}
@@ -62,12 +64,13 @@ const DesignInsights = ({ blogPosts = [] }) => {
 									</p>
 									<div className='flex items-center justify-between mt-4'>
 										<div className='flex items-center gap-2'>
-											<Image
+											<OptimizedImage
 												src={article.author.avatar}
 												alt={article.author.name}
 												width={32}
 												height={32}
 												className='rounded-full w-8 h-8 object-cover'
+												{...getOptimizedImageProps('logo')}
 											/>
 											<span className='text-gray-700 text-sm font-medium'>
 												{article.author.name}
