@@ -18,6 +18,7 @@ import {
 	fetchBlogPosts,
 	fetchCompanyStats,
 } from '@/lib/utils';
+import brandsData from '@/app/data/company/brands.json';
 
 export default async function Home() {
 	// Fetch dynamic data
@@ -41,7 +42,7 @@ export default async function Home() {
 				/>
 				<Services services={services} />
 				<Process />
-				<PartnerBrands />
+				<PartnerBrands partnerBrands={brandsData.partnerBrands} />
 				<DesignInsights blogPosts={blogPosts} />
 				<Portfolio projects={projects} />
 				<Testimonials testimonials={testimonials} />
