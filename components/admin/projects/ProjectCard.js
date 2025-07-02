@@ -44,7 +44,7 @@ const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 	};
 
 	return (
-		<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+		<div className='bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full min-h-[420px]'>
 			<div className='relative w-full h-48'>
 				<Image
 					src={project?.image || '/placeholder.svg'}
@@ -53,7 +53,7 @@ const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 					className='object-cover'
 				/>
 			</div>
-			<div className='p-4'>
+			<div className='p-4 flex-1 flex flex-col'>
 				<div className='flex justify-between items-start mb-2'>
 					<h3 className='text-lg font-semibold text-[#1C1C1C]'>
 						{project?.title || 'Project Title'}
@@ -62,12 +62,12 @@ const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 						{project?.category || 'Category'}
 					</span>
 				</div>
-				<p className='text-gray-600 text-sm mb-4 line-clamp-3'>
+				<p className='text-gray-600 text-sm mb-4 line-clamp-3 flex-1'>
 					{project?.description ||
 						'A sleek, minimalist design with neutral tones and contemporary furnishings. This project transformed...'}
 				</p>
 				{error && <div className='text-red-600 mb-2'>{error}</div>}
-				<div className='flex space-x-4'>
+				<div className='flex space-x-4 mt-auto pt-4'>
 					<button
 						onClick={handleEditClick}
 						className='text-[#E63946] hover:text-[#D62828] font-medium text-sm'

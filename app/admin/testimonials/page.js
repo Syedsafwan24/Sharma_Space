@@ -119,10 +119,10 @@ export default function AdminTestimonials() {
 			</div>
 			<button
 				onClick={handleAddTestimonial}
-				className='fixed bottom-4 right-4 bg-[#E63946] hover:bg-[#D62828] text-white font-semibold py-3 px-6 rounded-full flex items-center gap-2 transition-colors duration-200 shadow-lg lg:hidden z-50'
+				className='fixed bottom-20 right-4 bg-[#E63946] hover:bg-[#D62828] text-white font-semibold rounded-full flex items-center justify-center transition-colors duration-200 shadow-lg w-16 h-16 md:hidden z-50'
+				aria-label='Add New Testimonial'
 			>
-				<PlusCircle size={24} />
-				Add New Testimonial
+				<PlusCircle size={32} />
 			</button>
 
 			<EditTestimonialModal

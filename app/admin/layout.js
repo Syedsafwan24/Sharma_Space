@@ -8,7 +8,7 @@ export default function AdminLayout({ children }) {
 			<Sidebar />
 			<div className='flex-1 flex flex-col'>
 				<TopNavbar />
-				<div className='flex-1 p-4 lg:p-8 pt-20 lg:pt-8 pb-20 lg:pb-8 lg:ml-64'>
+				<div className='flex-1 p-4 lg:p-8 pt-6 lg:pt-4 pb-8 lg:pb-8 lg:ml-64'>
 					{children}
 				</div>
 			</div>

@@ -118,9 +118,10 @@ export default function AdminProjectsPage() {
 			{/* Floating add button for mobile */}
 			<button
 				onClick={handleAddProject}
-				className='fixed bottom-20 right-5 bg-[#E63946] hover:bg-[#D62828] text-white font-semibold py-4 px-4 rounded-full flex items-center gap-2 transition-colors duration-200 shadow-lg lg:hidden z-50'
+				className='fixed bottom-20 right-4 bg-[#E63946] hover:bg-[#D62828] text-white font-semibold rounded-full flex items-center justify-center transition-colors duration-200 shadow-lg w-16 h-16 md:hidden z-50'
+				aria-label='Add New Project'
 			>
-				<PlusCircle size={24} />
+				<PlusCircle size={32} />
 			</button>
 
 			{/* Modal */}

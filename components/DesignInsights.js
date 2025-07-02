@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatBlogDate } from '@/lib/utils';
 
 const DesignInsights = ({ blogPosts = [] }) => {
 	// Get the first 3 blog posts for the insights section
@@ -74,7 +75,7 @@ const DesignInsights = ({ blogPosts = [] }) => {
 											</span>
 										</div>
 										<span className='text-gray-400 text-sm'>
-											{article.date}
+											{formatBlogDate(article.date)}
 										</span>
 									</div>
 								</div>

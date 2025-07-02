@@ -28,16 +28,18 @@ const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
 	};
 
 	return (
-		<div className='bg-white rounded-lg shadow p-6 flex flex-col mt-auto'>
+		<div className='bg-white rounded-lg shadow p-6 flex flex-col mt-auto w-full max-w-[370px] min-h-[370px] h-[370px] justify-between'>
 			<div className='flex items-center mb-4'>
 				{testimonial.image && (
-					<Image
-						src={testimonial.image?.url || testimonial.image}
-						alt={testimonial.fullName || testimonial.name}
-						width={56}
-						height={56}
-						className='rounded-full object-cover mr-4'
-					/>
+					<div className='w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm mr-4'>
+						<Image
+							src={testimonial.image?.url || testimonial.image}
+							alt={testimonial.fullName || testimonial.name}
+							width={56}
+							height={56}
+							className='w-full h-full object-cover'
+						/>
+					</div>
 				)}
 				<div>
 					<h3 className='text-lg font-semibold text-[#1C1C1C]'>
