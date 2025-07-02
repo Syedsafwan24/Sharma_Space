@@ -45,12 +45,18 @@ export default function AdminTestimonials() {
 		}
 	}, [status]);
 
-	const filteredTestimonials = testimonialsList.filter(
-		(testimonial) =>
-			testimonial.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			testimonial.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			testimonial.text?.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	const filteredTestimonials = Array.isArray(testimonialsList)
+		? testimonialsList.filter(
+				(testimonial) =>
+					testimonial.fullName
+						?.toLowerCase()
+						.includes(searchTerm.toLowerCase()) ||
+					testimonial.location
+						?.toLowerCase()
+						.includes(searchTerm.toLowerCase()) ||
+					testimonial.text?.toLowerCase().includes(searchTerm.toLowerCase())
+		  )
+		: [];
 
 	const handleEditTestimonial = (testimonial) => {
 		setSelectedTestimonial(testimonial);
