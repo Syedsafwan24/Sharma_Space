@@ -57,15 +57,15 @@ const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 				<p className='text-gray-700 text-base mb-4 flex-1'>
 					{post.description || post.excerpt}
 				</p>
-				<div className='flex justify-end gap-2 mt-auto pt-4'>
+				<div className='flex gap-2 mt-4'>
 					<button
 						onClick={() => onEdit(post)}
-						className='text-[#E63946] hover:text-[#D62828] font-medium text-sm'
+						className='text-[#E63946] hover:text-[#D62828] font-medium text-base'
 					>
 						Edit
 					</button>
 					<button
-						className='text-gray-500 hover:text-[#1C1C1C] font-medium text-sm'
+						className='text-gray-500 hover:text-[#1C1C1C] font-medium text-base'
 						onClick={handleDelete}
 					>
 						Delete

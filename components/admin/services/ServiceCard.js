@@ -58,16 +58,16 @@ const ServiceCard = ({ service, onEdit, onDelete }) => {
 			<p className='text-gray-600 text-sm mb-4 line-clamp-3'>
 				{service.description}
 			</p>
-			<div className='flex space-x-4 mt-auto'>
+			<div className='flex gap-2 mt-4'>
 				<button
 					onClick={() => onEdit(service)}
-					className='text-[#E63946] hover:text-[#D62828] font-medium text-sm'
+					className='text-[#E63946] hover:text-[#D62828] font-medium text-base'
 				>
 					Edit
 				</button>
 				<button
-					className='text-gray-500 hover:text-[#1C1C1C] font-medium text-sm'
 					onClick={handleDelete}
+					className='text-gray-500 hover:text-[#1C1C1C] font-medium text-base'
 				>
 					Delete
 				</button>

@@ -67,16 +67,16 @@ const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 						'A sleek, minimalist design with neutral tones and contemporary furnishings. This project transformed...'}
 				</p>
 				{error && <div className='text-red-600 mb-2'>{error}</div>}
-				<div className='flex space-x-4 mt-auto pt-4'>
+				<div className='flex gap-2 mt-4'>
 					<button
 						onClick={handleEditClick}
-						className='text-[#E63946] hover:text-[#D62828] font-medium text-sm'
+						className='text-[#E63946] hover:text-[#D62828] font-medium text-base'
 					>
 						Edit
 					</button>
 					<button
 						onClick={handleDelete}
-						className='text-gray-500 hover:text-[#1C1C1C] font-medium text-sm'
+						className='text-gray-500 hover:text-[#1C1C1C] font-medium text-base'
 						disabled={deleteMutation.isLoading}
 					>
 						{deleteMutation.isLoading ? 'Deleting...' : 'Delete'}
