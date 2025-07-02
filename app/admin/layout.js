@@ -1,8 +1,25 @@
 'use client';
 import Sidebar from '@/components/admin/Sidebar';
 import TopNavbar from '@/components/admin/TopNavbar';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+	LayoutDashboard,
+	Folder,
+	Settings,
+	FileText,
+	MessageSquare,
+} from 'lucide-react';
 
 export default function AdminLayout({ children }) {
+	const pathname = usePathname();
+	const navItems = [
+		{ name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+		{ name: 'Projects', href: '/admin/projects', icon: Folder },
+		{ name: 'Services', href: '/admin/services', icon: Settings },
+		{ name: 'Blog Posts', href: '/admin/blog-posts', icon: FileText },
+		{ name: 'Testimonials', href: '/admin/testimonials', icon: MessageSquare },
+	];
 	return (
 		<div className='flex min-h-screen flex-col bg-[#F8F9FA]'>
 			<Sidebar />
@@ -12,7 +29,21 @@ export default function AdminLayout({ children }) {
 					{children}
 				</main>
 				<nav className='fixed bottom-0 left-0 w-full z-50 bg-white border-t md:hidden'>
-					{/* Place your mobile nav icons here */}
+					<div className='flex justify-around items-center h-16'>
+						{navItems.map((item) => (
+							<Link
+								key={item.name}
+								href={item.href}
+								className={`flex flex-col items-center justify-center text-xs font-medium h-full w-full ${
+									pathname === item.href
+										? 'text-[#E63946]'
+										: 'text-gray-500 hover:text-[#E63946]'
+								}`}
+							>
+								<item.icon size={20} />
+							</Link>
+						))}
+					</div>
 				</nav>
 			</div>
 		</div>

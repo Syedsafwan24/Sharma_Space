@@ -80,27 +80,6 @@ const Sidebar = () => {
 					</Link>
 				</div>
 			</div>
-
-			{/* Bottom Navigation for Mobile */}
-			<div className='fixed bottom-0 left-0 right-0 bg-white shadow-lg lg:hidden z-50'>
-				<div className='flex justify-around items-center h-16'>
-					{navItems
-						.filter((item) => item.name !== 'Messages')
-						.map((item) => (
-							<Link
-								key={item.name}
-								href={item.href}
-								className={`flex flex-col items-center justify-center text-xs font-medium h-full w-full ${
-									pathname === item.href
-										? 'text-[#E63946]'
-										: 'text-gray-500 hover:text-[#E63946]'
-								}`}
-							>
-								<item.icon size={20} />
-							</Link>
-						))}
-				</div>
-			</div>
 		</>
 	);
 };

@@ -99,21 +99,23 @@ export default function AdminTestimonials() {
 						searchTerm={searchTerm}
 						setSearchTerm={setSearchTerm}
 					/>
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
-						{filteredTestimonials.length === 0 ? (
-							<div className='col-span-full text-center text-gray-400'>
-								No data available.
-							</div>
-						) : (
-							filteredTestimonials.map((testimonial) => (
-								<TestimonialCard
-									key={testimonial.id}
-									testimonial={testimonial}
-									onEdit={handleEditTestimonial}
-									onDelete={refetchTestimonials}
-								/>
-							))
-						)}
+					<div className='w-full max-w-md mx-auto px-4'>
+						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
+							{filteredTestimonials.length === 0 ? (
+								<div className='col-span-full text-center text-gray-400'>
+									No data available.
+								</div>
+							) : (
+								filteredTestimonials.map((testimonial) => (
+									<TestimonialCard
+										key={testimonial.id}
+										testimonial={testimonial}
+										onEdit={handleEditTestimonial}
+										onDelete={refetchTestimonials}
+									/>
+								))
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
