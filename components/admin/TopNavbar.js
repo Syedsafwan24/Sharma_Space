@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, Mail, LogOut, Globe } from 'lucide-react';
+import { Menu, Mail, LogOut, Globe, Key } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 const TopNavbar = () => {
@@ -55,6 +55,16 @@ const TopNavbar = () => {
       {isMenuOpen && (
         <div ref={menuRef} className="absolute top-16 right-4 bg-white shadow-lg rounded-md p-4 z-50">
           <ul className="space-y-2">
+            <li>
+              <Link
+                href="/admin/change-password"
+                className="flex items-center gap-2 text-gray-700 hover:text-[#E63946]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Key size={20} />
+                Change Password
+              </Link>
+            </li>
             <li>
               <Link
                 href="/"

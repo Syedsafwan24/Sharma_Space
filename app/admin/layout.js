@@ -1,4 +1,7 @@
 'use client';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import Sidebar from '@/components/admin/Sidebar';
 import TopNavbar from '@/components/admin/TopNavbar';
 import Link from 'next/link';
@@ -12,7 +15,37 @@ import {
 } from 'lucide-react';
 
 export default function AdminLayout({ children }) {
+	const { data: session, status } = useSession();
+	const router = useRouter();
 	const pathname = usePathname();
+
+	useEffect(() => {
+		if (status === 'loading') return; // Still loading
+
+		if (!session) {
+			router.push('/login');
+			return;
+		}
+
+		if (session.user.role !== 'admin') {
+			router.push('/');
+			return;
+		}
+	}, [session, status, router]);
+
+	// Show loading while checking authentication
+	if (status === 'loading') {
+		return (
+			<div className='flex items-center justify-center min-h-screen'>
+				<div className='animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900'></div>
+			</div>
+		);
+	}
+
+	// Don't render admin content if not authenticated or not admin
+	if (!session || session.user.role !== 'admin') {
+		return null;
+	}
 	const navItems = [
 		{ name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
 		{ name: 'Projects', href: '/admin/projects', icon: Folder },

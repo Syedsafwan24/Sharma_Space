@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const handler = NextAuth({
+const authOptions = {
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
@@ -35,7 +35,12 @@ const handler = NextAuth({
 					throw new Error('Invalid password');
 				}
 
-				return { id: user.id, name: user.name, email: user.email };
+				return {
+					id: user.id,
+					name: user.name,
+					email: user.email,
+					role: user.role,
+				};
 			},
 		}),
 	],
@@ -47,15 +52,23 @@ const handler = NextAuth({
 	},
 	callbacks: {
 		async jwt({ token, user }) {
-			if (user) token.id = user.id;
+			if (user) {
+				token.id = user.id;
+				token.role = user.role;
+			}
 			return token;
 		},
 		async session({ session, token }) {
-			if (token) session.user.id = token.id;
+			if (token) {
+				session.user.id = token.id;
+				session.user.role = token.role;
+			}
 			return session;
 		},
 	},
 	secret: process.env.NEXTAUTH_SECRET,
-});
+};
 
-export { handler as GET, handler as POST };
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST, authOptions };

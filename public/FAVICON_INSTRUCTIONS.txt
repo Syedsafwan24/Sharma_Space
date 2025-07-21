@@ -1,5 +1,0 @@
-<!-- This is a placeholder. The actual image will need to be manually saved -->
-<!-- Save the provided hexagonal red and black "S" logo as: -->
-<!-- /public/favicon.ico (16x16, 32x32, 48x48 sizes) -->
-<!-- /public/favicon.png (for modern browsers) -->
-<!-- /public/apple-touch-icon.png (180x180 for iOS) -->

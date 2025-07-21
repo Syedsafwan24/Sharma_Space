@@ -12,6 +12,7 @@ import {
 	Mail,
 	LogOut,
 	Globe,
+	Key,
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
@@ -64,6 +65,13 @@ const Sidebar = () => {
 				</div>
 
 				<div className='p-6 border-t border-gray-200'>
+					<Link
+						href='/admin/change-password'
+						className='flex items-center gap-3 w-full px-6 py-3 text-base font-medium text-gray-700 hover:bg-[#EDEDED] transition-colors duration-200 rounded-md mb-2'
+					>
+						<Key size={20} />
+						Change Password
+					</Link>
 					<button
 						onClick={() => signOut({ callbackUrl: '/login' })}
 						className='flex items-center gap-3 w-full px-6 py-3 text-base font-medium text-gray-700 hover:bg-[#EDEDED] transition-colors duration-200 rounded-md'

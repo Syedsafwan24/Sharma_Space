@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import Sidebar from '@/components/admin/Sidebar';
-import TopNavbar from '@/components/admin/TopNavbar';
 import DashboardHeader from '@/components/admin/DashboardHeader';
 import StatsCard from '@/components/admin/StatsCard';
 import RecentMessages from '@/components/admin/RecentMessages';
@@ -20,10 +18,18 @@ export default function AdminDashboardPage() {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
+		if (status === 'loading') return; // Still loading
+
 		if (status === 'unauthenticated') {
 			router.push('/login');
+			return;
 		}
-	}, [status, router]);
+
+		if (session && session.user.role !== 'admin') {
+			router.push('/');
+			return;
+		}
+	}, [status, session, router]);
 
 	useEffect(() => {
 		const fetchStats = async () => {
@@ -53,60 +59,59 @@ export default function AdminDashboardPage() {
 		);
 	}
 
+	// Don't render if not authenticated or not admin
+	if (
+		status === 'unauthenticated' ||
+		!session ||
+		session.user.role !== 'admin'
+	) {
+		return null;
+	}
+
 	return (
-		<div className='flex flex-col min-h-screen bg-[#F8F9FA]'>
-			<TopNavbar /> {/* Visible on small screens */}
-			<div className='flex flex-1'>
-				<Sidebar /> {/* Visible on large screens */}
-				<div className='flex-1 p-4 lg:p-8 pt-20 lg:pt-8 pb-20 lg:pb-8'>
-					{' '}
-					{/* Adjusted padding */}
-					<DashboardHeader />
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8'>
-						{error ? (
-							<div className='col-span-full text-center text-red-500'>
-								{error}
-							</div>
-						) : dynamicStats.length === 0 ? (
-							<div className='col-span-full text-center text-gray-500'>
-								No stats available. Please check your API/data.
-							</div>
-						) : (
-							dynamicStats.map((stat, index) => (
-								<StatsCard
-									key={index}
-									title={stat.title}
-									value={stat.value}
-									icon={stat.icon}
-									color={stat.color}
-									href={
-										stat.title === 'Total Projects'
-											? '/admin/projects'
-											: stat.title === 'Services Offered'
-											? '/admin/services'
-											: stat.title === 'Testimonials'
-											? '/admin/testimonials'
-											: stat.title === 'New Inquiries'
-											? '/admin/messages'
-											: stat.title === 'Blog Posts'
-											? '/admin/blog-posts'
-											: '#'
-									}
-								/>
-							))
-						)}
+		<div>
+			<DashboardHeader />
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8'>
+				{error ? (
+					<div className='col-span-full text-center text-red-500'>{error}</div>
+				) : dynamicStats.length === 0 ? (
+					<div className='col-span-full text-center text-gray-500'>
+						No stats available. Please check your API/data.
 					</div>
-					<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-						<div className='lg:col-span-1'>
-							<RecentMessages />
-						</div>
-						<div className='lg:col-span-1'>
-							<ProjectCategories />
-						</div>
-						<div className='lg:col-span-1'>
-							<RecentProjects />
-						</div>
-					</div>
+				) : (
+					dynamicStats.map((stat, index) => (
+						<StatsCard
+							key={index}
+							title={stat.title}
+							value={stat.value}
+							icon={stat.icon}
+							color={stat.color}
+							href={
+								stat.title === 'Total Projects'
+									? '/admin/projects'
+									: stat.title === 'Services Offered'
+									? '/admin/services'
+									: stat.title === 'Testimonials'
+									? '/admin/testimonials'
+									: stat.title === 'New Inquiries'
+									? '/admin/messages'
+									: stat.title === 'Blog Posts'
+									? '/admin/blog-posts'
+									: '#'
+							}
+						/>
+					))
+				)}
+			</div>
+			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+				<div className='lg:col-span-1'>
+					<RecentMessages />
+				</div>
+				<div className='lg:col-span-1'>
+					<ProjectCategories />
+				</div>
+				<div className='lg:col-span-1'>
+					<RecentProjects />
 				</div>
 			</div>
 		</div>
