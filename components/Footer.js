@@ -62,7 +62,7 @@ const Footer = () => {
 							>
 								<div className='w-10 h-10 bg-red-600 rounded-md flex items-center justify-center p-1'>
 									<Image
-										src='/images/icon/SharmaSpace-Logo.png'
+							src='/images/icon/SharmaSpace-Logo.webp'
 										alt='SharmaSpace Logo'
 										width={40}
 										height={40}

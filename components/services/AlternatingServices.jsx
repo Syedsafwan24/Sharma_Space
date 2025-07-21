@@ -25,7 +25,7 @@ const AlternatingServices = () => {
 					</div>
 					<div className='w-full lg:w-[55%] h-80 md:h-96 relative rounded-lg overflow-hidden'>
 						<Image
-							src='/images/bedroom-suite.jpg'
+							src='/images/bedroom-suite.webp'
 							alt='Commercial Design interior design'
 							fill
 							className='object-cover'
@@ -54,7 +54,7 @@ const AlternatingServices = () => {
 					</div>
 					<div className='w-full lg:w-[55%] h-80 md:h-96 relative rounded-lg overflow-hidden'>
 						<Image
-							src='/images/resident.jpg'
+							src='/images/resident.webp'
 							alt='Residential Design interior design'
 							fill
 							className='object-cover'
@@ -83,7 +83,7 @@ const AlternatingServices = () => {
 					</div>
 					<div className='w-full lg:w-[55%] h-80 md:h-96 relative rounded-lg overflow-hidden'>
 						<Image
-							src='/images/commercial.jpg'
+							src='/images/commercial.webp'
 							alt='Hospitality Design interior design'
 							fill
 							className='object-cover'

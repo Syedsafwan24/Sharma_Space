@@ -77,7 +77,7 @@ const Navigation = () => {
 						className='flex items-center gap-2 transition-transform duration-300 hover:scale-105 cursor-pointer'
 					>
 						<Image
-							src='/images/icon/SharmaSpace-Logo.png'
+							src='/images/icon/SharmaSpace-Logo.webp'
 							alt='SharmaSpace Logo'
 							width={40}
 							height={40}
@@ -175,7 +175,7 @@ const Navigation = () => {
 				<div className='flex justify-between items-center p-6 border-b border-gray-200'>
 					<div className='flex items-center gap-2'>
 						<Image
-							src='/images/icon/SharmaSpace-Logo.png'
+							src='/images/icon/SharmaSpace-Logo.webp'
 							alt='SharmaSpace Logo'
 							width={32}
 							height={32}

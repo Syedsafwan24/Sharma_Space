@@ -8,7 +8,7 @@ const BlogHero = () => {
 			{/* Background Image with darker overlay */}
 			<div className='absolute inset-0'>
 				<Image
-					src='/images/port.jpg'
+					src='/images/port.webp'
 					alt='Our Expertise in Interior Design Background'
 					fill
 					priority

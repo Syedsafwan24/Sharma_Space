@@ -24,11 +24,11 @@ const blogUnifiedData = {
 				width: 1200,
 				height: 800,
 			},
-			mainImage: {
-				url: '/images/blog-hero-1.jpg',
-				alt: 'Modern interior design showcase Bangalore 2024 trends',
-				width: 1600,
-				height: 900,
+	  mainImage: {
+		url: '/images/blog-hero-1.webp',
+		alt: 'Modern interior design showcase Bangalore 2024 trends',
+		width: 1600,
+		height: 900,
 			},
 			authorId: 'nisha-sharma',
 			excerpt:
@@ -133,11 +133,11 @@ const blogUnifiedData = {
 				width: 1200,
 				height: 800,
 			},
-			mainImage: {
-				url: '/images/blog-hero-2.jpg',
-				alt: 'Professional color palette selection for Bangalore home interiors',
-				width: 1600,
-				height: 900,
+	  mainImage: {
+		url: '/images/blog-hero-2.webp',
+		alt: 'Professional color palette selection for Bangalore home interiors',
+		width: 1600,
+		height: 900,
 			},
 			authorId: 'vikram-patel',
 			excerpt:

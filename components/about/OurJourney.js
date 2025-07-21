@@ -17,7 +17,7 @@ const OurJourney = () => {
 		<div className='bg-[#F8F9FA] py-12 md:py-16 lg:py-20 w-full min-h-auto md:min-h-[600px]'>
 			<div
 				className='max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20
-                  flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16 xl:gap-20'
+				  flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16 xl:gap-20'
 			>
 				{/* Text Content */}
 				<div className='flex-1 max-w-full lg:max-w-[600px] order-2 lg:order-1'>
@@ -72,7 +72,7 @@ const OurJourney = () => {
 				<div className='flex-1 max-w-full lg:max-w-[600px] xl:max-w-[700px] mt-10 lg:mt-0 order-1 lg:order-2'>
 					<div className='relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[10/10] xl:aspect-[10/10] rounded-lg overflow-hidden shadow-lg'>
 						<Image
-							src='/images/AboutPage/our-journey.jpg'
+							src='/images/AboutPage/our-journey.webp'
 							alt='Two professionals in business attire having a friendly conversation in a modern office setting'
 							fill
 							className='object-cover object-center'

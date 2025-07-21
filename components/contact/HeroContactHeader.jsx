@@ -8,7 +8,7 @@ const HeroContact = () => {
 			{/* Background Image with darker overlay */}
 			<div className='absolute inset-0'>
 				<Image
-					src='/images/contact.jpg'
+					src='/images/contact.webp'
 					alt='Our Expertise in Interior Design Background'
 					fill
 					priority
