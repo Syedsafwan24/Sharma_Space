@@ -9,22 +9,37 @@ const WelcomeModal = () => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	useEffect(() => {
-		// Check localStorage to see if the modal has been dismissed permanently
+		// TEMPORARY: Force show modal for testing
+		const timer = setTimeout(() => {
+			console.log('Force opening WelcomeModal for testing');
+			setIsOpen(true);
+			setIsAnimating(true);
+		}, 800);
+		return () => clearTimeout(timer);
+
+		// Normal logic (commented out for testing):
+		/*
 		const hasDismissed = localStorage.getItem('sharmaspace_modal_dismissed');
-		// Check if the modal has been shown in this session (simple session check)
 		const hasShownThisSession = sessionStorage.getItem(
 			'sharmaspace_modal_shown_session'
 		);
 
-		// Show the modal only if it hasn't been dismissed permanently and not shown this session
+		console.log('WelcomeModal Debug:', {
+			hasDismissed,
+			hasShownThisSession,
+			shouldShow: !hasDismissed && !hasShownThisSession
+		});
+
 		if (!hasDismissed && !hasShownThisSession) {
 			const timer = setTimeout(() => {
+				console.log('Opening WelcomeModal');
 				setIsOpen(true);
 				setIsAnimating(true);
-				sessionStorage.setItem('sharmaspace_modal_shown_session', 'true'); // Mark as shown for this session
+				sessionStorage.setItem('sharmaspace_modal_shown_session', 'true');
 			}, 800);
 			return () => clearTimeout(timer);
 		}
+		*/
 	}, []);
 
 	// Effect to manage body scrolling when modal opens/closes

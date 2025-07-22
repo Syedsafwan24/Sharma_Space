@@ -8,7 +8,7 @@ import {
 	Clipboard,
 } from 'lucide-react';
 
-const ServicesSection = ({ services = [] }) => {
+const ServicesSection = ({ services = [], loading = false }) => {
 	// Ensure services is an array
 	const safeServices = Array.isArray(services) ? services : [];
 
@@ -42,7 +42,21 @@ const ServicesSection = ({ services = [] }) => {
 				</div>
 
 				{/* Services Grid */}
-				{safeServices.length === 0 ? (
+				{loading ? (
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+						{[1, 2, 3, 4, 5, 6].map((i) => (
+							<div key={i} className='bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow'>
+								<div className='w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-lg animate-pulse mb-6'></div>
+								<div className='h-6 bg-gradient-to-r from-gray-200 to-gray-300 rounded animate-pulse mb-4'></div>
+								<div className='space-y-2'>
+									<div className='h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded animate-pulse'></div>
+									<div className='h-4 bg-gradient-to-r from-gray-100 to-gray-200 rounded animate-pulse w-4/5'></div>
+									<div className='h-4 bg-gradient-to-r from-gray-150 to-gray-250 rounded animate-pulse w-3/4'></div>
+								</div>
+							</div>
+						))}
+					</div>
+				) : safeServices.length === 0 ? (
 					<div className='text-center text-gray-500 py-8'>
 						<p>No services available at the moment.</p>
 						<p className='text-sm mt-2'>

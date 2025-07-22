@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Sofa, Building2, Hotel, ArrowRight } from 'lucide-react';
 
-const Services = ({ services = [] }) => {
+const Services = ({ services = [], loading = false }) => {
 	// Get the first 3 services for the homepage
 	const homeServices = services.slice(0, 3);
 
@@ -32,7 +32,29 @@ const Services = ({ services = [] }) => {
 				</div>
 
 				{/* Services Grid - Cards Aligned Left */}
-				<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+				{loading ? (
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+						{[1, 2, 3].map((i) => (
+							<div key={i} className='bg-white rounded-lg shadow-md px-6 py-10'>
+								<div className='mb-4'>
+									<div className='w-7 h-7 bg-gray-200 rounded animate-pulse'></div>
+								</div>
+								<div className='h-6 bg-gray-200 rounded animate-pulse mb-3'></div>
+								<div className='space-y-2 mb-6'>
+									<div className='h-4 bg-gray-200 rounded animate-pulse'></div>
+									<div className='h-4 bg-gray-200 rounded animate-pulse w-4/5'></div>
+									<div className='h-4 bg-gray-200 rounded animate-pulse w-3/4'></div>
+								</div>
+								<div className='h-10 bg-gray-200 rounded animate-pulse'></div>
+							</div>
+						))}
+					</div>
+				) : homeServices.length === 0 ? (
+					<div className='text-center text-gray-500 py-8'>
+						<p>No services available at the moment.</p>
+					</div>
+				) : (
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 					{homeServices.map((service, index) => {
 						const IconComponent = iconMap[service.icon] || Sofa;
 						return (
@@ -58,7 +80,8 @@ const Services = ({ services = [] }) => {
 							</div>
 						);
 					})}
-				</div>
+					</div>
+				)}
 
 				{/* CTA Button - Centered */}
 				<div className='text-center mt-12'>

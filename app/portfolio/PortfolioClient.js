@@ -10,22 +10,30 @@ import Cta from '@/components/Cta';
 
 export default function PortfolioClient() {
 	const [activeFilter, setActiveFilter] = useState('all');
-
-	// Use ISR: revalidate every 60 seconds for fresh but not continuous data
 	const [projects, setProjects] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	// Fetch projects on component mount
 	useEffect(() => {
 		const fetchProjects = async () => {
+			setLoading(true);
+			setError(null);
 			try {
 				const res = await fetch(
 					`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/projects`,
 					{ next: { revalidate: 60 } }
 				);
+				if (!res.ok) {
+					throw new Error('Failed to fetch projects');
+				}
 				const projectsData = await res.json();
 				setProjects(projectsData);
 			} catch (error) {
 				console.error('Error fetching projects:', error);
+				setError('Failed to load projects. Please try again later.');
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -43,7 +51,34 @@ export default function PortfolioClient() {
 						setActiveFilter={setActiveFilter}
 					/>
 
-					<PortfolioGrid projects={projects} activeFilter={activeFilter} />
+					{loading ? (
+						<div className='container mx-auto px-4 py-8'>
+							<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+								{[1, 2, 3, 4, 5, 6].map((i) => (
+									<div key={i} className='bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow'>
+										<div className='w-full h-64 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse'></div>
+										<div className='p-6'>
+											<div className='h-6 bg-gradient-to-r from-gray-200 to-gray-300 rounded animate-pulse mb-2'></div>
+											<div className='h-4 bg-gradient-to-r from-gray-100 to-gray-200 rounded animate-pulse mb-4 w-2/3'></div>
+											<div className='h-4 bg-gradient-to-r from-red-100 to-red-200 rounded animate-pulse w-1/2'></div>
+										</div>
+									</div>
+								))}
+							</div>
+						</div>
+					) : error ? (
+						<div className='text-center py-12'>
+							<p className='text-red-500 mb-4'>{error}</p>
+							<button 
+								onClick={() => window.location.reload()} 
+								className='bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition'
+							>
+								Try Again
+							</button>
+						</div>
+					) : (
+						<PortfolioGrid projects={projects} activeFilter={activeFilter} />
+					)}
 				</div>
 			</main>
 			<Cta
