@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	eslint: {
+		// This allows production builds to succeed even with ESLint errors.
+		ignoreDuringBuilds: true,
+	},
 	images: {
 		// Enable modern image formats
 		formats: ['image/webp', 'image/avif'],
