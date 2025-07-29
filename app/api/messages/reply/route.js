@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with proper error handling for build time
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(req) {
 	try {
@@ -10,6 +11,19 @@ export async function POST(req) {
 			return new Response(
 				JSON.stringify({ error: 'Missing required fields.' }),
 				{ status: 400 }
+			);
+		}
+
+		// Check if Resend is properly configured
+		if (!resend || !process.env.RESEND_API_KEY) {
+			console.warn('RESEND_API_KEY not configured. Email functionality disabled.');
+			return new Response(
+				JSON.stringify({ 
+					message: 'Email service not configured. Please set RESEND_API_KEY environment variable.',
+					success: false,
+					emailSent: false
+				}),
+				{ status: 500 }
 			);
 		}
 
