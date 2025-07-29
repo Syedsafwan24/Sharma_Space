@@ -47,7 +47,6 @@ const ContactForm = () => {
 
 			toast.success("Message sent successfully! We'll get back to you soon.");
 		} catch (error) {
-			console.error('Error sending message:', error);
 			toast.error('Failed to send message. Please try again.');
 		} finally {
 			setIsSubmitting(false);

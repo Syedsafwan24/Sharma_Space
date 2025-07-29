@@ -1,5 +1,31 @@
 // app/portfolio/page.jsx
-import PortfolioClient from './PortfolioClient';
+import PortfolioStaticGrid from '@/components/portfolio/PortfolioStaticGrid';
+import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
+import Footer from '@/components/Footer';
+import Cta from '@/components/Cta';
+import PerformanceMonitor from '@/components/debug/PerformanceMonitor';
+
+// Enable ISR (Incremental Static Regeneration)
+export const revalidate = 3600; // Revalidate every hour
+
+// Pre-fetch projects data at build time
+async function getProjects() {
+	try {
+		const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3001';
+		const res = await fetch(`${baseUrl}/api/projects`, {
+			next: { revalidate: 3600 }, // Cache for 1 hour
+			// Removed cache: force-cache to fix conflict
+		});
+
+		if (!res.ok) {
+			return [];
+		}
+
+		return await res.json();
+	} catch (error) {
+		return [];
+	}
+}
 
 // Server Component that exports metadata
 export const metadata = {
@@ -67,7 +93,32 @@ export const metadata = {
 	},
 };
 
-// Server Component that renders the Client Component
-export default function PortfolioPage() {
-	return <PortfolioClient />;
+// Server Component that renders static content with pre-fetched data
+export default async function PortfolioPage() {
+	// Pre-fetch projects at build time/request time
+	const projects = await getProjects();
+
+	return (
+		<div className='min-h-screen flex flex-col'>
+			{process.env.NODE_ENV === 'development' && (
+				<PerformanceMonitor componentName='Portfolio' />
+			)}
+			<main className='flex-grow'>
+				<HeroPortfolio />
+				<div className='container mx-auto px-4 py-12'>
+					<PortfolioStaticGrid projects={projects} />
+				</div>
+			</main>
+			<Cta
+				title="Let's Work Together"
+				description='Have a project in mind? Our team of expert designers is ready to bring your vision to life.'
+				buttonText='Start a Project'
+				backgroundColor='bg-gray-100'
+				textColor='text-gray-700'
+				buttonBgColor='bg-[#E63946]'
+				buttonTextColor='text-white'
+			/>
+			<Footer />
+		</div>
+	);
 }

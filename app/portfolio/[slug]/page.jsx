@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../lib/generated/prisma/index.js';
+import { PrismaClient } from '../../../lib/generated/prisma';
 import ProjectDetailsHeader from '../../../components/portfolio/ProjectDetails/ProjectDetailsHeader.jsx';
 import ProjectDetailsContent from '../../../components/portfolio/ProjectDetails/ProjectDetailsContent.jsx';
 import ProjectGallery from '../../../components/portfolio/ProjectDetails/ProjectGallery.jsx';
@@ -19,7 +19,6 @@ export async function generateStaticParams() {
 			slug: project.slug,
 		}));
 	} catch (error) {
-		console.error('Error generating static params:', error);
 		return [];
 	}
 }
@@ -93,7 +92,6 @@ export default async function ProjectDetailPage({ params }) {
 			</div>
 		);
 	} catch (error) {
-		console.error('Error fetching project:', error);
 		return (
 			<div className='min-h-screen flex items-center justify-center'>
 				<div className='text-center'>

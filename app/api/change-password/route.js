@@ -76,7 +76,6 @@ export async function POST(request) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.error('Password change error:', error);
 		return NextResponse.json(
 			{
 				message: 'Something went wrong.',

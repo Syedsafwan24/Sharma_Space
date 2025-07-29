@@ -20,8 +20,11 @@ import {
 } from '@/lib/utils';
 import brandsData from '@/app/data/company/brands.json';
 
+// Enable ISR for homepage
+export const revalidate = 1800; // Revalidate every 30 minutes
+
 export default async function Home() {
-	// Fetch dynamic data
+	// Fetch dynamic data with caching
 	const [services, testimonials, projects, blogPosts, companyData] =
 		await Promise.all([
 			fetchServices(),

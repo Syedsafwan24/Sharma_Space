@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react';
+import GoogleMapEmbed from './GoogleMapEmbed';
+import MapFallback from './MapFallback';
+
+const EnhancedMapContainer = () => {
+	const [mapLoadError, setMapLoadError] = useState(false);
+	const [showFallback, setShowFallback] = useState(false);
+
+	// Check if we should show fallback after a timeout
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			// If map hasn't loaded properly, show fallback
+			if (mapLoadError) {
+				setShowFallback(true);
+			}
+		}, 5000); // 5 second timeout
+
+		return () => clearTimeout(timer);
+	}, [mapLoadError]);
+
+	const handleMapError = () => {
+		setMapLoadError(true);
+		setShowFallback(true);
+	};
+
+	const handleRetryMap = () => {
+		setMapLoadError(false);
+		setShowFallback(false);
+	};
+
+	if (showFallback) {
+		return (
+			<div>
+				<div className='mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg'>
+					<div className='flex items-center justify-between'>
+						<div className='flex items-center'>
+							<svg
+								className='w-5 h-5 text-yellow-600 mr-2'
+								fill='currentColor'
+								viewBox='0 0 20 20'
+							>
+								<path
+									fillRule='evenodd'
+									d='M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z'
+									clipRule='evenodd'
+								/>
+							</svg>
+							<span className='text-sm text-yellow-800'>
+								Interactive map temporarily unavailable
+							</span>
+						</div>
+						<button
+							onClick={handleRetryMap}
+							className='text-sm text-yellow-800 underline hover:text-yellow-900'
+						>
+							Retry
+						</button>
+					</div>
+				</div>
+				<MapFallback />
+			</div>
+		);
+	}
+
+	return (
+		<div>
+			<GoogleMapEmbed onError={handleMapError} />
+		</div>
+	);
+};
+
+export default EnhancedMapContainer;

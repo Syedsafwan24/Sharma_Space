@@ -11,7 +11,6 @@ const WelcomeModal = () => {
 	useEffect(() => {
 		// TEMPORARY: Force show modal for testing
 		const timer = setTimeout(() => {
-			console.log('Force opening WelcomeModal for testing');
 			setIsOpen(true);
 			setIsAnimating(true);
 		}, 800);
@@ -24,15 +23,8 @@ const WelcomeModal = () => {
 			'sharmaspace_modal_shown_session'
 		);
 
-		console.log('WelcomeModal Debug:', {
-			hasDismissed,
-			hasShownThisSession,
-			shouldShow: !hasDismissed && !hasShownThisSession
-		});
-
 		if (!hasDismissed && !hasShownThisSession) {
 			const timer = setTimeout(() => {
-				console.log('Opening WelcomeModal');
 				setIsOpen(true);
 				setIsAnimating(true);
 				sessionStorage.setItem('sharmaspace_modal_shown_session', 'true');

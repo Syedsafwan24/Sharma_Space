@@ -3,16 +3,6 @@ import React from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
 const BlogContent = ({ content }) => {
-	// Debug log to check the type and value
-	if (typeof window !== 'undefined') {
-		console.log(
-			'BlogContent received:',
-			content,
-			typeof content,
-			Array.isArray(content)
-		);
-	}
-
 	if (!content) {
 		return (
 			<div className='prose prose-lg max-w-none text-gray-700'>

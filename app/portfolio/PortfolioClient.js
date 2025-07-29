@@ -30,7 +30,6 @@ export default function PortfolioClient() {
 				const projectsData = await res.json();
 				setProjects(projectsData);
 			} catch (error) {
-				console.error('Error fetching projects:', error);
 				setError('Failed to load projects. Please try again later.');
 			} finally {
 				setLoading(false);
@@ -55,7 +54,10 @@ export default function PortfolioClient() {
 						<div className='container mx-auto px-4 py-8'>
 							<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
 								{[1, 2, 3, 4, 5, 6].map((i) => (
-									<div key={i} className='bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow'>
+									<div
+										key={i}
+										className='bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow'
+									>
 										<div className='w-full h-64 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse'></div>
 										<div className='p-6'>
 											<div className='h-6 bg-gradient-to-r from-gray-200 to-gray-300 rounded animate-pulse mb-2'></div>
@@ -69,8 +71,8 @@ export default function PortfolioClient() {
 					) : error ? (
 						<div className='text-center py-12'>
 							<p className='text-red-500 mb-4'>{error}</p>
-							<button 
-								onClick={() => window.location.reload()} 
+							<button
+								onClick={() => window.location.reload()}
 								className='bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition'
 							>
 								Try Again

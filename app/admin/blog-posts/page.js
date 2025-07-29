@@ -35,7 +35,7 @@ export default function AdminBlogPostsPage() {
 			const data = await response.json();
 			setPosts(data);
 		} catch (error) {
-			console.error('Error fetching blog posts:', error);
+			// Handle error silently
 		} finally {
 			setLoading(false);
 		}
@@ -95,7 +95,7 @@ export default function AdminBlogPostsPage() {
 			const data = await response.json();
 			setPosts(data);
 		} catch (error) {
-			console.error('Error fetching blog posts:', error);
+			// Handle error silently
 		} finally {
 			setLoading(false);
 		}

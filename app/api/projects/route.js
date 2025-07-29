@@ -5,11 +5,27 @@ export async function GET(req) {
 		const projects = await prisma.project.findMany({
 			orderBy: { completedDate: 'desc' },
 		});
-		return new Response(JSON.stringify(projects), { status: 200 });
-	} catch (error) {
-		return new Response(JSON.stringify({ error: error.message }), {
-			status: 500,
+
+		return new Response(JSON.stringify(projects), {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		});
+	} catch (error) {
+		return new Response(
+			JSON.stringify({
+				error: error.message,
+				details:
+					process.env.NODE_ENV === 'development' ? error.stack : undefined,
+			}),
+			{
+				status: 500,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
+		);
 	}
 }
 

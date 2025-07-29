@@ -4,16 +4,22 @@
 import { useState, useEffect } from 'react';
 import { FiFilter, FiX, FiChevronDown } from 'react-icons/fi';
 
-const PortfolioFilter = ({ activeFilter, setActiveFilter }) => {
+const PortfolioFilter = ({ activeFilter, setActiveFilter, categories }) => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isMobile, setIsMobile] = useState(false);
 
-	const filters = [
-		{ id: 'all', name: 'All' },
-		{ id: 'residential', name: 'Residential' },
-		{ id: 'commercial', name: 'Commercial' },
-		{ id: 'hospitality', name: 'Hospitality' },
-	];
+	// Use provided categories or fallback to default
+	const filters = categories
+		? categories.map((cat) => ({
+				id: cat.toLowerCase(),
+				name: cat.charAt(0).toUpperCase() + cat.slice(1),
+		  }))
+		: [
+				{ id: 'all', name: 'All' },
+				{ id: 'residential', name: 'Residential' },
+				{ id: 'commercial', name: 'Commercial' },
+				{ id: 'hospitality', name: 'Hospitality' },
+		  ];
 
 	useEffect(() => {
 		const handleResize = () => {

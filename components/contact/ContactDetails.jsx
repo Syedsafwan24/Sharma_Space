@@ -21,20 +21,20 @@ const ContactDetails = () => (
 
 		<Item icon={FaMapMarkerAlt} title='Our Office'>
 			<a
-				href='https://www.google.com/maps/search/?api=1&query=123+Design+Avenue,+Mumbai,+Maharashtra,+India+400001'
+				href='https://www.google.com/maps/search/?api=1&query=HSR+Layout,+Mangammana+Palya,+Bangalore,+Karnataka,+India+560068'
 				target='_blank'
 				rel='noopener noreferrer'
 				className='text-red-600 hover:text-red-700 transition-colors duration-200'
 			>
-				123 Design Avenue, Mumbai, Maharashtra, India 400001
+				HSR Layout, Mangammana Palya, Bangalore, Karnataka 560068
 			</a>
 		</Item>
 		<Item icon={FaPhone} title='Phone'>
 			<a
-				href='tel:+919876543210'
+				href='tel:+918867574542'
 				className='text-red-600 hover:text-red-700 transition-colors duration-200'
 			>
-				+91 98765 43210
+				+91 886 757 4542
 			</a>
 		</Item>
 		<Item icon={FaEnvelope} title='Email'>
