@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import ConditionalNavigation from '@/components/ConditionalNavigation';
 import WelcomeModal from '@/components/WelcomeModal';
+import PerformanceMonitor from '@/components/performance/PerformanceMonitor';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 
@@ -87,6 +88,15 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<head>
+				{/* Preload critical images for LCP optimization */}
+				<link
+					rel='preload'
+					as='image'
+					href='/images/Hero-Background.webp'
+					fetchPriority='high'
+				/>
+				<link rel='preload' as='image' href='/images/AboutSection.webp' />
+
 				<script
 					type='application/ld+json'
 					dangerouslySetInnerHTML={{
@@ -136,8 +146,18 @@ export default function RootLayout({ children }) {
 						}),
 					}}
 				/>
+
+				{/* Preload critical images for LCP optimization */}
+				<link
+					rel='preload'
+					as='image'
+					href='/images/Hero-Background.webp'
+					fetchPriority='high'
+				/>
+				<link rel='preload' as='image' href='/images/AboutSection.webp' />
 			</head>
 			<body className={poppins.className}>
+				<PerformanceMonitor />
 				<AuthSessionProvider>
 					<QueryProvider>
 						<TooltipProvider>

@@ -1,18 +1,22 @@
 // components/HeroService.js
 import React from 'react';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const OurStory = () => {
 	return (
 		<section className='relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] flex items-center justify-center text-center overflow-hidden'>
 			{/* Background Image with darker overlay */}
-			<div className='absolute inset-0'>
-				<Image
+			<div className='absolute inset-0 w-full h-full'>
+				<OptimizedImage
 					src='/images/port.webp'
 					alt='Our Expertise in Interior Design Background'
 					fill
 					priority
 					className='object-cover object-center'
+					quality={imageQuality.background}
+					sizes={imageSizes.fullWidth}
+					showSkeleton={true}
 				/>
 				{/* Darker overlay div */}
 				<div className='absolute inset-0 bg-black/60'></div>{' '}

@@ -24,7 +24,7 @@ import brandsData from '@/app/data/company/brands.json';
 export const revalidate = 1800; // Revalidate every 30 minutes
 
 export default async function Home() {
-	// Fetch dynamic data with caching
+	// Fetch dynamic data with caching - prioritize hero and above-fold content
 	const [services, testimonials, projects, blogPosts, companyData] =
 		await Promise.all([
 			fetchServices(),
@@ -37,7 +37,7 @@ export default async function Home() {
 	return (
 		<div className='relative'>
 			{/* Main content */}
-			<main>
+			<main className='hero-container'>
 				<Hero />
 				<AboutSection
 					companyStats={companyData.stats}

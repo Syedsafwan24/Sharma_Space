@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-// import OptimizedImage from '@/components/ui/OptimizedImage';
-// import { getOptimizedImageProps } from '@/lib/imageUtils';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const Hero = () => {
+	const [imageLoaded, setImageLoaded] = useState(false);
+
 	const scrollToNext = () => {
 		const nextSection = document.querySelector('#about-section');
 		if (nextSection) {
@@ -17,13 +18,27 @@ const Hero = () => {
 	return (
 		<section className='relative min-h-screen w-full flex items-center overflow-hidden py-20 sm:py-24 md:py-0'>
 			{/* Background Image */}
-			<div className='absolute inset-0 z-0'>
-				<Image
+			<div className='absolute inset-0 z-0 w-full h-full'>
+				{/* Loading skeleton for hero background */}
+				{!imageLoaded && (
+					<div className='absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center'>
+						<div className='text-center'>
+							<div className='w-16 h-16 border-4 border-gray-600 border-t-red-600 rounded-full animate-spin mx-auto mb-4'></div>
+							<p className='text-gray-400 text-sm'>Loading experience...</p>
+						</div>
+					</div>
+				)}
+
+				<OptimizedImage
 					src='/images/Hero-Background.webp'
 					alt='Modern interior design showcase'
 					fill
 					className='object-cover object-center'
 					priority={true}
+					quality={imageQuality.hero}
+					sizes={imageSizes.hero}
+					showSkeleton={false}
+					onLoad={() => setImageLoaded(true)}
 				/>
 			</div>
 
@@ -31,7 +46,9 @@ const Hero = () => {
 			<div className='absolute inset-0 bg-black/50 z-10' />
 
 			{/* Main Content */}
-			<div className='relative z-20 max-w-6xl mx-auto px-6 w-full'>
+			<div
+				className={`relative z-20 max-w-6xl mx-auto px-6 w-full transition-opacity duration-1000 ${imageLoaded ? 'opacity-100' : 'opacity-75'}`}
+			>
 				<div className='max-w-2xl text-left opacity-0 animate-fade-in [animation-delay:0.5s] [animation-fill-mode:forwards]'>
 					{/* Main Heading */}
 					<h1 className='text-5xl sm:text-6xl md:text-6xl font-extrabold leading-tight sm:leading-[0.9] text-gray-50 mb-6 md:mb-8 tracking-tight'>

@@ -93,7 +93,7 @@ html {
 		-webkit-animation-fill-mode: both;
 		animation-fill-mode: both;
 	}
-	
+
 	/* Force enable animations */
 	.animate-ping,
 	.animate-pulse,
@@ -139,5 +139,100 @@ html {
 		transition-property: var(--tw-transition-property);
 		transition-timing-function: var(--tw-transition-timing-function);
 		transition-duration: var(--tw-transition-duration);
+	}
+}
+
+/* Optimized loading animations for images */
+@keyframes shimmer {
+	0% {
+		background-position: -468px 0;
+	}
+	100% {
+		background-position: 468px 0;
+	}
+}
+
+@keyframes pulse-subtle {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+@keyframes spin-smooth {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-shimmer {
+	animation: shimmer 2s infinite linear;
+	background: linear-gradient(
+		to right,
+		#f6f7f8 0%,
+		#edeef1 20%,
+		#f6f7f8 40%,
+		#f6f7f8 100%
+	);
+	background-size: 800px 104px;
+}
+
+.animate-pulse-subtle {
+	animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin-smooth {
+	animation: spin-smooth 1s linear infinite;
+}
+
+/* Optimize for LCP - reduce layout shift */
+.hero-container {
+	contain: layout style paint;
+	will-change: auto;
+}
+
+/* Image loading optimization */
+.image-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.image-container::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.image-container.loading::before {
+	opacity: 1;
+	animation: shimmer 1.5s infinite;
+}
+
+/* Improve perceived performance */
+.fade-in-fast {
+	animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

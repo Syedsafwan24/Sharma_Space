@@ -37,12 +37,15 @@ const nextConfig = {
 				pathname: '/**',
 			},
 		],
-		// Device sizes for responsive images
+		// Device sizes for responsive images - optimized for common breakpoints
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-		// Image sizes for different breakpoints
-		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-		// Minimize layout shift
+		// Image sizes for different breakpoints - optimized for performance
+		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
+		// Minimize layout shift and improve caching
 		minimumCacheTTL: 60,
+		// Optimize for LCP
+		dangerouslyAllowSVG: false,
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
 	transpilePackages: ['lucide-react'],
 
