@@ -9,15 +9,17 @@ const WelcomeModal = () => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	useEffect(() => {
-		// TEMPORARY: Force show modal for testing
-		const timer = setTimeout(() => {
-			setIsOpen(true);
-			setIsAnimating(true);
-		}, 800);
-		return () => clearTimeout(timer);
+		// Check if we're in development mode for testing
+		if (process.env.NODE_ENV === 'development') {
+			// TEMPORARY: Force show modal for testing in development
+			const timer = setTimeout(() => {
+				setIsOpen(true);
+				setIsAnimating(true);
+			}, 800);
+			return () => clearTimeout(timer);
+		}
 
-		// Normal logic (commented out for testing):
-		/*
+		// Normal logic for production:
 		const hasDismissed = localStorage.getItem('sharmaspace_modal_dismissed');
 		const hasShownThisSession = sessionStorage.getItem(
 			'sharmaspace_modal_shown_session'
@@ -28,10 +30,9 @@ const WelcomeModal = () => {
 				setIsOpen(true);
 				setIsAnimating(true);
 				sessionStorage.setItem('sharmaspace_modal_shown_session', 'true');
-			}, 800);
+			}, 2000); // Show after 2 seconds
 			return () => clearTimeout(timer);
 		}
-		*/
 	}, []);
 
 	// Effect to manage body scrolling when modal opens/closes

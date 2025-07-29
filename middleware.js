@@ -3,19 +3,18 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
 	const response = NextResponse.next();
 
-	// Generate a nonce for inline scripts
-	const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
-
-	// Set CSP header with nonce
+	// For production, we'll use a more permissive CSP that allows JSON-LD scripts and animations
 	const cspHeader = `
 		default-src 'self';
-		script-src 'self' 'unsafe-inline' 'nonce-${nonce}' ${
-		process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
-	};
-		style-src 'self' 'unsafe-inline';
+		script-src 'self' 'unsafe-inline' ${
+			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
+		};
+		style-src 'self' 'unsafe-inline' data:;
 		img-src 'self' data: blob: https:;
-		font-src 'self';
+		font-src 'self' data:;
 		object-src 'none';
+		media-src 'self';
+		connect-src 'self' https:;
 		base-uri 'self';
 		form-action 'self';
 		frame-ancestors 'none';
@@ -25,7 +24,6 @@ export function middleware(request) {
 		.trim();
 
 	response.headers.set('Content-Security-Policy', cspHeader);
-	response.headers.set('X-Nonce', nonce);
 
 	return response;
 }

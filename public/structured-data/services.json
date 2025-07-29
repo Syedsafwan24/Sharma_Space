@@ -1,0 +1,11 @@
+{
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	"name": "Sharma Space",
+	"description": "Professional interior design services",
+	"serviceType": "Interior design",
+	"offers": {
+		"@type": "Offer",
+		"name": "Interior Design Consultation"
+	}
+}
