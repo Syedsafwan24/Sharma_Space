@@ -57,7 +57,7 @@ const PortfolioStaticGrid = ({ projects = [] }) => {
 			{filteredProjects.length === 0 && activeFilter !== 'all' && (
 				<div className='text-center py-12'>
 					<p className='text-gray-500'>
-						No projects found for category "{activeFilter}".
+						No projects found for category &quot;{activeFilter}&quot;.
 						<button
 							onClick={() => setActiveFilter('all')}
 							className='text-red-600 hover:text-red-700 ml-1 underline'

@@ -1,8 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	// Experimental features to improve build stability
+	experimental: {
+		turbo: {
+			memoryLimit: 512,
+		},
+	},
+	// Build configuration
+	typescript: {
+		ignoreBuildErrors: false,
+	},
 	eslint: {
-		// This allows production builds to succeed even with ESLint errors.
-		ignoreDuringBuilds: true,
+		// Allow production builds to succeed - we've fixed the ESLint errors
+		ignoreDuringBuilds: false,
 	},
 	images: {
 		// Enable modern image formats

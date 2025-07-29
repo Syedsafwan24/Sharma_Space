@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }) {
 						Blog Post Not Found
 					</h1>
 					<p className='mt-4 text-gray-600'>
-						The blog post you're looking for doesn't exist.
+						The blog post you&apos;re looking for doesn&apos;t exist.
 					</p>
 				</div>
 			</div>

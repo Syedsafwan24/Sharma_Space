@@ -62,7 +62,7 @@ const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
 					</div>
 				</div>
 			</div>
-			<p className='text-gray-700 mb-4 flex-grow'>"{testimonial.text}"</p>
+			<p className='text-gray-700 mb-4 flex-grow'>&quot;{testimonial.text}&quot;</p>
 			<div className='flex gap-2 mt-4'>
 				<button
 					onClick={() => onEdit(testimonial)}

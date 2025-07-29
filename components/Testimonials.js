@@ -30,7 +30,7 @@ const TestimonialCard = ({ testimonial }) => {
 					!expanded && needsTruncation ? 'line-clamp-4' : ''
 				}`}
 			>
-				"{testimonial.text}"
+				&quot;{testimonial.text}&quot;
 			</div>
 
 			{needsTruncation && (

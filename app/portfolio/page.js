@@ -3,7 +3,15 @@ import PortfolioStaticGrid from '@/components/portfolio/PortfolioStaticGrid';
 import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
 import Footer from '@/components/Footer';
 import Cta from '@/components/Cta';
-import PerformanceMonitor from '@/components/debug/PerformanceMonitor';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PerformanceMonitor to avoid SSR issues
+const PerformanceMonitor = dynamic(
+	() => import('@/components/debug/PerformanceMonitor'),
+	{
+		ssr: false,
+	}
+);
 
 // Enable ISR (Incremental Static Regeneration)
 export const revalidate = 3600; // Revalidate every hour
