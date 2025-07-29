@@ -12,7 +12,7 @@ function RecentProjects() {
 				const data = await response.json();
 				setProjects(data.slice(0, 5)); // Get only the first 5 projects
 			} catch (error) {
-				console.error('Error fetching projects:', error);
+				// Handle error silently
 			} finally {
 				setLoading(false);
 			}

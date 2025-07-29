@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, priority = false }) => {
 	// Ensure the slug is properly formatted
 	const projectSlug =
 		project.slug || project.title.toLowerCase().replace(/\s+/g, '-');
@@ -15,6 +15,14 @@ const ProjectCard = ({ project }) => {
 		project.image?.url ||
 		project.image ||
 		'/images/placeholder.svg';
+
+	// Generate a better blur placeholder
+	const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
+		`<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+			<rect width="100%" height="100%" fill="#f3f4f6"/>
+			<text x="50%" y="50%" font-family="Arial" font-size="14" fill="#9ca3af" text-anchor="middle" dy=".3em">Loading...</text>
+		</svg>`
+	).toString('base64')}`;
 
 	return (
 		<div className='group relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300'>
@@ -27,8 +35,9 @@ const ProjectCard = ({ project }) => {
 					className='object-cover transition-all duration-500 group-hover:scale-105'
 					sizes='(max-width: 1024px) 100vw, 33vw'
 					placeholder='blur'
-					blurDataURL='/images/placeholder.svg'
-					priority={false}
+					blurDataURL={blurDataURL}
+					priority={priority}
+					loading={priority ? 'eager' : 'lazy'}
 				/>
 			</div>
 

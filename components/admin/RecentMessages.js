@@ -11,7 +11,7 @@ function RecentMessages() {
 				const data = await response.json();
 				setMessages(data.slice(0, 3)); // Get only the first 3 messages
 			} catch (error) {
-				console.error('Error fetching messages:', error);
+				// Handle error silently
 			} finally {
 				setLoading(false);
 			}

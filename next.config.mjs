@@ -42,10 +42,6 @@ const nextConfig = {
 			{
 				source: '/(.*)',
 				headers: [
-					{
-						key: 'Content-Security-Policy',
-						value: `default-src 'self'; script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval' 'unsafe-inline'" : ''}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; object-src 'none'; media-src 'self'; connect-src 'self';`,
-					},
 					{ key: 'X-Frame-Options', value: 'DENY' },
 					{ key: 'Referrer-Policy', value: 'strict-origin' },
 					{ key: 'X-Content-Type-Options', value: 'nosniff' },

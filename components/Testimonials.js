@@ -72,7 +72,7 @@ const TestimonialCard = ({ testimonial }) => {
 	);
 };
 
-const Testimonials = ({ testimonials = [] }) => {
+const Testimonials = ({ testimonials = [], loading = false }) => {
 	const isCarousel = testimonials.length > 3;
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
@@ -137,7 +137,34 @@ const Testimonials = ({ testimonials = [] }) => {
 					</p>
 				</div>
 
-				{isCarousel ? (
+				{loading ? (
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+						{[1, 2, 3].map((i) => (
+							<div key={i} className='bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md p-8'>
+								<div className='w-6 h-6 bg-gray-200 rounded animate-pulse mb-4'></div>
+								<div className='space-y-2 mb-6'>
+									<div className='h-4 bg-gray-200 rounded animate-pulse'></div>
+									<div className='h-4 bg-gray-200 rounded animate-pulse w-5/6'></div>
+									<div className='h-4 bg-gray-200 rounded animate-pulse w-4/6'></div>
+									<div className='h-4 bg-gray-200 rounded animate-pulse w-3/4'></div>
+								</div>
+								<div className='pt-4 border-t border-gray-100'>
+									<div className='flex items-center gap-4'>
+										<div className='w-12 h-12 bg-gray-200 rounded-full animate-pulse'></div>
+										<div className='flex-1'>
+											<div className='h-4 bg-gray-200 rounded animate-pulse mb-1'></div>
+											<div className='h-3 bg-gray-200 rounded animate-pulse w-2/3'></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				) : testimonials.length === 0 ? (
+					<div className='text-center text-gray-500 py-12'>
+						<p>No testimonials available at the moment.</p>
+					</div>
+				) : isCarousel ? (
 					<div className='relative'>
 						<div ref={sliderRef} className='keen-slider py-4'>
 							{testimonials.map((testimonial, index) => (

@@ -13,7 +13,7 @@ const testimonials = [
 		projectType: 'Residential',
 		projectTitle: 'Modern Apartment Design',
 		image: {
-			url: '/images/testimonials/priya.jpg',
+			url: '/images/testimonials/priya.webp',
 			alt: 'Priya Sharma testimonial Sharma Space interior design client',
 			width: 300,
 			height: 300,
@@ -179,7 +179,7 @@ const testimonials = [
 		projectType: 'Residential',
 		projectTitle: 'Penthouse Design',
 		image: {
-			url: '/images/testimonials/vikram.jpg',
+			url: '/images/testimonials/rahul.webp',
 			alt: 'Vikram Patel testimonial Sharma Space penthouse interior design',
 			width: 300,
 			height: 300,
@@ -231,7 +231,7 @@ const testimonials = [
 		projectType: 'Hospitality',
 		projectTitle: 'Hotel Renovation',
 		image: {
-			url: '/images/testimonials/deepika.jpg',
+			url: '/images/testimonials/ananya.webp',
 			alt: 'Deepika Reddy testimonial Sharma Space hospitality interior design',
 			width: 300,
 			height: 300,

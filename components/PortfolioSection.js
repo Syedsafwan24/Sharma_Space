@@ -62,7 +62,7 @@ const ThumbCard = ({ project }) => (
 /*  Section                                                                   */
 /* -------------------------------------------------------------------------- */
 
-const PortfolioSection = ({ projects = [] }) => {
+const PortfolioSection = ({ projects = [], loading = false }) => {
 	// Get featured projects or first 5 projects
 	const featuredProjects = projects.filter((p) => p.featured).slice(0, 5);
 	const displayProjects =
@@ -82,19 +82,52 @@ const PortfolioSection = ({ projects = [] }) => {
 					</p>
 				</header>
 
-				{/* Main (2-col) grid for first two projects */}
-				<div className='grid gap-8 lg:grid-cols-2 mb-10'>
-					{displayProjects.slice(0, 2).map((project) => (
-						<HeroCard key={project.id} project={project} />
-					))}
-				</div>
+				{loading ? (
+					<>
+						{/* Loading skeleton for main grid */}
+						<div className='grid gap-8 lg:grid-cols-2 mb-10'>
+							{[1, 2].map((i) => (
+								<div key={i} className='relative h-[400px] rounded-2xl overflow-hidden shadow-lg bg-gray-200 animate-pulse'>
+									<div className='absolute bottom-6 left-6 right-6'>
+										<div className='h-6 bg-gray-300 rounded mb-2'></div>
+										<div className='h-4 bg-gray-300 rounded w-3/4'></div>
+									</div>
+								</div>
+							))}
+						</div>
 
-				{/* Thumbnails (3-col on lg) for the rest */}
-				<div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16'>
-					{displayProjects.slice(2).map((project) => (
-						<ThumbCard key={project.id} project={project} />
-					))}
-				</div>
+						{/* Loading skeleton for thumbnails */}
+						<div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16'>
+							{[1, 2, 3].map((i) => (
+								<div key={i} className='relative h-48 rounded-xl overflow-hidden bg-gray-200 animate-pulse'>
+									<div className='absolute bottom-3 left-4'>
+										<div className='h-4 bg-gray-300 rounded w-24'></div>
+									</div>
+								</div>
+							))}
+						</div>
+					</>
+				) : displayProjects.length === 0 ? (
+					<div className='text-center text-gray-500 py-12'>
+						<p>No projects available at the moment.</p>
+					</div>
+				) : (
+					<>
+						{/* Main (2-col) grid for first two projects */}
+						<div className='grid gap-8 lg:grid-cols-2 mb-10'>
+							{displayProjects.slice(0, 2).map((project) => (
+								<HeroCard key={project.id} project={project} />
+							))}
+						</div>
+
+						{/* Thumbnails (3-col on lg) for the rest */}
+						<div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16'>
+							{displayProjects.slice(2).map((project) => (
+								<ThumbCard key={project.id} project={project} />
+							))}
+						</div>
+					</>
+				)}
 
 				{/* CTA button */}
 				<div className='text-center'>

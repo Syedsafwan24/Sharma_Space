@@ -32,7 +32,7 @@ export default function AdminMessages() {
 				const data = await response.json();
 				setMessages(data);
 			} catch (error) {
-				console.error('Error fetching messages:', error);
+				// Handle error silently
 			} finally {
 				setLoading(false);
 			}
