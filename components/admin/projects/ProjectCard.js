@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import EditProjectModal from './EditProjectModal';
 import EditProjectForm from './EditProjectForm';
 import { useMutation } from '@tanstack/react-query';
+import { imageQuality } from '@/lib/imageUtils';
 
 const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,11 +47,15 @@ const ProjectCard = ({ project, onEdit, refetchProjects }) => {
 	return (
 		<div className='bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full min-h-[420px]'>
 			<div className='relative w-full h-48'>
-				<Image
+				<OptimizedImage
 					src={project?.image || '/placeholder.svg'}
 					alt={project?.title || 'Project Image'}
 					fill
 					className='object-cover'
+					quality={imageQuality.thumbnail}
+					sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
+					showSkeleton={true}
+					skeletonClassName='rounded-t-lg'
 				/>
 			</div>
 			<div className='p-4 flex-1 flex flex-col'>

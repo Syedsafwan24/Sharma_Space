@@ -1,6 +1,7 @@
 import React from 'react';
 import { companyStats, companyInfo } from '@/app/data';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const OurJourney = () => {
 	// Get stats from centralized data
@@ -71,13 +72,16 @@ const OurJourney = () => {
 				{/* Image Content */}
 				<div className='flex-1 max-w-full lg:max-w-[600px] xl:max-w-[700px] mt-10 lg:mt-0 order-1 lg:order-2'>
 					<div className='relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[10/10] xl:aspect-[10/10] rounded-lg overflow-hidden shadow-lg'>
-						<Image
+						<OptimizedImage
 							src='/images/AboutPage/our-journey.webp'
 							alt='Two professionals in business attire having a friendly conversation in a modern office setting'
 							fill
 							className='object-cover object-center'
 							sizes='(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 50vw, 45vw'
 							priority
+							quality={imageQuality.portfolio}
+							showSkeleton={true}
+							skeletonClassName='rounded-lg'
 						/>
 					</div>
 				</div>

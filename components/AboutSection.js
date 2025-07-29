@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 	const sectionRef = useRef(null);
@@ -107,12 +108,17 @@ const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 						{/* Right Image Section */}
 						<div ref={imageRef} className='relative'>
 							<div className='relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:-translate-y-2 hover:scale-105'>
-								<Image
+								<OptimizedImage
 									src='/images/AboutSection.webp'
 									alt='Modern orange sofa with decorative pillows in contemporary living room - Sharma Space interior design showcase'
 									width={800}
 									height={600}
 									className='w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover'
+									quality={imageQuality.portfolio}
+									sizes={imageSizes.twoColumn}
+									priority={false}
+									showSkeleton={true}
+									skeletonClassName='rounded-2xl'
 								/>
 							</div>
 						</div>

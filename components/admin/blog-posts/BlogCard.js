@@ -1,7 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import { User } from 'lucide-react';
 import { formatBlogDate, fetchWithCacheBust } from '@/lib/utils';
+import { imageQuality } from '@/lib/imageUtils';
 
 const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 	// Support both string and object for author
@@ -40,11 +41,15 @@ const BlogCard = ({ post, onEdit, onDelete, authors }) => {
 	return (
 		<div className='bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full min-h-[420px]'>
 			<div className='relative w-full h-48'>
-				<Image
+				<OptimizedImage
 					src={post.image?.url || post.image}
 					alt={post.title}
 					fill
 					className='object-cover'
+					quality={imageQuality.thumbnail}
+					sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
+					showSkeleton={true}
+					skeletonClassName='rounded-t-lg'
 				/>
 			</div>
 			<div className='p-6 flex-1 flex flex-col'>

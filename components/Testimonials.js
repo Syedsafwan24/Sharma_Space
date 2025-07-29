@@ -3,9 +3,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import Image from 'next/image';
+import Link from 'next/link';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const TestimonialCard = ({ testimonial }) => {
 	const [expanded, setExpanded] = useState(false);
@@ -45,12 +47,16 @@ const TestimonialCard = ({ testimonial }) => {
 			<div className='mt-auto pt-4 border-t border-gray-100'>
 				<div className='flex items-center gap-4'>
 					<div className='w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm'>
-						<Image
+						<OptimizedImage
 							src={testimonial.image?.url || testimonial.image}
 							alt={testimonial.fullName || testimonial.name}
 							width={48}
 							height={48}
 							className='w-full h-full object-cover'
+							quality={imageQuality.avatar}
+							sizes={imageSizes.avatar}
+							showSkeleton={true}
+							skeletonClassName='rounded-full'
 						/>
 					</div>
 					<div className='flex-1'>
@@ -140,7 +146,10 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 				{loading ? (
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 						{[1, 2, 3].map((i) => (
-							<div key={i} className='bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md p-8'>
+							<div
+								key={i}
+								className='bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-md p-8'
+							>
 								<div className='w-6 h-6 bg-gray-200 rounded animate-pulse mb-4'></div>
 								<div className='space-y-2 mb-6'>
 									<div className='h-4 bg-gray-200 rounded animate-pulse'></div>
@@ -161,8 +170,42 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 						))}
 					</div>
 				) : testimonials.length === 0 ? (
-					<div className='text-center text-gray-500 py-12'>
-						<p>No testimonials available at the moment.</p>
+					<div className='text-center py-16'>
+						<div className='max-w-md mx-auto'>
+							{/* Icon */}
+							<div className='mb-6'>
+								<svg
+									className='mx-auto h-16 w-16 text-gray-400'
+									fill='none'
+									stroke='currentColor'
+									viewBox='0 0 24 24'
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										strokeWidth={1.5}
+										d='M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z'
+									/>
+								</svg>
+							</div>
+
+							{/* Content */}
+							<h3 className='text-xl font-semibold text-gray-900 mb-2'>
+								No Testimonials Yet
+							</h3>
+							<p className='text-gray-600 mb-6'>
+								We're building relationships with amazing clients every day.
+								Check back soon to read about their experiences!
+							</p>
+
+							{/* Call to Action */}
+							<Link
+								href='/contact'
+								className='inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200'
+							>
+								Be Our Next Happy Client
+							</Link>
+						</div>
 					</div>
 				) : isCarousel ? (
 					<div className='relative'>
