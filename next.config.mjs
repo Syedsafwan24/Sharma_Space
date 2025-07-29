@@ -11,6 +11,7 @@ const nextConfig = {
 		ignoreBuildErrors: false,
 	},
 	eslint: {
+		// Allow production builds to succeed - we've fixed the ESLint errors
 		ignoreDuringBuilds: false,
 	},
 	images: {
