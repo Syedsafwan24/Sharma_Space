@@ -3,6 +3,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// Motion configuration
+const motionConfig = {
+	initial: { opacity: 0 },
+	animate: { opacity: 1 },
+	transition: { duration: 0.8 },
+};
+
 const ProcessStep = ({ index, children, from = 'left' }) => {
 	const direction = from === 'left' ? -100 : 100;
 	return (
@@ -10,8 +17,16 @@ const ProcessStep = ({ index, children, from = 'left' }) => {
 			className='flex items-center mb-2 relative'
 			initial={{ opacity: 0, x: direction }}
 			whileInView={{ opacity: 1, x: 0 }}
-			transition={{ duration: 0.8 }}
-			viewport={{ once: true, amount: 0.3 }}
+			transition={{
+				duration: 0.8,
+				ease: 'easeOut',
+				delay: index * 0.1,
+			}}
+			viewport={{
+				once: true,
+				amount: 0.2,
+				margin: '100px',
+			}}
 		>
 			{children}
 		</motion.div>
@@ -22,7 +37,13 @@ const Process = () => {
 	return (
 		<section className='bg-[#fff8f8] py-20 px-4 relative overflow-hidden'>
 			{/* Heading */}
-			<div className='text-center mb-20'>
+			<motion.div
+				className='text-center mb-20'
+				initial={{ opacity: 0, y: 30 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.8, ease: 'easeOut' }}
+				viewport={{ once: true, amount: 0.3 }}
+			>
 				<h2
 					className='text-3xl md:text-4xl xl:text-5xl font-extrabold mb-4'
 					style={{ color: '#E63946' }}
@@ -32,12 +53,12 @@ const Process = () => {
 				<p className='text-base md:text-lg xl:text-xl text-gray-600 px-4'>
 					A streamlined approach to transform your vision into reality
 				</p>
-			</div>
+			</motion.div>
 
 			{/* Mobile/Tablet Layout */}
 			<div className='xl:hidden max-w-md mx-auto space-y-8'>
 				{/* Step 1 */}
-				<ProcessStep from='left'>
+				<ProcessStep index={0} from='left'>
 					<div className='w-full'>
 						<div className='bg-white rounded-2xl shadow-lg p-6 border border-gray-100 relative'>
 							<div className='flex items-center mb-4'>
@@ -90,7 +111,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 2 */}
-				<ProcessStep from='right'>
+				<ProcessStep index={1} from='right'>
 					<div className='w-full'>
 						<div className='bg-white rounded-2xl shadow-lg p-6 border border-gray-100 relative'>
 							<div className='flex items-center mb-4'>
@@ -132,7 +153,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 3 */}
-				<ProcessStep from='left'>
+				<ProcessStep index={2} from='left'>
 					<div className='w-full'>
 						<div className='bg-white rounded-2xl shadow-lg p-6 border border-gray-100 relative'>
 							<div className='flex items-center mb-4'>
@@ -180,7 +201,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 4 */}
-				<ProcessStep from='right'>
+				<ProcessStep index={3} from='right'>
 					<div className='w-full'>
 						<div className='bg-white rounded-2xl shadow-lg p-6 border border-gray-100 relative'>
 							<div className='flex items-center mb-4'>
@@ -231,7 +252,7 @@ const Process = () => {
 				/>
 
 				{/* Step 1 */}
-				<ProcessStep from='left'>
+				<ProcessStep index={0} from='left'>
 					<div className='w-1/2 pr-16 flex justify-end'>
 						<div className='bg-white rounded-2xl shadow-lg p-8 border border-gray-100 relative w-80'>
 							<div
@@ -284,7 +305,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 2 */}
-				<ProcessStep from='right'>
+				<ProcessStep index={1} from='right'>
 					<div className='w-1/2 pr-16 flex justify-end'>
 						<div className='bg-white rounded-2xl shadow-lg p-8 border border-gray-100 w-80 h-60 flex items-center justify-center'>
 							<div className='bg-gray-200 w-40 h-28 rounded-lg relative'>
@@ -326,7 +347,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 3 */}
-				<ProcessStep from='left'>
+				<ProcessStep index={2} from='left'>
 					<div className='w-1/2 pr-16 flex justify-end'>
 						<div className='bg-white rounded-2xl shadow-lg p-8 border border-gray-100 relative w-80'>
 							<div
@@ -374,7 +395,7 @@ const Process = () => {
 				</ProcessStep>
 
 				{/* Step 4 */}
-				<ProcessStep from='right'>
+				<ProcessStep index={3} from='right'>
 					<div className='w-1/2 pr-16 flex justify-end'>
 						<div className='bg-white rounded-2xl shadow-lg p-8 border border-gray-100 w-80 h-60 flex items-center justify-center'>
 							<div className='grid grid-cols-3 gap-2'>

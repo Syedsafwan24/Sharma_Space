@@ -4,6 +4,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import ConditionalNavigation from '@/components/ConditionalNavigation';
+import WelcomeModal from '@/components/WelcomeModal';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 
@@ -149,6 +150,7 @@ export default function RootLayout({ children }) {
 							{/* Footer component, rendered once for the entire site */}
 
 							{/* WelcomeModal component for the popup, also rendered once */}
+							<WelcomeModal />
 
 							{/* Toasters for notifications */}
 							<Toaster />
