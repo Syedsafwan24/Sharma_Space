@@ -428,13 +428,7 @@ export default function RootLayout({ children }) {
 				<link rel='preload' as='image' href='/images/AboutSection.webp' />
 
 				{/* Preload critical CSS */}
-				<link
-					rel='preload'
-					href='/fonts/poppins.woff2'
-					as='font'
-					type='font/woff2'
-					crossOrigin=''
-				/>
+				{/* Font preload removed - using Google Fonts directly */}
 
 				{/* Additional meta tags for local SEO */}
 				<meta name='geo.region' content='IN-KA' />
