@@ -1,0 +1,53 @@
+{
+	"name": "Sharma Space - Interior Designers in Bangalore",
+	"short_name": "Sharma Space",
+	"description": "Award-winning interior designers in Bangalore. Residential, commercial, modular kitchen, and renovation experts.",
+	"icons": [
+		{
+			"src": "/favicon.ico",
+			"sizes": "32x32",
+			"type": "image/x-icon"
+		}
+	],
+	"theme_color": "#E63946",
+	"background_color": "#ffffff",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"scope": "/",
+	"lang": "en-IN",
+	"dir": "ltr",
+	"categories": ["business", "design", "lifestyle"],
+	"screenshots": [
+		{
+			"src": "/images/Hero-Background.webp",
+			"sizes": "1200x630",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Sharma Space - Modern Interior Design"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "Portfolio",
+			"short_name": "Portfolio",
+			"description": "View our interior design portfolio",
+			"url": "/portfolio",
+			"icons": [{ "src": "/favicon.ico", "sizes": "32x32" }]
+		},
+		{
+			"name": "Services",
+			"short_name": "Services",
+			"description": "Our interior design services",
+			"url": "/services",
+			"icons": [{ "src": "/favicon.ico", "sizes": "32x32" }]
+		},
+		{
+			"name": "Contact",
+			"short_name": "Contact",
+			"description": "Contact us for a consultation",
+			"url": "/contact",
+			"icons": [{ "src": "/favicon.ico", "sizes": "32x32" }]
+		}
+	]
+}

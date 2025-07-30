@@ -18,7 +18,7 @@ const Services = ({ services = [], loading = false }) => {
 	};
 
 	return (
-		<section className='bg-gray-100 py-20'>
+		<section className='bg-gray-100 py-12 sm:py-16'>
 			<div className='max-w-6xl mx-auto px-6'>
 				{/* Section Header - Centered */}
 				<div className='text-center mb-20'>
@@ -81,7 +81,7 @@ const Services = ({ services = [], loading = false }) => {
 							{/* Call to Action */}
 							<Link
 								href='/contact'
-								className='inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200'
+								className='inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-center'
 							>
 								Discuss Your Project
 							</Link>

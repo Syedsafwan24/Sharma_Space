@@ -26,7 +26,7 @@ const PartnerBrands = ({ partnerBrands = [] }) => {
 	}, []);
 
 	return (
-		<section className='bg-gray-100 py-16'>
+		<section className='bg-gray-100 py-10 sm:py-12 md:py-14'>
 			<div className='max-w-6xl mx-auto px-6 text-center'>
 				<h2 className='text-3xl md:text-4xl font-bold mb-4'>
 					Our Partner Brands

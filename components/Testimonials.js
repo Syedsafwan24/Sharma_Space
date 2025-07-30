@@ -132,7 +132,7 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 	}, [instanceRef, isCarousel]);
 
 	return (
-		<section className='bg-white py-16 sm:py-20'>
+		<section className='bg-white py-10 sm:py-14 md:py-16'>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<div className='text-center mb-12'>
 					<h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-3'>
@@ -201,7 +201,7 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 							{/* Call to Action */}
 							<Link
 								href='/contact'
-								className='inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200'
+								className='inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-center'
 							>
 								Be Our Next Happy Client
 							</Link>

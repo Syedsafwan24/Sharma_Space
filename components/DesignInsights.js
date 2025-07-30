@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { formatBlogDate } from '@/lib/utils';
 import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
-const DesignInsights = ({ blogPosts = [] }) => {
+const DesignInsights = ({ blogPosts = [], projects = [] }) => {
 	// Get the first 3 blog posts for the insights section
 	const articles = blogPosts.slice(0, 3).map((post) => ({
 		tag: post.category || post.tag,
@@ -22,7 +22,7 @@ const DesignInsights = ({ blogPosts = [] }) => {
 	// Show empty state if no articles
 	if (articles.length === 0) {
 		return (
-			<section className='py-20 bg-white'>
+			<section className='py-12 sm:py-16 bg-white'>
 				<div className='max-w-6xl mx-auto px-6'>
 					<h2 className='text-4xl font-bold text-center mb-3'>
 						Design Insights
@@ -63,15 +63,18 @@ const DesignInsights = ({ blogPosts = [] }) => {
 
 							{/* Call to Action */}
 							<div className='flex flex-col sm:flex-row gap-3 justify-center'>
-								<Link
-									href='/blog'
-									className='inline-flex items-center px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-200'
-								>
-									View Blog
-								</Link>
+								{/* Only show View Blog button if there are projects */}
+								{projects.length > 0 && (
+									<Link
+										href='/blog'
+										className='inline-flex items-center justify-center px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-200 text-center'
+									>
+										View Blog
+									</Link>
+								)}
 								<Link
 									href='/contact'
-									className='inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200'
+									className='inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-center'
 								>
 									Get Design Consultation
 								</Link>
@@ -84,7 +87,7 @@ const DesignInsights = ({ blogPosts = [] }) => {
 	}
 
 	return (
-		<section className='py-20 bg-white'>
+		<section className='py-12 sm:py-16 bg-white'>
 			<div className='max-w-6xl mx-auto px-6'>
 				<h2 className='text-4xl font-bold text-center mb-3'>Design Insights</h2>
 				<p className='text-gray-600 text-center mb-12 text-lg'>
@@ -156,6 +159,19 @@ const DesignInsights = ({ blogPosts = [] }) => {
 						</Link>
 					))}
 				</div>
+
+				{/* Show View All Articles button if there are blog posts */}
+				{articles.length > 0 && (
+					<div className='text-center mt-12'>
+						<Link
+							href='/blog'
+							className='inline-block rounded border border-[#E63946] px-8 py-3 text-sm font-semibold
+                       text-[#E63946] hover:bg-[#E63946] hover:text-white transition'
+						>
+							View All Articles
+						</Link>
+					</div>
+				)}
 			</div>
 		</section>
 	);

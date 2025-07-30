@@ -49,9 +49,9 @@ const Hero = () => {
 			<div
 				className={`relative z-20 max-w-6xl mx-auto px-6 w-full transition-opacity duration-1000 ${imageLoaded ? 'opacity-100' : 'opacity-75'}`}
 			>
-				<div className='max-w-2xl text-left opacity-0 animate-fade-in [animation-delay:0.5s] [animation-fill-mode:forwards]'>
+				<div className='w-full flex flex-col items-center sm:items-start max-w-2xl mx-auto sm:mx-0 text-center sm:text-left opacity-0 animate-fade-in [animation-delay:0.5s] [animation-fill-mode:forwards]'>
 					{/* Main Heading */}
-					<h1 className='text-5xl sm:text-6xl md:text-6xl font-extrabold leading-tight sm:leading-[0.9] text-gray-50 mb-6 md:mb-8 tracking-tight'>
+					<h1 className='text-5xl sm:text-6xl md:text-6xl font-extrabold leading-tight sm:leading-[0.9] text-gray-50 mb-6 md:mb-8 tracking-tight text-center sm:text-left'>
 						Crafting
 						<br />
 						Spaces
@@ -64,32 +64,39 @@ const Hero = () => {
 					</h1>
 
 					{/* Subtitle */}
-					<p className='text-base sm:text-lg leading-relaxed text-gray-50 mb-8 md:mb-10 opacity-90 max-w-sm sm:max-w-md md:max-w-lg'>
+					<p className='text-base sm:text-lg leading-relaxed text-gray-50 mb-8 md:mb-10 opacity-90 max-w-sm sm:max-w-md md:max-w-lg text-center sm:text-left'>
 						Elevate your surroundings with custom interiors designed to enhance
 						both aesthetics and functionality.
 					</p>
 
 					{/* CTA Button */}
-					<Link
-						href='/contact'
-						className='inline-block bg-red-700 text-gray-50 px-8 sm:px-9 py-3.5 sm:py-4 rounded border-none text-base font-semibold cursor-pointer transition-all duration-300 transform shadow-lg shadow-red-700/30 hover:bg-red-800 hover:-translate-y-1 hover:shadow-xl hover:shadow-red-700/40 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 text-center'
-					>
-						Book a Free Consultation
-					</Link>
+					<div className='w-full flex justify-center sm:justify-start'>
+						<Link
+							href='/contact'
+							className='inline-block bg-red-700 text-gray-50 px-8 sm:px-9 py-3.5 sm:py-4 rounded border-none text-base font-semibold cursor-pointer transition-all duration-300 transform shadow-lg shadow-red-700/30 hover:bg-red-800 hover:-translate-y-1 hover:shadow-xl hover:shadow-red-700/40 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 text-center'
+						>
+							Book a Free Consultation
+						</Link>
+					</div>
 				</div>
 			</div>
 
 			{/* Scroll Down Indicator */}
 			<div
-				className='absolute bottom-6 sm:bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 z-30
-                   flex flex-col items-center cursor-pointer transition-all duration-300 opacity-0 animate-fade-in [animation-delay:2s] [animation-fill-mode:forwards] hover:-translate-y-2 group'
+				className='absolute bottom-6 sm:bottom-8 md:bottom-10 left-0 right-0 z-50 cursor-pointer transition-all duration-300 opacity-0 animate-fade-in hover:-translate-y-2 group'
+				style={{
+					animationDelay: '2s',
+					animationFillMode: 'forwards',
+				}}
 				onClick={scrollToNext}
 			>
-				<div className='text-gray-50 text-sm sm:text-base mb-1 sm:mb-2 opacity-80 font-medium tracking-wide group-hover:opacity-100 transition-opacity duration-300'>
-					Discover More
-				</div>
-				<div className='text-gray-50 text-2xl sm:text-3xl opacity-80 animate-bounce-subtle group-hover:opacity-100 transition-opacity duration-300'>
-					&#x2193;
+				<div className='flex flex-col items-center justify-center text-center mx-auto w-fit'>
+					<div className='text-gray-50 text-sm sm:text-base mb-1 sm:mb-2 opacity-80 font-medium tracking-wide group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap'>
+						Discover More
+					</div>
+					<div className='text-gray-50 text-2xl sm:text-3xl opacity-80 animate-bounce-subtle group-hover:opacity-100 transition-opacity duration-300 text-center'>
+						&#x2193;
+					</div>
 				</div>
 			</div>
 

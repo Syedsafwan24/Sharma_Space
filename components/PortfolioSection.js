@@ -12,13 +12,13 @@ import { imageSizes, imageQuality } from '@/lib/imageUtils';
 
 const HeroCard = ({ project }) => {
 	return (
-		<article className='relative group h-[400px] rounded-2xl overflow-hidden shadow-lg'>
+		<article className='relative group h-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300'>
 			{/* Image */}
 			<OptimizedImage
 				src={project.image.url || project.image}
 				alt={`${project.title} interior design`}
 				fill
-				className='object-cover transition duration-300 group-hover:scale-105'
+				className='object-cover transition duration-500 group-hover:scale-110'
 				sizes={imageSizes.portfolioCard}
 				priority={true}
 				quality={imageQuality.portfolio}
@@ -26,23 +26,33 @@ const HeroCard = ({ project }) => {
 				skeletonClassName='rounded-2xl'
 			/>
 
-			{/* Gradient overlay */}
-			<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent' />
+			{/* Gradient overlay - Always visible, enhanced on hover */}
+			<div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:from-black/95 group-hover:via-black/50 transition-all duration-300 z-10' />
 
-			{/* Caption */}
-			<div className='relative z-10 flex flex-col justify-end h-full p-6 text-white'>
-				<h3 className='text-2xl font-semibold leading-snug'>{project.title}</h3>
-				{project.description && (
-					<p className='mt-2 text-sm leading-relaxed line-clamp-3'>
-						{project.shortDescription || project.description}
-					</p>
-				)}
-				<Link
-					href={`/portfolio/${project.slug}`}
-					className='mt-4 inline-flex items-center gap-1 text-sm font-medium tracking-wide hover:text-[#E63946] transition'
-				>
-					View Project <span aria-hidden>→</span>
-				</Link>
+			{/* Caption - Always visible, enhanced on hover */}
+			<div className='absolute bottom-0 left-0 right-0 z-20 flex flex-col justify-end h-full p-6 text-white transform transition-all duration-300'>
+				<div className='space-y-3'>
+					<h3 className='text-2xl font-bold leading-snug text-white drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300'>
+						{project.title}
+					</h3>
+					{(project.description || project.shortDescription) && (
+						<p className='text-sm leading-relaxed line-clamp-3 text-gray-100 drop-shadow-md opacity-95 group-hover:opacity-100 transition-opacity duration-300'>
+							{project.shortDescription || project.description}
+						</p>
+					)}
+					<Link
+						href={`/portfolio/${project.slug}`}
+						className='inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-white bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl w-fit'
+					>
+						View Project{' '}
+						<span
+							aria-hidden
+							className='transition-transform duration-300 group-hover:translate-x-1'
+						>
+							→
+						</span>
+					</Link>
+				</div>
 			</div>
 		</article>
 	);
@@ -50,22 +60,38 @@ const HeroCard = ({ project }) => {
 
 const ThumbCard = ({ project }) => {
 	return (
-		<article className='relative group h-48 rounded-xl overflow-hidden'>
-			<OptimizedImage
-				src={project.image.url || project.image}
-				alt={project.title}
-				fill
-				className='object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-75'
-				sizes={imageSizes.portfolioCard}
-				quality={imageQuality.thumbnail}
-				showSkeleton={true}
-				skeletonClassName='rounded-xl'
-			/>
+		<Link href={`/portfolio/${project.slug}`} className='block'>
+			<article className='relative group h-48 rounded-xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300'>
+				<OptimizedImage
+					src={project.image.url || project.image}
+					alt={project.title}
+					fill
+					className='object-cover transition duration-500 group-hover:scale-110'
+					sizes={imageSizes.portfolioCard}
+					quality={imageQuality.thumbnail}
+					showSkeleton={true}
+					skeletonClassName='rounded-xl'
+				/>
 
-			<h4 className='absolute bottom-3 left-4 z-10 text-white text-base font-medium drop-shadow-sm'>
-				{project.title}
-			</h4>
-		</article>
+				{/* Overlay for better text visibility - Always visible, enhanced on hover */}
+				<div className='absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent group-hover:from-black/95 transition-all duration-300 z-10' />
+
+				{/* Title with better visibility - Always visible */}
+				<div className='absolute bottom-0 left-0 right-0 z-20 p-4 transform transition-all duration-300'>
+					<h4 className='text-white text-base font-semibold drop-shadow-lg leading-tight group-hover:text-yellow-200 transition-colors duration-300'>
+						{project.title}
+					</h4>
+					{(project.shortDescription || project.description) && (
+						<p className='text-gray-200 text-xs mt-2 line-clamp-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300'>
+							{project.shortDescription || project.description}
+						</p>
+					)}
+					<span className='inline-flex items-center text-red-400 text-xs mt-2 font-medium group-hover:text-red-300 transition-colors duration-300'>
+						View Details →
+					</span>
+				</div>
+			</article>
+		</Link>
 	);
 };
 
@@ -80,7 +106,7 @@ const PortfolioSection = ({ projects = [], loading = false }) => {
 		featuredProjects.length >= 5 ? featuredProjects : projects.slice(0, 5);
 
 	return (
-		<section id='portfolio' className='py-24'>
+		<section id='portfolio' className='py-12 sm:py-16 md:py-20'>
 			<div className='mx-auto max-w-7xl px-4'>
 				{/* Section header */}
 				<header className='mb-12 text-center'>
@@ -156,7 +182,7 @@ const PortfolioSection = ({ projects = [], loading = false }) => {
 							{/* Call to Action */}
 							<Link
 								href='/contact'
-								className='inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200'
+								className='inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-center'
 							>
 								Start Your Project
 							</Link>
@@ -180,16 +206,18 @@ const PortfolioSection = ({ projects = [], loading = false }) => {
 					</>
 				)}
 
-				{/* CTA button */}
-				<div className='text-center'>
-					<Link
-						href='/portfolio'
-						className='inline-block rounded border border-[#E63946] px-8 py-3 text-sm font-semibold
+				{/* CTA button - Only show when there are projects */}
+				{displayProjects.length > 0 && (
+					<div className='text-center'>
+						<Link
+							href='/portfolio'
+							className='inline-block rounded border border-[#E63946] px-8 py-3 text-sm font-semibold
                        text-[#E63946] hover:bg-[#E63946] hover:text-white transition'
-					>
-						View Full Portfolio
-					</Link>
-				</div>
+						>
+							View Full Portfolio
+						</Link>
+					</div>
+				)}
 			</div>
 		</section>
 	);

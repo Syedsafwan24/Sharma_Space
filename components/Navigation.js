@@ -4,11 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Instagram, Facebook, Youtube, Twitter, Menu, X } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
+import { useNavigation } from '@/components/providers/NavigationContext';
 import Image from 'next/image';
 
 const Navigation = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const { isMobileMenuOpen, setIsMobileMenuOpen } = useNavigation();
 	const pathname = usePathname();
 	const { data: session } = useSession();
 
@@ -70,11 +71,12 @@ const Navigation = () => {
 				}`}
 			>
 				<div className='max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center'>
-					{/* Logo */}
-					{/* Added Link component around the logo and text */}
+					{/* Logo - Hide when mobile menu is open */}
 					<Link
 						href='/'
-						className='flex items-center gap-2 transition-transform duration-300 hover:scale-105 cursor-pointer'
+						className={`flex items-center gap-2 transition-transform duration-300 hover:scale-105 cursor-pointer ${
+							isMobileMenuOpen ? 'lg:flex hidden' : 'flex'
+						}`}
 					>
 						<Image
 							src='/images/icon/SharmaSpace-Logo.webp'
@@ -107,8 +109,8 @@ const Navigation = () => {
 														? 'text-red-600'
 														: 'text-gray-700 hover:text-red-600'
 													: pathname === item.path
-													? 'text-red-600'
-													: 'text-white hover:text-red-600'
+														? 'text-red-600'
+														: 'text-white hover:text-red-600'
 											}
 										`}
 									>
@@ -132,20 +134,26 @@ const Navigation = () => {
 								href={href}
 								target='_blank'
 								rel='noopener noreferrer'
+								className='transition-all duration-300 hover:scale-110'
 							>
 								<Icon
 									size={20}
-									className='transition-all duration-300 p-1 hover:scale-110 cursor-pointer'
-									style={{ color: useDarkTheme ? '#1f2937' : '#ffffff' }}
+									className={`transition-all duration-300 cursor-pointer hover:drop-shadow-lg ${
+										useDarkTheme
+											? 'text-gray-800 hover:text-[#E63946]'
+											: 'text-white hover:text-[#E63946]'
+									}`}
 								/>
 							</a>
 						))}
 					</div>
 
-					{/* Mobile Menu Button */}
+					{/* Mobile Menu Button - Hide when mobile menu is open */}
 					<button
 						onClick={toggleMobileMenu}
-						className='lg:hidden p-2 rounded-md transition-colors duration-300'
+						className={`lg:hidden p-2 rounded-md transition-colors duration-300 ${
+							isMobileMenuOpen ? 'invisible' : 'visible'
+						}`}
 						style={{
 							color: useDarkTheme ? '#1f2937' : '#ffffff',
 							backgroundColor: 'transparent',
@@ -158,17 +166,21 @@ const Navigation = () => {
 			</nav>
 
 			{/* Mobile Menu Overlay */}
-			{isMobileMenuOpen && (
-				<div
-					className='fixed inset-0 bg-black/50 z-40 lg:hidden'
-					onClick={toggleMobileMenu}
-				/>
-			)}
+			<div
+				className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ${
+					isMobileMenuOpen
+						? 'opacity-100 pointer-events-auto'
+						: 'opacity-0 pointer-events-none'
+				}`}
+				onClick={toggleMobileMenu}
+			/>
 
 			{/* Mobile Menu */}
 			<div
-				className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
-					isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+				className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 transition-transform duration-300 ease-in-out lg:hidden shadow-2xl ${
+					isMobileMenuOpen
+						? 'transform translate-x-0'
+						: 'transform translate-x-full'
 				}`}
 			>
 				{/* Mobile Menu Header */}
@@ -198,7 +210,7 @@ const Navigation = () => {
 				{/* Mobile Navigation Items */}
 				<div className='py-6'>
 					<ul className='space-y-1'>
-						{navItems.map((item) => (
+						{navItems.map((item, index) => (
 							<li key={item.name}>
 								<Link href={item.path}>
 									<span
@@ -230,10 +242,11 @@ const Navigation = () => {
 								href={href}
 								target='_blank'
 								rel='noopener noreferrer'
+								className='transition-all duration-300 hover:scale-110'
 							>
 								<Icon
-									size={24}
-									className='text-gray-600 hover:text-red-600 transition-colors duration-300 p-1 hover:scale-110'
+									size={20}
+									className='text-gray-600 hover:text-[#E63946] transition-all duration-300 cursor-pointer hover:drop-shadow-md'
 								/>
 							</a>
 						))}

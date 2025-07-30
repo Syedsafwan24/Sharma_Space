@@ -1,3 +1,5 @@
+'use client';
+
 import AboutSection from '@/components/AboutSection';
 import Cta from '@/components/Cta';
 import DesignInsights from '@/components/DesignInsights';
@@ -11,28 +13,92 @@ import Testimonials from '@/components/Testimonials';
 import WelcomeModal from '@/components/WelcomeModal';
 import { MessageCircle, Instagram, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
-import {
-	fetchServices,
-	fetchTestimonials,
-	fetchProjects,
-	fetchBlogPosts,
-	fetchCompanyStats,
-} from '@/lib/utils';
+import { useHomepageData } from '@/hooks/useHomepageData';
+import { useNavigation } from '@/components/providers/NavigationContext';
 import brandsData from '@/app/data/company/brands.json';
 
-// Enable ISR for homepage
-export const revalidate = 1800; // Revalidate every 30 minutes
+export default function Home() {
+	// Use cached data with client-side persistence
+	const {
+		services,
+		testimonials,
+		projects,
+		blogPosts,
+		companyData,
+		loading,
+		error,
+	} = useHomepageData();
 
-export default async function Home() {
-	// Fetch dynamic data with caching - prioritize hero and above-fold content
-	const [services, testimonials, projects, blogPosts, companyData] =
-		await Promise.all([
-			fetchServices(),
-			fetchTestimonials(),
-			fetchProjects(),
-			fetchBlogPosts(),
-			fetchCompanyStats(),
-		]);
+	// Get mobile menu state from navigation context
+	const { isMobileMenuOpen } = useNavigation();
+
+	if (loading) {
+		return (
+			<div className='relative'>
+				<main className='hero-container'>
+					{/* Hero with loading state */}
+					<Hero />
+
+					{/* Mobile-optimized loading skeletons */}
+					<div className='animate-pulse px-4 sm:px-6'>
+						{/* About Section Skeleton */}
+						<div className='py-8 sm:py-12'>
+							<div className='h-6 sm:h-8 bg-gray-200 rounded-lg mb-4 mx-auto w-48'></div>
+							<div className='h-4 bg-gray-200 rounded-lg mb-2 w-full max-w-md mx-auto'></div>
+							<div className='h-4 bg-gray-200 rounded-lg mb-6 w-3/4 max-w-sm mx-auto'></div>
+							<div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+								{[1, 2, 3, 4].map((i) => (
+									<div
+										key={i}
+										className='h-16 sm:h-20 bg-gray-200 rounded-lg'
+									></div>
+								))}
+							</div>
+						</div>
+
+						{/* Services Section Skeleton */}
+						<div className='py-8 sm:py-12'>
+							<div className='h-6 sm:h-8 bg-gray-200 rounded-lg mb-6 mx-auto w-32'></div>
+							<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+								{[1, 2, 3].map((i) => (
+									<div
+										key={i}
+										className='h-32 sm:h-40 bg-gray-200 rounded-lg'
+									></div>
+								))}
+							</div>
+						</div>
+
+						{/* Portfolio Section Skeleton */}
+						<div className='py-8 sm:py-12'>
+							<div className='h-6 sm:h-8 bg-gray-200 rounded-lg mb-6 mx-auto w-40'></div>
+							<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+								{[1, 2].map((i) => (
+									<div
+										key={i}
+										className='h-48 sm:h-56 bg-gray-200 rounded-lg'
+									></div>
+								))}
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className='relative'>
+				<main className='hero-container'>
+					<Hero />
+					<div className='text-center py-8'>
+						<p className='text-red-500'>Error loading data: {error}</p>
+					</div>
+				</main>
+			</div>
+		);
+	}
 
 	return (
 		<div className='relative'>
@@ -46,7 +112,7 @@ export default async function Home() {
 				<Services services={services} />
 				<Process />
 				<PartnerBrands partnerBrands={brandsData.partnerBrands} />
-				<DesignInsights blogPosts={blogPosts} />
+				<DesignInsights blogPosts={blogPosts} projects={projects} />
 				<Portfolio projects={projects} />
 				<Testimonials testimonials={testimonials} />
 				<Cta />
@@ -55,8 +121,10 @@ export default async function Home() {
 			{/* Footer component */}
 			<Footer />
 
-			{/* Floating Social Icons (kept here for homepage-specific rendering) */}
-			<div className='fixed right-6 bottom-6 flex flex-col gap-3 z-50'>
+			{/* Floating Social Icons - Show on desktop always, on mobile only when menu is closed */}
+			<div className={`fixed right-6 bottom-6 flex-col gap-3 z-50 ${
+				isMobileMenuOpen ? 'hidden' : 'flex lg:flex'
+			}`}>
 				{/* Enhanced WhatsApp */}
 				<a
 					href='https://wa.me/+919876543210'
@@ -92,64 +160,3 @@ export default async function Home() {
 		</div>
 	);
 }
-
-export const metadata = {
-	title:
-		'Sharma Space | Interior Designers in Bangalore - Residential & Commercial',
-	description:
-		'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts. Book a free consultation today!',
-	openGraph: {
-		title: 'Sharma Space | Interior Designers in Bangalore',
-		description:
-			'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts.',
-		images: [
-			{
-				url: '/public/images/AboutSection.webp',
-				width: 1200,
-				height: 630,
-				alt: 'Sharma Space team at work in Bangalore interior design project',
-			},
-		],
-	},
-	twitter: {
-		card: 'summary_large_image',
-		title: 'Sharma Space | Interior Designers in Bangalore',
-		description:
-			'Award-winning interior designers in Bangalore. 150+ projects, 500+ happy clients. Residential, commercial, modular kitchen, and renovation experts.',
-		image: '/public/images/AboutSection.webp',
-	},
-	alternates: {
-		canonical: '/',
-	},
-	other: {
-		'application/ld+json': JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'Organization',
-			name: 'Sharma Space',
-			url: 'https://sharmaspace.in/',
-			logo: '/public/images/icon/SharmaSpace-Logo.webp',
-			contactPoint: [
-				{
-					'@type': 'ContactPoint',
-					telephone: '+91 886 757 4542',
-					contactType: 'customer service',
-					areaServed: 'IN',
-					availableLanguage: ['English', 'Hindi'],
-				},
-			],
-			address: {
-				'@type': 'PostalAddress',
-				streetAddress: 'HSR Layout, Mangammana Palya',
-				addressLocality: 'Bangalore',
-				addressRegion: 'KA',
-				postalCode: '560068',
-				addressCountry: 'IN',
-			},
-			sameAs: [
-				'https://instagram.com/sharmaspace',
-				'https://facebook.com/sharmaspace',
-				'https://youtube.com/@sharmaspace',
-			],
-		}),
-	},
-};

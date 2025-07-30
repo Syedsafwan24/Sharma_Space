@@ -67,12 +67,15 @@ const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 		<div className='bg-gray-50'>
 			<section
 				id='about-section'
-				className='py-20 md:py-[150px] lg:py-30 relative bg-gray-50'
+				className='py-12 sm:py-16 md:py-20 lg:py-24 relative bg-gray-50'
 			>
 				<div className='max-w-6xl mx-auto px-4 sm:px-6'>
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center'>
 						{/* Left Content */}
-						<div ref={sectionRef} className='space-y-6 md:space-y-8'>
+						<div
+							ref={sectionRef}
+							className='space-y-6 md:space-y-8 text-center lg:text-left'
+						>
 							<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 tracking-tight'>
 								About {companyInfo?.name || 'Sharma Space'}
 							</h1>
@@ -90,10 +93,10 @@ const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 							{/* Stats Grid */}
 							<div
 								ref={statsRef}
-								className='grid grid-cols-2 gap-4 md:gap-8 pt-4'
+								className='grid grid-cols-2 gap-4 md:gap-8 pt-4 justify-items-center lg:justify-items-start'
 							>
 								{statsData.map(({ stat, label }, i) => (
-									<div key={i}>
+									<div key={i} className='text-center lg:text-left'>
 										<div className='text-3xl md:text-4xl font-bold text-red-600 mb-1 md:mb-2 leading-none'>
 											{stat}
 										</div>

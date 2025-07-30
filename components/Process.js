@@ -35,7 +35,7 @@ const ProcessStep = ({ index, children, from = 'left' }) => {
 
 const Process = () => {
 	return (
-		<section className='bg-[#fff8f8] py-20 px-4 relative overflow-hidden'>
+		<section className='bg-[#fff8f8] py-12 sm:py-16 md:py-18 px-4 relative overflow-hidden'>
 			{/* Heading */}
 			<motion.div
 				className='text-center mb-20'
