@@ -1,9 +1,11 @@
 import { prisma } from '../../../lib/prisma.js';
+import { fallbackServices } from '../../../lib/fallbackData.js';
 
 export async function GET(req) {
 	// Skip database operations during build time
 	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-		return new Response(JSON.stringify([]), {
+		console.log('Skipping services fetch during build time');
+		return new Response(JSON.stringify(fallbackServices || []), {
 			status: 200,
 			headers: {
 				'Content-Type': 'application/json',
@@ -12,6 +14,17 @@ export async function GET(req) {
 	}
 
 	try {
+		// Check if prisma is available
+		if (!prisma || !prisma.service) {
+			console.warn('Prisma service model not available, using fallback data');
+			return new Response(JSON.stringify(fallbackServices || []), {
+				status: 200,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+		}
+
 		const services = await prisma.service.findMany({
 			orderBy: { title: 'asc' },
 		});
@@ -23,12 +36,33 @@ export async function GET(req) {
 		});
 	} catch (error) {
 		console.error('Services API error:', error);
-		return new Response(JSON.stringify({ error: 'Failed to fetch services', details: error.message }), {
-			status: 500,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
+		// Return fallback data instead of 500 error during build/fallback mode
+		if (
+			error.message.includes('Database not available') ||
+			error.message.includes('Database not configured')
+		) {
+			console.log(
+				'Using fallback services data due to database unavailability'
+			);
+			return new Response(JSON.stringify(fallbackServices || []), {
+				status: 200,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+		}
+		return new Response(
+			JSON.stringify({
+				error: 'Failed to fetch services',
+				details: error.message,
+			}),
+			{
+				status: 500,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
+		);
 	}
 }
 
