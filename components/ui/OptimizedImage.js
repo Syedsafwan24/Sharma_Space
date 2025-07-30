@@ -34,8 +34,8 @@ const OptimizedImage = ({
 		setHasError(true);
 	};
 
-	// Generate blur placeholder
-	const blurDataURL = generateBlurDataURL(20, 20, '#f3f4f6');
+	// Generate blur placeholder - smaller for faster generation
+	const blurDataURL = generateBlurDataURL(10, 10, '#f3f4f6');
 
 	return (
 		<div className={`relative overflow-hidden ${fill ? 'w-full h-full' : ''}`}>

@@ -42,11 +42,15 @@ const nextConfig = {
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
 		// Image sizes for different breakpoints - optimized for performance
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
-		// Minimize layout shift and improve caching
-		minimumCacheTTL: 60,
+		// Improve caching and loading
+		minimumCacheTTL: 86400, // 24 hours
 		// Optimize for LCP
 		dangerouslyAllowSVG: false,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+		// Add loader for faster image optimization
+		loader: 'default',
+		// Disable image optimization in development for faster builds
+		unoptimized: process.env.NODE_ENV === 'development',
 	},
 	transpilePackages: ['lucide-react'],
 

@@ -425,7 +425,12 @@ export default function RootLayout({ children }) {
 					href='/images/Hero-Background.webp'
 					fetchPriority='high'
 				/>
-				<link rel='preload' as='image' href='/images/AboutSection.webp' />
+				<link
+					rel='preload'
+					as='image'
+					href='/images/AboutSection.webp'
+					fetchPriority='high'
+				/>
 
 				{/* Preload critical CSS */}
 				{/* Font preload removed - using Google Fonts directly */}

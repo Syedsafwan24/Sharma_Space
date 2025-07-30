@@ -119,7 +119,7 @@ const AboutSection = ({ companyStats = null, companyInfo = null }) => {
 									className='w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover'
 									quality={imageQuality.portfolio}
 									sizes={imageSizes.twoColumn}
-									priority={false}
+									priority={true}
 									showSkeleton={true}
 									skeletonClassName='rounded-2xl'
 								/>
