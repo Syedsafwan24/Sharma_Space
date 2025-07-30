@@ -19,6 +19,12 @@ export const revalidate = 3600; // Revalidate every hour
 
 // Pre-fetch projects data at build time
 async function getProjects() {
+	// Skip API calls during build time if database is not available
+	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
+		console.log('Skipping projects fetch during build time');
+		return [];
+	}
+
 	try {
 		const baseUrl = getBaseUrl();
 		const res = await fetch(`${baseUrl}/api/projects`, {
@@ -27,11 +33,13 @@ async function getProjects() {
 		});
 
 		if (!res.ok) {
+			console.warn(`Failed to fetch projects: ${res.status}`);
 			return [];
 		}
 
 		return await res.json();
 	} catch (error) {
+		console.warn('Error fetching projects:', error.message);
 		return [];
 	}
 }

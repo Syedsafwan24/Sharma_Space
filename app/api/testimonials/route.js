@@ -1,16 +1,33 @@
-import { PrismaClient } from '../../../lib/generated/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
+	// Skip database operations during build time
+	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
+		return new Response(JSON.stringify([]), {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	}
+
 	try {
 		const testimonials = await prisma.testimonial.findMany({
 			orderBy: { fullName: 'asc' },
 		});
-		return new Response(JSON.stringify(testimonials), { status: 200 });
+		return new Response(JSON.stringify(testimonials), { 
+			status: 200,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 	} catch (error) {
-		return new Response(JSON.stringify({ error: error.message }), {
+		console.error('Testimonials API error:', error);
+		return new Response(JSON.stringify({ error: 'Failed to fetch testimonials', details: error.message }), {
 			status: 500,
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		});
 	}
 }

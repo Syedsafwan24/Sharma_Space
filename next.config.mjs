@@ -6,6 +6,8 @@ const nextConfig = {
 			memoryLimit: 512,
 		},
 	},
+	// Output configuration for production deployment
+	output: 'standalone',
 	// Build configuration
 	typescript: {
 		ignoreBuildErrors: false,
@@ -13,6 +15,10 @@ const nextConfig = {
 	eslint: {
 		// Allow production builds to succeed - we've fixed the ESLint errors
 		ignoreDuringBuilds: false,
+	},
+	// Environment variables
+	env: {
+		SKIP_DB_DURING_BUILD: process.env.SKIP_DB_DURING_BUILD || 'false',
 	},
 	images: {
 		// Enable modern image formats

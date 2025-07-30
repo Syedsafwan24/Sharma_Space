@@ -5,6 +5,8 @@ frontend:
       commands:
         - npm install
         - npx prisma generate
+        # Set build-time environment variable to skip database operations
+        - export SKIP_DB_DURING_BUILD=true
     build:
       commands:
         - npm run build
@@ -16,3 +18,6 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
+environment:
+  variables:
+    SKIP_DB_DURING_BUILD: true

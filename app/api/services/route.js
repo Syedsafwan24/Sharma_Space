@@ -1,6 +1,16 @@
 import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
+	// Skip database operations during build time
+	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
+		return new Response(JSON.stringify([]), {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	}
+
 	try {
 		const services = await prisma.service.findMany({
 			orderBy: { title: 'asc' },
@@ -12,7 +22,8 @@ export async function GET(req) {
 			},
 		});
 	} catch (error) {
-		return new Response(JSON.stringify({ error: error.message }), {
+		console.error('Services API error:', error);
+		return new Response(JSON.stringify({ error: 'Failed to fetch services', details: error.message }), {
 			status: 500,
 			headers: {
 				'Content-Type': 'application/json',
