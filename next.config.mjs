@@ -1,13 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	// Experimental features to improve build stability
+	// Experimental features to improve build stability and performance
 	experimental: {
 		turbo: {
 			memoryLimit: 512,
 		},
+		// Enable optimizePackageImports for better tree shaking
+		optimizePackageImports: [
+			'@radix-ui/react-accordion',
+			'@radix-ui/react-alert-dialog',
+			'@radix-ui/react-aspect-ratio',
+			'@radix-ui/react-avatar',
+			'@radix-ui/react-checkbox',
+			'@radix-ui/react-collapsible',
+			'@radix-ui/react-context-menu',
+			'@radix-ui/react-dialog',
+			'@radix-ui/react-dropdown-menu',
+			'@radix-ui/react-hover-card',
+			'@radix-ui/react-label',
+			'@radix-ui/react-menubar',
+			'@radix-ui/react-navigation-menu',
+			'@radix-ui/react-popover',
+			'@radix-ui/react-progress',
+			'@radix-ui/react-radio-group',
+			'@radix-ui/react-scroll-area',
+			'@radix-ui/react-select',
+			'@radix-ui/react-separator',
+			'@radix-ui/react-slider',
+			'@radix-ui/react-slot',
+			'@radix-ui/react-switch',
+			'@radix-ui/react-tabs',
+			'@radix-ui/react-toast',
+			'@radix-ui/react-toggle',
+			'@radix-ui/react-toggle-group',
+			'@radix-ui/react-tooltip',
+			'lucide-react',
+			'react-icons',
+		],
 	},
-	// Output configuration for production deployment
+	// Enable modern build output
 	output: 'standalone',
+	// Compression and optimization
+	compress: true,
+	// PoweredByHeader
+	poweredByHeader: false,
 	// Build configuration
 	typescript: {
 		ignoreBuildErrors: false,
@@ -72,9 +108,61 @@ const nextConfig = {
 						key: 'Strict-Transport-Security',
 						value: 'max-age=63072000; includeSubDomains; preload',
 					},
+					// Performance headers
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable',
+					},
+				],
+			},
+			{
+				// Cache static assets aggressively
+				source: '/static/(.*)',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable',
+					},
+				],
+			},
+			{
+				// Cache images with shorter TTL
+				source: '/images/(.*)',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=604800, stale-while-revalidate=86400',
+					},
 				],
 			},
 		];
+	},
+
+	// Bundle analyzer for production optimization
+	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+		// Optimize bundle size
+		if (!dev && !isServer) {
+			config.optimization.splitChunks = {
+				chunks: 'all',
+				cacheGroups: {
+					vendor: {
+						test: /[\\/]node_modules[\\/]/,
+						name: 'vendors',
+						chunks: 'all',
+						maxSize: 200000, // 200KB chunks
+					},
+					common: {
+						name: 'common',
+						minChunks: 2,
+						chunks: 'all',
+						enforce: true,
+						maxSize: 200000,
+					},
+				},
+			};
+		}
+
+		return config;
 	},
 };
 
