@@ -4,6 +4,7 @@ import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
 import Footer from '@/components/Footer';
 import Cta from '@/components/Cta';
 import dynamic from 'next/dynamic';
+import { getBaseUrl } from '@/lib/utils';
 
 // Dynamically import PerformanceMonitor to avoid SSR issues
 const PerformanceMonitor = dynamic(
@@ -19,7 +20,7 @@ export const revalidate = 3600; // Revalidate every hour
 // Pre-fetch projects data at build time
 async function getProjects() {
 	try {
-		const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3001';
+		const baseUrl = getBaseUrl();
 		const res = await fetch(`${baseUrl}/api/projects`, {
 			next: { revalidate: 3600 }, // Cache for 1 hour
 			// Removed cache: force-cache to fix conflict

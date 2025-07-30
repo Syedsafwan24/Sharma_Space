@@ -3,13 +3,14 @@ import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
 import HeroPortfolio from '@/components/portfolio/HeroPortfolio';
 import Footer from '@/components/Footer';
 import Cta from '@/components/Cta';
+import { getBaseUrl } from '@/lib/utils';
 
 // Static Generation with Incremental Static Regeneration
 export const revalidate = 3600; // Revalidate every hour
 
 async function getProjects() {
 	try {
-		const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3001';
+		const baseUrl = getBaseUrl();
 		const res = await fetch(`${baseUrl}/api/projects`, {
 			next: { revalidate: 3600 }, // Cache for 1 hour
 		});

@@ -1,13 +1,5 @@
 // Dynamic statistics calculator - Now fetches from database APIs
-
-const getBaseUrl = () => {
-	if (typeof window === 'undefined') {
-		// On the server
-		return process.env.NEXTAUTH_URL || 'http://localhost:3000';
-	}
-	// On the client
-	return '';
-};
+import { getBaseUrl } from '@/lib/utils';
 
 // Calculate dynamic statistics by fetching from APIs
 export const calculateDynamicStats = async () => {

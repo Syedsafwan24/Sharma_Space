@@ -150,12 +150,8 @@ export const metadata = {
 		},
 	},
 	icons: {
-		icon: [
-			{ url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-		],
-		apple: [
-			{ url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-		],
+		icon: [{ url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' }],
+		apple: [{ url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' }],
 	},
 	manifest: '/site.webmanifest',
 	other: {

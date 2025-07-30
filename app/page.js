@@ -122,9 +122,11 @@ export default function Home() {
 			<Footer />
 
 			{/* Floating Social Icons - Show on desktop always, on mobile only when menu is closed */}
-			<div className={`fixed right-6 bottom-6 flex-col gap-3 z-50 ${
-				isMobileMenuOpen ? 'hidden' : 'flex lg:flex'
-			}`}>
+			<div
+				className={`fixed right-6 bottom-6 flex-col gap-3 z-50 ${
+					isMobileMenuOpen ? 'hidden' : 'flex lg:flex'
+				}`}
+			>
 				{/* Enhanced WhatsApp */}
 				<a
 					href='https://wa.me/+919876543210'
