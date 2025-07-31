@@ -4,6 +4,7 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@/data/*": ["app/data/*"]
-		}
+		},
+		"typeRoots": ["./node_modules/@types"]
 	}
 }
