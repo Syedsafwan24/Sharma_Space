@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function OptimizedPartnerBrands({ partnerBrands = [] }) {
 	const rowRef = useRef(null);
@@ -52,13 +53,12 @@ export default function OptimizedPartnerBrands({ partnerBrands = [] }) {
 								key={`${brand.id}-${index}`}
 								className='flex-shrink-0 w-48 h-24 bg-white rounded-lg shadow-sm flex items-center justify-center p-4 hover:shadow-md transition-shadow duration-300'
 							>
-								<img
+								<Image
 									src={brand.logo}
 									alt={brand.name}
 									className='max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300'
-									loading='lazy'
-									width='120'
-									height='60'
+									width={120}
+									height={60}
 								/>
 							</div>
 						))}

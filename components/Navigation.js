@@ -42,7 +42,7 @@ const Navigation = () => {
 	// Close mobile menu when route changes
 	useEffect(() => {
 		setIsMobileMenuOpen(false);
-	}, [pathname]);
+	}, [pathname, setIsMobileMenuOpen]);
 
 	// Prevent body scroll when mobile menu is open
 	useEffect(() => {
