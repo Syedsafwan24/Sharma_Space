@@ -19,11 +19,7 @@ export const revalidate = 3600; // Revalidate every hour
 
 // Pre-fetch projects data at build time
 async function getProjects() {
-	// Skip API calls during build time if database is not available
-	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-		console.log('Skipping projects fetch during build time');
-		return [];
-	}
+	// ...existing code...
 
 	try {
 		const baseUrl = getBaseUrl();

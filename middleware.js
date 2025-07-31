@@ -5,9 +5,11 @@ export function middleware(request) {
 		const response = NextResponse.next();
 
 		// Skip CSP for build time and development
-		if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-			return response;
-		}
+		// ...existing code...
+		// Example: if (process.env.NODE_ENV !== 'production') { return response; }
+		// Make sure any opened block is closed before proceeding.
+		// return response;
+		// }
 
 		// For production, we'll use a more permissive CSP that allows JSON-LD scripts and animations
 		const cspHeader = `

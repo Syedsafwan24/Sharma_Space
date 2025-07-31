@@ -2,16 +2,7 @@ import { prisma } from '../../../lib/prisma.js';
 import { fallbackServices } from '../../../lib/fallbackData.js';
 
 export async function GET(req) {
-	// Skip database operations during build time
-	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-		console.log('Skipping services fetch during build time');
-		return new Response(JSON.stringify(fallbackServices || []), {
-			status: 200,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-	}
+	// ...existing code...
 
 	try {
 		// Check if prisma is available

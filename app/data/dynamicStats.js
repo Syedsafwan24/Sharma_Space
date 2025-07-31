@@ -5,29 +5,37 @@ import { getBaseUrl } from '@/lib/utils';
 export const calculateDynamicStats = async () => {
 	try {
 		const baseUrl = getBaseUrl();
-		
-		// Skip API calls during build time if database is not available
-		if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-			console.log('Using fallback stats during build time');
-			return getFallbackStats();
-		}
+
+		// ...existing code...
 
 		// Fetch data from all API endpoints with error handling
 		const [projects, services, testimonials, messages, blogPosts] =
 			await Promise.allSettled([
-				fetch(`${baseUrl}/api/projects`).then((res) => res.ok ? res.json() : []),
-				fetch(`${baseUrl}/api/services`).then((res) => res.ok ? res.json() : []),
-				fetch(`${baseUrl}/api/testimonials`).then((res) => res.ok ? res.json() : []),
-				fetch(`${baseUrl}/api/messages`).then((res) => res.ok ? res.json() : []),
-				fetch(`${baseUrl}/api/blog-posts`).then((res) => res.ok ? res.json() : []),
+				fetch(`${baseUrl}/api/projects`).then((res) =>
+					res.ok ? res.json() : []
+				),
+				fetch(`${baseUrl}/api/services`).then((res) =>
+					res.ok ? res.json() : []
+				),
+				fetch(`${baseUrl}/api/testimonials`).then((res) =>
+					res.ok ? res.json() : []
+				),
+				fetch(`${baseUrl}/api/messages`).then((res) =>
+					res.ok ? res.json() : []
+				),
+				fetch(`${baseUrl}/api/blog-posts`).then((res) =>
+					res.ok ? res.json() : []
+				),
 			]);
 
 		// Extract values from settled promises
 		const projectsData = projects.status === 'fulfilled' ? projects.value : [];
 		const servicesData = services.status === 'fulfilled' ? services.value : [];
-		const testimonialsData = testimonials.status === 'fulfilled' ? testimonials.value : [];
+		const testimonialsData =
+			testimonials.status === 'fulfilled' ? testimonials.value : [];
 		const messagesData = messages.status === 'fulfilled' ? messages.value : [];
-		const blogPostsData = blogPosts.status === 'fulfilled' ? blogPosts.value : [];
+		const blogPostsData =
+			blogPosts.status === 'fulfilled' ? blogPosts.value : [];
 
 		return [
 			{

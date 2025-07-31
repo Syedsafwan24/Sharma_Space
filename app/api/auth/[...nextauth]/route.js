@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs';
 let prisma;
 try {
 	if (
-		process.env.SKIP_DB_DURING_BUILD === 'true' ||
+		// ...existing code...
 		!process.env.DATABASE_URL
 	) {
 		// Create a mock Prisma client for build time
@@ -37,10 +37,7 @@ const authOptions = {
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
-				// Skip authentication during build time
-				if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-					return null;
-				}
+				// ...existing code...
 
 				if (!credentials?.email || !credentials?.password) {
 					throw new Error('Missing email or password');

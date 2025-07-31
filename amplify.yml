@@ -6,8 +6,6 @@ frontend:
         - nvm use 20
         - npm install
         - npx prisma generate
-        # Set build-time environment variable to skip database operations
-        - export SKIP_DB_DURING_BUILD=true
     build:
       commands:
         - npm run build
@@ -21,6 +19,5 @@ frontend:
       - .next/cache/**/*
 environment:
   variables:
-    SKIP_DB_DURING_BUILD: true
     NEXTAUTH_SECRET: build-fallback-secret
     _LIVE_UPDATES: '[{"name":"Node.js version","pkg":"node","type":"nvm","version":"20"}]'
