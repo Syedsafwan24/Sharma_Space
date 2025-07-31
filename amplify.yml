@@ -4,7 +4,7 @@ frontend:
     preBuild:
       commands:
         - nvm use 20
-        - npm install
+        - npm ci
         - npx prisma generate
     build:
       commands:
@@ -17,7 +17,3 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
-environment:
-  variables:
-    NEXTAUTH_SECRET: build-fallback-secret
-    _LIVE_UPDATES: '[{"name":"Node.js version","pkg":"node","type":"nvm","version":"20"}]'
