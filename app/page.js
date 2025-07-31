@@ -1,24 +1,30 @@
 'use client';
 
-import AboutSection from '@/components/AboutSection';
+// Critical components that should load immediately
 import Cta from '@/components/Cta';
-import DesignInsights from '@/components/DesignInsights';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import PartnerBrands from '@/components/PartnerBrands';
 import Portfolio from '@/components/PortfolioSection';
-import Process from '@/components/Process';
 import Services from '@/components/services/Services';
-import Testimonials from '@/components/Testimonials';
-import WelcomeModal from '@/components/WelcomeModal';
+
+// Lazy loaded components for better performance
+import {
+	LazyAboutSection,
+	LazyDesignInsights,
+	LazyTestimonials,
+	LazyPartnerBrands,
+	LazyProcess,
+	LazyWelcomeModal,
+} from '@/components/LazyComponents';
+
 import { MessageCircle, Instagram, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
-import { useHomepageData } from '@/hooks/useHomepageData';
+import { useOptimizedHomepageData } from '@/hooks/useOptimizedHomepageData';
 import { useNavigation } from '@/components/providers/NavigationContext';
 import brandsData from '@/app/data/company/brands.json';
 
 export default function Home() {
-	// Use cached data with client-side persistence
+	// Use optimized cached data with priority-based loading
 	const {
 		services,
 		testimonials,
@@ -27,7 +33,7 @@ export default function Home() {
 		companyData,
 		loading,
 		error,
-	} = useHomepageData();
+	} = useOptimizedHomepageData();
 
 	// Get mobile menu state from navigation context
 	const { isMobileMenuOpen } = useNavigation();
@@ -105,16 +111,16 @@ export default function Home() {
 			{/* Main content */}
 			<main className='hero-container'>
 				<Hero />
-				<AboutSection
+				<LazyAboutSection
 					companyStats={companyData.stats}
 					companyInfo={companyData.companyInfo}
 				/>
 				<Services services={services} />
-				<Process />
-				<PartnerBrands partnerBrands={brandsData.partnerBrands} />
-				<DesignInsights blogPosts={blogPosts} projects={projects} />
+				<LazyProcess />
+				<LazyPartnerBrands partnerBrands={brandsData.partnerBrands} />
+				<LazyDesignInsights blogPosts={blogPosts} projects={projects} />
 				<Portfolio projects={projects} />
-				<Testimonials testimonials={testimonials} />
+				<LazyTestimonials testimonials={testimonials} />
 				<Cta />
 			</main>
 
@@ -158,7 +164,7 @@ export default function Home() {
 			</div>
 
 			{/* Welcome Modal */}
-			<WelcomeModal />
+			<LazyWelcomeModal />
 		</div>
 	);
 }

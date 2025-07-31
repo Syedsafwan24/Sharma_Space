@@ -7,6 +7,13 @@ const config = {
 		'./src/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	prefix: '',
+	// Performance optimizations
+	corePlugins: {
+		// Disable unused plugins to reduce bundle size
+		float: false,
+		clear: false,
+		skew: false,
+	},
 	theme: {
 		container: {
 			center: true,

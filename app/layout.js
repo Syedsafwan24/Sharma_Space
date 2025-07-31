@@ -13,8 +13,9 @@ import './globals.css';
 
 const poppins = Poppins({
 	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700'], // Optional: choose the weights you plan to use
+	weight: ['300', '400', '500', '600', '700'],
 	display: 'swap',
+	preload: true, // Preload for better performance
 });
 
 export const metadata = {

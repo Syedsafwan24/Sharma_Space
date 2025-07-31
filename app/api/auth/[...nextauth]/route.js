@@ -3,7 +3,30 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaClient } from '@/lib/generated/prisma';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient();
+// Use a fallback Prisma client during build time
+let prisma;
+try {
+	if (
+		process.env.SKIP_DB_DURING_BUILD === 'true' ||
+		!process.env.DATABASE_URL
+	) {
+		// Create a mock Prisma client for build time
+		prisma = {
+			user: {
+				findUnique: () => Promise.resolve(null),
+			},
+		};
+	} else {
+		prisma = new PrismaClient();
+	}
+} catch (error) {
+	console.warn('Prisma initialization failed in auth:', error.message);
+	prisma = {
+		user: {
+			findUnique: () => Promise.resolve(null),
+		},
+	};
+}
 
 const authOptions = {
 	providers: [
@@ -14,33 +37,43 @@ const authOptions = {
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
+				// Skip authentication during build time
+				if (process.env.SKIP_DB_DURING_BUILD === 'true') {
+					return null;
+				}
+
 				if (!credentials?.email || !credentials?.password) {
 					throw new Error('Missing email or password');
 				}
 
-				const user = await prisma.user.findUnique({
-					where: { email: credentials.email },
-				});
+				try {
+					const user = await prisma.user.findUnique({
+						where: { email: credentials.email },
+					});
 
-				if (!user) {
-					throw new Error('No user found');
+					if (!user) {
+						throw new Error('No user found');
+					}
+
+					const isValid = await bcrypt.compare(
+						credentials.password,
+						user.password
+					);
+
+					if (!isValid) {
+						throw new Error('Invalid password');
+					}
+
+					return {
+						id: user.id,
+						name: user.name,
+						email: user.email,
+						role: user.role,
+					};
+				} catch (error) {
+					console.error('Auth error:', error.message);
+					throw new Error('Authentication failed');
 				}
-
-				const isValid = await bcrypt.compare(
-					credentials.password,
-					user.password
-				);
-
-				if (!isValid) {
-					throw new Error('Invalid password');
-				}
-
-				return {
-					id: user.id,
-					name: user.name,
-					email: user.email,
-					role: user.role,
-				};
 			},
 		}),
 	],
@@ -66,7 +99,17 @@ const authOptions = {
 			return session;
 		},
 	},
-	secret: process.env.NEXTAUTH_SECRET,
+	secret: process.env.NEXTAUTH_SECRET || 'fallback-secret-for-build',
+	// Add error handling for production
+	debug: process.env.NODE_ENV === 'development',
+	logger: {
+		error(code, metadata) {
+			console.error('NextAuth Error:', code, metadata);
+		},
+		warn(code) {
+			console.warn('NextAuth Warning:', code);
+		},
+	},
 };
 
 const handler = NextAuth(authOptions);
