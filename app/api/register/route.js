@@ -1,4 +1,5 @@
-import { PrismaClient } from '@/lib/generated/prisma';
+import { PrismaClient } from '@prisma/client'; // ✅ correct for all environments
+
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 

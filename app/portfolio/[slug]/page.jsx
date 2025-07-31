@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../lib/generated/prisma';
+import { PrismaClient } from '@prisma/client';
 import ProjectDetailsHeader from '../../../components/portfolio/ProjectDetails/ProjectDetailsHeader.jsx';
 import ProjectDetailsContent from '../../../components/portfolio/ProjectDetails/ProjectDetailsContent.jsx';
 import ProjectGallery from '../../../components/portfolio/ProjectDetails/ProjectGallery.jsx';

@@ -1,14 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
-  engineType = "library"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
+  engineType    = "library"
 }
 
 datasource db {
@@ -17,11 +10,11 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
+  id       String  @id @default(uuid())
+  email    String  @unique
   name     String?
   password String
-  role     String @default("user") // "admin" or "user"
+  role     String  @default("user")
 }
 
 model BlogPost {
@@ -39,46 +32,46 @@ model BlogPost {
 }
 
 model Project {
-  id              String   @id @default(uuid())
-  slug            String   @unique
-  title           String
-  location        String
-  category        String
-  description     String
+  id               String    @id @default(uuid())
+  title            String
+  location         String
+  category         String
+  description      String
   shortDescription String?
-  client          String?
-  completedDate   DateTime?
-  area            String?
-  videoUrl        String?
-  image           String
-  coverImage      String?
-  galleryImages   String[]
-  featured        Boolean  @default(false)
-  services        String[]
+  client           String?
+  completedDate    DateTime?
+  area             String?
+  videoUrl         String?
+  image            String
+  coverImage       String?
+  galleryImages    String[]
+  featured         Boolean   @default(false)
+  services         String[]
+  slug             String    @unique
 }
 
 model Service {
-  id          String   @id @default(uuid())
+  id          String @id @default(uuid())
   title       String
   description String
   icon        String
 }
 
 model Testimonial {
-  id        String @id @default(uuid())
-  fullName  String
-  location  String
-  rating    Int
-  image     String
-  text      String
+  id       String @id @default(uuid())
+  fullName String
+  location String
+  rating   Int
+  image    String
+  text     String
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  name      String
-  email     String
-  phone     String
-  message   String
-  date      DateTime @default(now())
-  read      Boolean  @default(false)
+  id      String   @id @default(uuid())
+  name    String
+  email   String
+  phone   String
+  message String
+  date    DateTime @default(now())
+  read    Boolean  @default(false)
 }
