@@ -12,10 +12,11 @@ import {
 	LazyAboutSection,
 	LazyDesignInsights,
 	LazyTestimonials,
-	LazyPartnerBrands,
 	LazyProcess,
 	LazyWelcomeModal,
 } from '@/components/LazyComponents';
+
+import PartnerBrands from '@/components/PartnerBrands';
 
 import { MessageCircle, Instagram, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
@@ -117,7 +118,7 @@ export default function Home() {
 				/>
 				<Services services={services} />
 				<LazyProcess />
-				<LazyPartnerBrands partnerBrands={brandsData.partnerBrands} />
+				<PartnerBrands partnerBrands={brandsData.partnerBrands} />
 				<LazyDesignInsights blogPosts={blogPosts} projects={projects} />
 				<Portfolio projects={projects} />
 				<LazyTestimonials testimonials={testimonials} />

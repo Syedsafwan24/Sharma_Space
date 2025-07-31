@@ -36,7 +36,7 @@ const ProjectDetailsContent = ({ project }) => {
 				{/* Main Image */}
 				<div className='relative aspect-[4/3] rounded-lg overflow-hidden mb-6'>
 					<Image
-						src={displayImage}
+						src={displayImage || '/placeholder.svg'}
 						alt={project.title}
 						fill
 						className='object-cover'
@@ -65,7 +65,7 @@ const ProjectDetailsContent = ({ project }) => {
 							}`}
 						>
 							<Image
-								src={project.image?.url || project.image}
+								src={project.image?.url || project.image || '/placeholder.svg'}
 								alt={`${project.title} - Main View`}
 								fill
 								className='object-cover'
@@ -84,7 +84,7 @@ const ProjectDetailsContent = ({ project }) => {
 								}`}
 							>
 								<Image
-									src={image.url || image}
+									src={image.url || image || '/placeholder.svg'}
 									alt={`Gallery thumbnail ${index + 1}`}
 									fill
 									className='object-cover'

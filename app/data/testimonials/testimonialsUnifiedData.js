@@ -72,7 +72,7 @@ const testimonials = [
 		projectType: 'Commercial',
 		projectTitle: 'Office Redesign',
 		image: {
-			url: '/images/testimonials/rahul.jpg',
+			url: '/images/testimonials/rahul.webp',
 			alt: 'Rahul Mehta testimonial Sharma Space commercial interior design',
 			width: 300,
 			height: 300,
@@ -126,7 +126,7 @@ const testimonials = [
 		projectType: 'Residential',
 		projectTitle: 'Villa Interior Design',
 		image: {
-			url: '/images/testimonials/ananya.jpg',
+			url: '/images/testimonials/ananya.webp',
 			alt: 'Ananya Krishnan testimonial Sharma Space Bangalore interior design',
 			width: 300,
 			height: 300,
@@ -179,7 +179,7 @@ const testimonials = [
 		projectType: 'Residential',
 		projectTitle: 'Penthouse Design',
 		image: {
-			url: '/images/testimonials/rahul.webp',
+			url: '/images/testimonials/rahul.webp', // fallback to existing image
 			alt: 'Vikram Patel testimonial Sharma Space penthouse interior design',
 			width: 300,
 			height: 300,
@@ -231,7 +231,7 @@ const testimonials = [
 		projectType: 'Hospitality',
 		projectTitle: 'Hotel Renovation',
 		image: {
-			url: '/images/testimonials/ananya.webp',
+			url: '/images/testimonials/ananya.webp', // fallback to existing image
 			alt: 'Deepika Reddy testimonial Sharma Space hospitality interior design',
 			width: 300,
 			height: 300,

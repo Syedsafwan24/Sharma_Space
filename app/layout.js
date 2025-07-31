@@ -426,12 +426,6 @@ export default function RootLayout({ children }) {
 					href='/images/Hero-Background.webp'
 					fetchPriority='high'
 				/>
-				<link
-					rel='preload'
-					as='image'
-					href='/images/AboutSection.webp'
-					fetchPriority='high'
-				/>
 
 				{/* Preload critical CSS */}
 				{/* Font preload removed - using Google Fonts directly */}
@@ -447,7 +441,7 @@ export default function RootLayout({ children }) {
 				<meta name='revisit-after' content='7 days' />
 				<meta name='HandheldFriendly' content='True' />
 				<meta name='MobileOptimized' content='320' />
-				<meta name='apple-mobile-web-app-capable' content='yes' />
+				<meta name='mobile-web-app-capable' content='yes' />
 				<meta
 					name='apple-mobile-web-app-status-bar-style'
 					content='black-translucent'

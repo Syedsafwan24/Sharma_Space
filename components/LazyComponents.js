@@ -18,16 +18,6 @@ export const LazyTestimonials = dynamic(() => import('./Testimonials'), {
 	ssr: true,
 });
 
-export const LazyPartnerBrands = dynamic(
-	() => import('./OptimizedPartnerBrands'),
-	{
-		loading: () => (
-			<div className='h-32 animate-pulse bg-gray-100 rounded-lg' />
-		),
-		ssr: false, // Animation-heavy, can load after
-	}
-);
-
 export const LazyProcess = dynamic(() => import('./Process'), {
 	loading: () => <div className='h-96 animate-pulse bg-gray-100 rounded-lg' />,
 	ssr: false, // Framer Motion heavy

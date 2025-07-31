@@ -62,7 +62,7 @@ const Footer = () => {
 							>
 								<div className='w-10 h-10 bg-red-600 rounded-md flex items-center justify-center p-1'>
 									<Image
-							src='/images/icon/SharmaSpace-Logo.webp'
+										src='/images/icon/SharmaSpace-Logo.webp'
 										alt='SharmaSpace Logo'
 										width={40}
 										height={40}
@@ -81,13 +81,14 @@ const Footer = () => {
 
 						{/* Quick Links */}
 						<div>
-							<h4 className='text-xl font-semibold mb-5'>Quick Links</h4>
+							<h2 className='text-xl font-semibold mb-5'>Quick Links</h2>
 							<ul className='list-none p-0 m-0 space-y-3'>
 								{quickLinks.map((link, index) => (
 									<li key={index}>
 										<Link
 											href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
 											className='text-gray-300 no-underline text-base transition-colors duration-300 hover:text-red-400'
+											aria-label={`Go to ${link} page`}
 										>
 											{link}
 										</Link>
@@ -98,13 +99,14 @@ const Footer = () => {
 
 						{/* Services */}
 						<div>
-							<h4 className='text-xl font-semibold mb-5'>Services</h4>
+							<h2 className='text-xl font-semibold mb-5'>Services</h2>
 							<ul className='list-none p-0 m-0 space-y-3'>
 								{services.map((service, index) => (
 									<li key={index}>
 										<Link
 											href='/services'
 											className='text-gray-300 no-underline text-base transition-colors duration-300 hover:text-red-400'
+											aria-label={`Learn more about our ${service} service`}
 										>
 											{service}
 										</Link>
@@ -115,7 +117,7 @@ const Footer = () => {
 
 						{/* Contact Info with Icons */}
 						<div>
-							<h4 className='text-xl font-semibold mb-5'>Contact Us</h4>
+							<h2 className='text-xl font-semibold mb-5'>Contact Us</h2>
 							<ul className='list-none p-0 m-0 space-y-3'>
 								<li className='flex items-start gap-4'>
 									<MapPin
@@ -127,6 +129,7 @@ const Footer = () => {
 										target='_blank'
 										rel='noopener noreferrer'
 										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+										aria-label='View location on Google Maps: 123 Design Avenue, Mumbai, Maharashtra, India 400001'
 									>
 										123 Design Avenue, Mumbai, Maharashtra, India 400001
 									</a>
@@ -139,6 +142,7 @@ const Footer = () => {
 									<a
 										href='tel:+919876543210'
 										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+										aria-label='Call Sharma Space at +91 98765 43210'
 									>
 										+91 98765 43210
 									</a>
@@ -148,6 +152,7 @@ const Footer = () => {
 									<a
 										href='mailto:info@sharmaspace.in'
 										className='text-gray-300 text-base leading-relaxed hover:text-red-400 transition-colors duration-300'
+										aria-label='Email Sharma Space at info@sharmaspace.in'
 									>
 										info@sharmaspace.in
 									</a>
@@ -178,8 +183,8 @@ const Footer = () => {
 										link === 'Privacy Policy'
 											? '/privacy-policy'
 											: link === 'Terms of Service'
-											? '/terms-of-service'
-											: '/sitemap'
+												? '/terms-of-service'
+												: '/sitemap'
 									}
 									className='text-gray-300 no-underline text-sm hover:text-white transition-colors duration-300'
 								>

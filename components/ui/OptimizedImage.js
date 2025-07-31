@@ -19,6 +19,11 @@ const OptimizedImage = ({
 	onLoad,
 	...props
 }) => {
+	// Fallback src if missing or empty
+	const safeSrc =
+		src && typeof src === 'string' && src.trim() !== ''
+			? src
+			: '/placeholder.svg';
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasError, setHasError] = useState(false);
 
@@ -76,8 +81,8 @@ const OptimizedImage = ({
 			{/* Actual image */}
 			{!hasError && (
 				<Image
-					src={src}
-					alt={alt}
+					src={safeSrc}
+					alt={alt || 'Image'}
 					width={width}
 					height={height}
 					fill={fill}
