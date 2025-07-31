@@ -4,7 +4,7 @@ frontend:
     preBuild:
       commands:
         - nvm use 20
-        - npm cli   # changed from npm ci
+        - npm ci   # changed from npm ci
         - npx prisma generate
     build:
       commands:
