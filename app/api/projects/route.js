@@ -1,15 +1,7 @@
 import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
-	// Skip database operations during build time
-	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-		return new Response(JSON.stringify([]), {
-			status: 200,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-	}
+	// ...existing code...
 
 	try {
 		const projects = await prisma.project.findMany({
@@ -27,7 +19,8 @@ export async function GET(req) {
 		return new Response(
 			JSON.stringify({
 				error: 'Failed to fetch projects',
-				details: process.env.NODE_ENV === 'development' ? error.stack : error.message,
+				details:
+					process.env.NODE_ENV === 'development' ? error.stack : error.message,
 			}),
 			{
 				status: 500,

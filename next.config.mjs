@@ -54,7 +54,7 @@ const nextConfig = {
 	},
 	// Environment variables
 	env: {
-		SKIP_DB_DURING_BUILD: process.env.SKIP_DB_DURING_BUILD || 'false',
+		// ...existing code...
 	},
 	images: {
 		// Enable modern image formats

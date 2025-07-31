@@ -2,7 +2,7 @@ import { prisma } from '../../../lib/prisma.js';
 
 export async function GET() {
 	// Skip database operations during build time
-	if (process.env.SKIP_DB_DURING_BUILD === 'true' || process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
+	if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
 		return new Response(
 			JSON.stringify({
 				status: 'skipped',

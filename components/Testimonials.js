@@ -79,7 +79,9 @@ const TestimonialCard = ({ testimonial }) => {
 };
 
 const Testimonials = ({ testimonials = [], loading = false }) => {
-	const isCarousel = testimonials.length > 3;
+	// Ensure testimonials is always an array
+	const safeTestimonials = Array.isArray(testimonials) ? testimonials : [];
+	const isCarousel = safeTestimonials.length > 3;
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
 		slides: {
@@ -169,7 +171,7 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 							</div>
 						))}
 					</div>
-				) : testimonials.length === 0 ? (
+				) : safeTestimonials.length === 0 ? (
 					<div className='text-center py-16'>
 						<div className='max-w-md mx-auto'>
 							{/* Icon */}
@@ -210,7 +212,7 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 				) : isCarousel ? (
 					<div className='relative'>
 						<div ref={sliderRef} className='keen-slider py-4'>
-							{testimonials.map((testimonial, index) => (
+							{safeTestimonials.map((testimonial, index) => (
 								<div
 									key={testimonial.id}
 									className='keen-slider__slide h-auto px-2'
@@ -239,7 +241,7 @@ const Testimonials = ({ testimonials = [], loading = false }) => {
 					</div>
 				) : (
 					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{testimonials.map((testimonial, index) => (
+						{safeTestimonials.map((testimonial, index) => (
 							<TestimonialCard key={testimonial.id} testimonial={testimonial} />
 						))}
 					</div>

@@ -1,21 +1,13 @@
 import { prisma } from '../../../lib/prisma.js';
 
 export async function GET(req) {
-	// Skip database operations during build time
-	if (process.env.SKIP_DB_DURING_BUILD === 'true') {
-		return new Response(JSON.stringify([]), {
-			status: 200,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-	}
+	// ...existing code...
 
 	try {
 		const testimonials = await prisma.testimonial.findMany({
 			orderBy: { fullName: 'asc' },
 		});
-		return new Response(JSON.stringify(testimonials), { 
+		return new Response(JSON.stringify(testimonials), {
 			status: 200,
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,12 +15,18 @@ export async function GET(req) {
 		});
 	} catch (error) {
 		console.error('Testimonials API error:', error);
-		return new Response(JSON.stringify({ error: 'Failed to fetch testimonials', details: error.message }), {
-			status: 500,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
+		return new Response(
+			JSON.stringify({
+				error: 'Failed to fetch testimonials',
+				details: error.message,
+			}),
+			{
+				status: 500,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
+		);
 	}
 }
 
